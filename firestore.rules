@@ -14,6 +14,9 @@ service cloud.firestore {
       allow read: if request.auth != null
                   && (verified() || request.auth.uid == u);
 
+      // Public: individual (candidate) profiles can be listed on the landing page without login
+      allow read: if resource.data.type == 'candidate';
+
       // Three account types: candidate (individual), org (employer), group (consultancy / group)
       allow create: if verified()
                     && request.auth.uid == u
@@ -61,6 +64,14 @@ service cloud.firestore {
       allow delete: if verified() && resource.data.ownerId == request.auth.uid;
     }
 
+    // Public group showcase (owner details + members without e-mail), readable by everyone, written only by the group owner
+    match /publicGroups/{g} {
+      allow read: if true;
+      allow create: if verified() && request.resource.data.ownerId == request.auth.uid;
+      allow update: if verified() && resource.data.ownerId == request.auth.uid && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if verified() && resource.data.ownerId == request.auth.uid;
+    }
+
     // Group invitations: owner invites by email, invitee accepts or declines
     match /invites/{i} {
       allow read: if verified()
@@ -97,6 +108,19 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // CVs of members typed in by a group owner (never public): the owner writes and deletes;
+    // the group owner and registered group mates can read. Doc id = groupId_memberId.
+    match /groupCVs/{c} {
+      allow read: if verified()
+                  && (get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.ownerId == request.auth.uid
+                      || request.auth.token.email.lower() in get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.memberEmails);
+      allow create, update: if verified()
+                            && c == request.resource.data.groupId + '_' + request.resource.data.memberId
+                            && get(/databases/$(db)/documents/groups/$(request.resource.data.groupId)).data.ownerId == request.auth.uid;
+      allow delete: if verified()
+                    && get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.ownerId == request.auth.uid;
+    }
+
     // CV files: owner writes; employers, groups and the person's group mates can read
     function myType() { return get(/databases/$(db)/documents/users/$(request.auth.uid)).data.type; }
     function mateAt(r, i) {
@@ -125,6 +149,28 @@ service cloud.firestore {
                     && request.resource.data.orgId == resource.data.orgId;
 
       allow delete: if verified() && resource.data.orgId == request.auth.uid;
+    }
+
+    // "Find Solutions" enquiries: anyone (even logged out) can leave one, nobody can read them in the app.
+    // Read them in Firebase Console > Firestore > solutionRequests (or e-mail, if FormSubmit is set up).
+    match /solutionRequests/{r} {
+      allow create: if request.resource.data.keys().hasAll(['type', 'name', 'email', 'message', 'created'])
+                    && request.resource.data.keys().hasOnly(['type', 'name', 'email', 'phone', 'firm', 'message', 'details', 'attachmentName', 'uid', 'created'])
+                    && request.resource.data.type in ['candidate', 'org', 'group']
+                    && request.resource.data.name is string
+                    && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 120
+                    && request.resource.data.email is string
+                    && request.resource.data.email.size() <= 200
+                    && request.resource.data.email.matches('.+@.+[.].+')
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 5000
+                    && request.resource.data.created == request.time
+                    && (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() <= 40))
+                    && (!('firm' in request.resource.data) || (request.resource.data.firm is string && request.resource.data.firm.size() <= 120))
+                    && (!('attachmentName' in request.resource.data) || (request.resource.data.attachmentName is string && request.resource.data.attachmentName.size() <= 200))
+                    && (!('details' in request.resource.data) || (request.resource.data.details is map && request.resource.data.details.size() <= 20))
+                    && (!('uid' in request.resource.data) || (request.auth != null && request.resource.data.uid == request.auth.uid));
+      allow read, update, delete: if false;
     }
 
     // Applications
