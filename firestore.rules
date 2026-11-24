@@ -8,11 +8,18 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.email_verified == true;
     }
 
+    // Founder (read-only access to everything, for the Founder dashboard). Must be a verified email.
+    function founder() {
+      return verified() && request.auth.token.email.lower() == 'contactprovynk@gmail.com';
+    }
+
     // Profiles, company details, shortlist (all stored on the user doc)
     match /users/{u} {
       // Unverified users can only read their own profile
       allow read: if request.auth != null
                   && (verified() || request.auth.uid == u);
+
+      allow read: if founder();
 
       // Public: individual (candidate) profiles can be listed on the landing page without login
       allow read: if resource.data.type == 'candidate';
@@ -38,6 +45,7 @@ service cloud.firestore {
 
     // Consultancy / group accounts: members share a shortlist and notes
     match /groups/{g} {
+      allow read: if founder();
       allow read: if verified()
                   && (resource.data.ownerId == request.auth.uid
                       || request.auth.token.email.lower() in resource.data.memberEmails);
@@ -74,6 +82,7 @@ service cloud.firestore {
 
     // Group invitations: owner invites by email, invitee accepts or declines
     match /invites/{i} {
+      allow read: if founder();
       allow read: if verified()
                   && (resource.data.invitedBy == request.auth.uid
                       || resource.data.inviteeEmail == request.auth.token.email.lower());
@@ -111,6 +120,7 @@ service cloud.firestore {
     // CVs of members typed in by a group owner (never public): the owner writes and deletes;
     // the group owner and registered group mates can read. Doc id = groupId_memberId.
     match /groupCVs/{c} {
+      allow read: if founder();
       allow read: if verified()
                   && (get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.ownerId == request.auth.uid
                       || request.auth.token.email.lower() in get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.memberEmails);
@@ -128,6 +138,7 @@ service cloud.firestore {
              && request.auth.token.email.lower() in get(/databases/$(db)/documents/groups/$(r.data.groupIds[i])).data.memberEmails;
     }
     match /resumes/{u} {
+      allow read: if founder();
       allow read: if verified()
                   && (request.auth.uid == u
                       || myType() in ['org', 'group']
@@ -170,11 +181,13 @@ service cloud.firestore {
                     && (!('attachmentName' in request.resource.data) || (request.resource.data.attachmentName is string && request.resource.data.attachmentName.size() <= 200))
                     && (!('details' in request.resource.data) || (request.resource.data.details is map && request.resource.data.details.size() <= 20))
                     && (!('uid' in request.resource.data) || (request.auth != null && request.resource.data.uid == request.auth.uid));
-      allow read, update, delete: if false;
+      allow read: if founder();
+      allow update, delete: if false;
     }
 
     // Applications
     match /applications/{a} {
+      allow read: if founder();
       allow read: if request.auth != null
                   && (resource.data.candidateId == request.auth.uid
                       || resource.data.orgId == request.auth.uid);
