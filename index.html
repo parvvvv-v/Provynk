@@ -1295,6 +1295,16 @@ header #auth .pill,header #auth .btn,header #auth .hl{white-space:nowrap;padding
 .vcard .bd{padding:14px}.vcard h4{margin:6px 0 4px;font-size:15px;line-height:1.35}
 .vcard .tp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);font-weight:700}
 .pj .xt{display:none}
+
+/* ===== Fix: hero could be scrolled internally (overflow:hidden) by scrollIntoView/focus -> stuck page + blue gap under "Scroll"; plus responsive safety ===== */
+.hero,.hero.rg,.hbg{overflow:hidden;overflow:clip}
+html,body{max-width:100%;overflow-x:hidden;overflow-x:clip}
+img,svg,video{max-width:100%}
+.hero.rg .mesh{max-width:100%;height:auto}
+@media(max-width:1023px){.hero.rg{padding-bottom:84px}.scrollhint{bottom:12px}}
+@media(max-width:860px){.hero.rg .lh{grid-template-columns:1fr}.hsb{max-width:100%}.hsb .toggle{flex-wrap:wrap}}
+@media(max-width:600px){.scrollhint{display:none}.hero.rg{padding-bottom:48px}.hsb .fgrid{padding:18px 14px 16px}}
+@media(min-width:601px) and (max-width:1023px){.hero.rg h1{font-size:clamp(34px,6vw,52px)}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
 </head>
@@ -3469,7 +3479,7 @@ function findInit() {
   draw();
   load();
 }
-window.heroSearchGo = () => { document.getElementById("hsearch")?.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => document.getElementById("k")?.focus({ preventScroll: true }), 400); };
+window.heroSearchGo = () => { const el = document.getElementById("hsearch"); if (!el) return; document.querySelectorAll(".hero").forEach(h => { h.scrollTop = 0; h.scrollLeft = 0; }); const hd = document.querySelector("header"); const off = (hd ? hd.getBoundingClientRect().height : 0) + 12; const y = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - off); window.scrollTo({ top: y, behavior: "smooth" }); setTimeout(() => { document.getElementById("k")?.focus({ preventScroll: true }); document.querySelectorAll(".hero").forEach(h => { h.scrollTop = 0; h.scrollLeft = 0; }); }, 500); };
 window.findGo = t => { window.findTab && window.findTab(t); goSec("find"); };
 window.viewPubGroup = id => {
   const g = PG[id]; if (!g) return; const o = g.owner || {};
