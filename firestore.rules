@@ -8,8 +8,16 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.email_verified == true;
     }
 
+    // Founder: verified Provynk founder e-mail. Read-only access to everything, for the Founder dashboard.
+    function founder() {
+      return request.auth != null
+             && request.auth.token.email_verified == true
+             && request.auth.token.email.lower() == 'contactprovynk@gmail.com';
+    }
+
     // Profiles, company details, shortlist (all stored on the user doc)
     match /users/{u} {
+      allow read: if founder();
       // Unverified users can only read their own profile
       allow read: if request.auth != null
                   && (verified() || request.auth.uid == u);
@@ -38,6 +46,7 @@ service cloud.firestore {
 
     // Consultancy / group accounts: members share a shortlist and notes
     match /groups/{g} {
+      allow read: if founder();
       allow read: if verified()
                   && (resource.data.ownerId == request.auth.uid
                       || request.auth.token.email.lower() in resource.data.memberEmails);
@@ -74,6 +83,7 @@ service cloud.firestore {
 
     // Group invitations: owner invites by email, invitee accepts or declines
     match /invites/{i} {
+      allow read: if founder();
       allow read: if verified()
                   && (resource.data.invitedBy == request.auth.uid
                       || resource.data.inviteeEmail == request.auth.token.email.lower());
@@ -99,6 +109,7 @@ service cloud.firestore {
 
     // Outgoing invitation emails (Firebase "Trigger Email" extension reads this collection)
     match /mail/{m} {
+      allow read: if founder();
       allow read: if false;
       allow create: if verified()
                     && request.resource.data.keys().hasOnly(['to', 'replyTo', 'message'])
@@ -111,6 +122,7 @@ service cloud.firestore {
     // CVs of members typed in by a group owner (never public): the owner writes and deletes;
     // the group owner and registered group mates can read. Doc id = groupId_memberId.
     match /groupCVs/{c} {
+      allow read: if founder();
       allow read: if verified()
                   && (get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.ownerId == request.auth.uid
                       || request.auth.token.email.lower() in get(/databases/$(db)/documents/groups/$(resource.data.groupId)).data.memberEmails);
@@ -128,6 +140,7 @@ service cloud.firestore {
              && request.auth.token.email.lower() in get(/databases/$(db)/documents/groups/$(r.data.groupIds[i])).data.memberEmails;
     }
     match /resumes/{u} {
+      allow read: if founder();
       allow read: if verified()
                   && (request.auth.uid == u
                       || myType() in ['org', 'group']
@@ -154,6 +167,7 @@ service cloud.firestore {
     // "Find Solutions" enquiries: anyone (even logged out) can leave one, nobody can read them in the app.
     // Read them in Firebase Console > Firestore > solutionRequests (or e-mail, if FormSubmit is set up).
     match /solutionRequests/{r} {
+      allow read: if founder();
       allow create: if request.resource.data.keys().hasAll(['type', 'name', 'email', 'message', 'created'])
                     && request.resource.data.keys().hasOnly(['type', 'name', 'email', 'phone', 'firm', 'message', 'details', 'attachmentName', 'uid', 'created'])
                     && request.resource.data.type in ['candidate', 'org', 'group']
@@ -175,6 +189,7 @@ service cloud.firestore {
 
     // Applications
     match /applications/{a} {
+      allow read: if founder();
       allow read: if request.auth != null
                   && (resource.data.candidateId == request.auth.uid
                       || resource.data.orgId == request.auth.uid);
