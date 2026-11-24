@@ -909,6 +909,99 @@ header{height:88px}
 .modal .card{position:relative}
 .mclose{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:var(--cream);color:var(--ink);font-size:16px;line-height:1;cursor:pointer;z-index:2;transition:background .2s,transform .2s}
 .mclose:hover{background:var(--brandl);transform:rotate(90deg)}
+.hsb{grid-column:1/-1;margin-top:10px}.hsb .toggle{margin:0 0 10px}
+.svl{max-width:820px}.svi{padding:26px 0;border-bottom:1px solid var(--line)}.svi:first-child{padding-top:6px}.svi h3{margin:0 0 8px;font-size:22px}.svi p{margin:0 0 16px;line-height:1.65}
+.hsb .toggle button{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px)}
+.hsb .toggle button:hover{border-color:#fff;background:rgba(255,255,255,.24)}
+.hsb .toggle button.on{background:var(--hot);border-color:var(--hot);color:#fff;box-shadow:0 6px 18px rgba(255,75,43,.45)}
+.hsb .fgrid{grid-template-columns:repeat(4,1fr);background:#fffaf2;border-top:5px solid var(--hot);border-radius:16px;padding:22px 20px 20px;gap:14px 16px;box-shadow:0 0 0 1px rgba(255,255,255,.35),0 26px 60px rgba(8,16,32,.55),0 0 50px rgba(255,75,43,.22)}
+.hsb .ff label{color:#4a1222;font-weight:600}
+.hsb .ff input:not([type=checkbox]),.hsb .msd{background:#fff;border:1px solid #e3d9c8}
+.hsb .ff input:focus{border-color:var(--hot);box-shadow:0 0 0 3px rgba(255,75,43,.18);outline:0}
+.hsb .fgrid .btn{background:linear-gradient(135deg,var(--hot),var(--hot2));width:100%;padding:12px 20px;font-size:15px;border-radius:10px;box-shadow:0 8px 20px rgba(255,75,43,.4)}
+@media(max-width:900px){.hsb .fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.hsb .fgrid{grid-template-columns:1fr}}
+/* services + team animations */
+@keyframes svZoom{from{transform:scale(1)}to{transform:scale(1.12)}}
+@keyframes svUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes svFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes svPulse{0%{box-shadow:0 0 0 0 rgba(255,75,43,.55)}70%{box-shadow:0 0 0 16px rgba(255,75,43,0)}100%{box-shadow:0 0 0 0 rgba(255,75,43,0)}}
+@keyframes svBar{to{width:64px}}
+.sv{overflow-x:hidden}
+.sv-hero{position:relative;min-height:380px;display:flex;align-items:center;color:#fff;overflow:hidden;background:#14243a}
+.sv-bg{position:absolute;inset:0;overflow:hidden}.sv-bg img{width:100%;height:100%;object-fit:cover;animation:svZoom 22s ease-in-out infinite alternate}
+.sv-tint{position:absolute;inset:0;background:linear-gradient(100deg,rgba(14,26,46,.94) 0%,rgba(31,58,95,.78) 50%,rgba(255,75,43,.34) 100%)}
+.sv-orb{position:absolute;border-radius:50%;filter:blur(2px);animation:svFloat 7s ease-in-out infinite}
+.sv-orb.o1{width:220px;height:220px;right:6%;top:-60px;background:rgba(255,75,43,.35)}
+.sv-orb.o2{width:120px;height:120px;right:22%;bottom:30px;background:rgba(224,176,67,.4);animation-delay:-3s}
+.sv-hi{position:relative;z-index:2;max-width:1160px;margin:0 auto;width:100%;padding:76px 24px}
+.sv-hi>*{animation:svUp .9s both}.sv-hi>:nth-child(2){animation-delay:.12s}.sv-hi>:nth-child(3){animation-delay:.24s}.sv-hi>:nth-child(4){animation-delay:.36s}
+.sv-eb{font-family:'DM Mono',monospace;letter-spacing:.2em;text-transform:uppercase;font-size:12.5px;color:#ff9a7e;margin:0 0 14px}
+.sv-hi h2{font-size:46px;line-height:1.1;font-weight:300;letter-spacing:-1px;margin:0 0 16px;max-width:760px;color:#fff}.sv-hi h2 b{font-weight:700}
+.sv-sub{color:#e3ebf6;max-width:560px;margin:0 0 22px;font-size:16.5px}
+.sv-chips{display:flex;gap:10px;flex-wrap:wrap}
+.sv-chips span{padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px);font-weight:600;font-size:13.5px;animation:svFloat 5s ease-in-out infinite}
+.sv-chips span:nth-child(2){animation-delay:-1.6s}.sv-chips span:nth-child(3){animation-delay:-3.2s}
+.sv-list{max-width:1160px;margin:0 auto;padding:80px 24px 30px;display:grid;gap:96px}
+.sv-row{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.sv-row:nth-child(even) .sv-img{order:2}
+.sv-img{position:relative;aspect-ratio:4/3}
+.sv-img:before{content:"";position:absolute;inset:20px -20px -20px 20px;border:2px solid var(--hot);border-radius:20px;opacity:.55;transition:inset .45s}
+.sv-row:nth-child(even) .sv-img:before{inset:20px 20px -20px -20px}
+.sv-row:hover .sv-img:before{inset:10px -10px -10px 10px}.sv-row:nth-child(even):hover .sv-img:before{inset:10px 10px -10px -10px}
+.sv-ph{position:absolute;inset:0;border-radius:20px;overflow:hidden;z-index:1;background:linear-gradient(135deg,var(--navy),#ff4b2b);box-shadow:0 24px 50px rgba(20,36,58,.28)}
+.sv-ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(14,26,46,.55))}
+.sv-ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.sv-row:hover .sv-ph img{transform:scale(1.09)}
+.sv-num{position:absolute;left:18px;top:18px;z-index:2;width:56px;height:56px;border-radius:50%;background:var(--hot);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;animation:svPulse 2.6s infinite}
+.sv-k{font-family:'DM Mono',monospace;letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--hot);margin:0 0 8px}
+.sv-txt h3{font-size:34px;line-height:1.12;margin:0 0 14px}
+.sv-bar{display:block;width:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--hot),var(--gold,#e0b043));margin-bottom:18px;transition:width .9s .45s}
+.sv-on .sv-bar{width:64px}
+.sv-txt p.mut{font-size:16px;line-height:1.7;margin:0 0 22px}
+.sv-row .sv-img,.sv-row .sv-txt{opacity:0;transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.sv-row .sv-img{transform:translateX(-70px)}.sv-row:nth-child(even) .sv-img{transform:translateX(70px)}
+.sv-row .sv-txt{transform:translateY(34px);transition-delay:.18s}
+.sv-row.sv-on .sv-img,.sv-row.sv-on .sv-txt{opacity:1;transform:none}
+.sv-row.sv-r{opacity:1;transform:none}
+.sv-cta{max-width:1160px;margin:30px auto 70px;padding:34px 40px;border-radius:20px;background:linear-gradient(110deg,#14243a,#1F3A5F 55%,#ff4b2b 140%);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;width:calc(100% - 48px)}
+.sv-cta h3{margin:0 0 6px;font-size:26px;color:#fff}.sv-cta p{margin:0;color:#d5e0ee}
+.sv-r{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.sv-r.sv-on{opacity:1;transform:none}
+@media(max-width:860px){.sv-row{grid-template-columns:1fr;gap:34px}.sv-row:nth-child(even) .sv-img{order:0}.sv-row .sv-img,.sv-row:nth-child(even) .sv-img{transform:translateY(30px)}.sv-hi h2{font-size:30px}.sv-list{gap:70px;padding-top:56px}.sv-txt h3{font-size:27px}.sv-cta{padding:26px}}
+/* team page */
+.tm .sec-h:after{content:"";display:block;width:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--hot),#e0b043);margin-top:14px;animation:svBar 1s .35s forwards}
+.tm .sec-h>*{animation:svUp .8s both}.tm .sec-h h2{animation-delay:.12s}
+.tm .card.pf{animation:svUp .9s .25s backwards;transition:transform .35s,box-shadow .35s}
+.tm .card.pf:hover{transform:translateY(-5px);box-shadow:0 22px 46px rgba(20,36,58,.16)}
+.tm .avl{animation:svPulse 3s infinite}.tm .avl img{transition:transform .6s}.tm .card.pf:hover .avl img{transform:scale(1.07)}
+.tm .li .btn{transition:transform .25s,box-shadow .25s}.tm .li .btn:hover{transform:translateX(5px);box-shadow:0 10px 24px rgba(255,75,43,.3)}
+@media(prefers-reduced-motion:reduce){.sv *,.tm *{animation:none!important}.sv-r,.sv-row .sv-img,.sv-row .sv-txt{opacity:1!important;transform:none!important;transition:none!important}.sv-bar{width:64px!important}}
+/* find solutions page */
+.sl-sec{max-width:1160px;margin:0 auto;padding:80px 24px 10px}
+.sl-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:8px}
+.sl-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(20,36,58,.10);display:flex;flex-direction:column;transition:opacity .7s,transform .35s,box-shadow .35s}
+.sl-card:hover{transform:translateY(-8px);box-shadow:0 26px 50px rgba(20,36,58,.2)}
+.sl-img{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--navy),#ff4b2b)}
+.sl-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.sl-card:hover .sl-img img{transform:scale(1.08)}
+.sl-img{overflow:hidden}
+.sl-ic{position:absolute;left:22px;bottom:14px;width:54px;height:54px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 8px 20px rgba(0,0,0,.25);animation:svFloat 5s ease-in-out infinite}
+.sl-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+.sl-body h3{margin:0 0 10px;font-size:24px}.sl-body p{margin:0 0 20px;line-height:1.65;flex:1}
+.sl-band{background:#f6f3ec;margin-top:84px;padding:76px 0 84px}
+.sl-steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:14px}
+.sl-steps:before{content:"";position:absolute;top:31px;left:17%;right:17%;height:2px;background:repeating-linear-gradient(90deg,var(--hot) 0 10px,transparent 10px 18px);transform:scaleX(0);transform-origin:left;transition:transform 1.5s .3s}
+.sl-steps.sv-on:before{transform:scaleX(1)}
+.sl-step{text-align:center;padding:0 12px}
+.sl-n{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;background:var(--hot);color:#fff;font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;animation:svPulse 2.6s infinite}
+.sl-step h3{margin:0 0 8px;font-size:21px}.sl-step p{margin:0;line-height:1.6}
+.sl-fh{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;margin-bottom:10px}
+.sl-fimg{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--navy),#ff4b2b);box-shadow:0 20px 44px rgba(20,36,58,.22)}
+.sl-fimg img{width:100%;height:100%;object-fit:cover;animation:svZoom 20s ease-in-out infinite alternate}
+.sl-tag{position:absolute;left:16px;bottom:16px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.92);font-weight:700;font-size:13.5px;color:var(--navy);animation:svFloat 5s ease-in-out infinite}
+.sl #solbody .card{animation:svUp .6s both}
+@media(max-width:860px){.sl-cards,.sl-steps{grid-template-columns:1fr}.sl-steps:before{display:none}.sl-fh{grid-template-columns:1fr}.sl-fimg{display:none}.sl-band{padding:56px 0}}
 </style>
 <style id="ta-style">
 /* ============ Team analysis (group owners) ============ */
@@ -1187,6 +1280,21 @@ header #auth .pill,header #auth .btn,header #auth .hl{white-space:nowrap;padding
   header .burger{margin-left:0}
   #hire,#services,#news{scroll-margin-top:100px}
 }
+
+/* --- added: services row, learning, public search --- */
+.svc.one{grid-template-columns:repeat(5,minmax(0,1fr))}
+.svc.one .card{cursor:pointer;padding:16px}.svc.one .card h3{font-size:16px}.svc.one .card p{font-size:13px}
+@media(max-width:1000px){.svc.one{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}}
+.lt{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 20px}.lt input,.lt select{max-width:260px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.vcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--bd);border-radius:14px;overflow:hidden;color:inherit;text-decoration:none;transition:transform .3s,box-shadow .3s}
+.vcard:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(20,36,58,.16)}
+.vcard .th{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,var(--navy),var(--brand));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;text-align:center;padding:12px;overflow:hidden}
+.vcard .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vcard .vpl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.62);display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff}
+.vcard .bd{padding:14px}.vcard h4{margin:6px 0 4px;font-size:15px;line-height:1.35}
+.vcard .tp{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--brand);font-weight:700}
+.pj .xt{display:none}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
 </head>
@@ -1237,9 +1345,11 @@ const SOFT = ["Stakeholder Management", "Executive Communication", "Negotiation"
 const AVAIL = ["Immediately", "Within 2 weeks", "Within 1 month", "1–3 months", "3+ months", "Not looking"];
 const KINDS = ["Company", "Consultancy", "Firm / Group", "Staffing agency"];
 const ST = ["Applied", "Screened", "Interview", "Offer", "Rejected"];
-const SEL = { role: ROLES, type: TYPES, ind: INDS, avail: AVAIL, kind: KINDS, consent: ["Confirmed", "Pending"], pods: ["Yes — individuals or pods", "Individuals only"] };
-const MS = { mrole: ROLES, mtype: TYPES, mind: INDS };
-const CSVK = ["skills", "softSkills", "roles"];
+const SEL = { type: TYPES, ind: INDS, avail: AVAIL, kind: KINDS, consent: ["Confirmed", "Pending"], pods: ["Yes — individuals or pods", "Individuals only"] };
+const MS = { mtype: TYPES, mind: INDS };
+/* Primary role is free text everywhere (comma separate several); ROLES only feeds the type-ahead suggestions */
+document.body.insertAdjacentHTML("beforeend", `<datalist id="dl_roles">${ROLES.map(r => `<option value="${r}">`).join("")}</datalist>`);
+const CSVK = ["skills", "softSkills", "roles", "nicheSkills"];
 
 let me = null, P = null, mode = "ind", redraw = () => {};
 const U = {}, MJ = {}, JOBS = {};
@@ -1283,8 +1393,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape" && $("#modal"
 /* ---------- header / nav (role aware) ---------- */
 function nav() {
   if (!me) {
-    $("#nav").innerHTML = `<a class="nv" onclick="goSec('hire')">Hire</a><a class="nv" onclick="goSec('services')">Services</a><a class="nv" href="#/team">Our Team</a><a class="nv" href="#/contact">Contact</a>
-      <div class="dd"><a class="nv" href="#/blog" tabindex="0">SAP</a><div><a href="#" onclick="sapGo('jobs');return false">SAP Jobs</a><a href="#" onclick="sapGo('talent');return false">SAP Talent Pool</a><a href="#/blog">SAP Blog</a></div></div>`;
+    $("#nav").innerHTML = `<a class="nv" href="#/services">Services</a><a class="nv" href="#/team">Our Team</a><a class="nv" href="#/contact">Contact</a><a class="nv" onclick="goSec('learn')">Learn</a>`;
     return;
   }
   const cand = isCand(), emp = isOrg(), grp = isGrp();
@@ -1298,22 +1407,22 @@ function nav() {
       <a href="#/talent">Search talent &amp; companies</a><a href="#/groups">My groups</a><a href="#/analysis">Team analysis</a></div></div>` : "")
     + `<div class="dd"><a href="#/jobs" tabindex="0">Technologies</a><div>${TECH.map(t => `<a href="#/jobs?q=${encodeURIComponent(t)}">${t}</a>`).join("")}</div></div>`
     + `<a class="nv" href="#/services">Services</a><a class="nv" href="#/team">Our Team</a><a class="nv" href="#/contact">Contact</a>
-      <div class="dd"><a class="nv" href="#/blog" tabindex="0">SAP</a><div><a href="#" onclick="sapGo('jobs');return false">SAP Jobs</a><a href="#" onclick="sapGo('talent');return false">SAP Talent Pool</a><a href="#/blog">SAP Blog</a></div></div>`;
+<a class="nv" href="#/learn">Learn</a>`;
 }
 /* header buttons: label, account type they open sign-up for, style. Edit freely. */
-const NAVBTN = [["Find Solutions", "candidate", "hot"], ["For Consultants", "group", "ol"], ["For Hiring", "org", "ol"], ["For Groups", "group", "ol"]];
+const NAVBTN = [["Find Solutions", "", "hot"], ["For Consultant", "candidate", "ol"], ["For Hiring", "org", "ol"], ["For Groups", "group", "ol"]];
 function authBox() {
   $("#auth").innerHTML = me
     ? `<a class="me" href="${homeHash()}">${P?.photo ? `<img class="av" src="${esc(P.photo)}" alt="">` : `<span class="av">${esc(ini(P?.name))}</span>`}<span>${esc(P?.name || "")}</span></a>
        <button class="btn o s" style="background:transparent;color:#fff;border-color:#8fa6c4" onclick="logout()">Log out</button>`
     : `<a class="hl" href="#" onclick="authUI('login');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zm0 14.2a8 8 0 0 1-6-2.7c.1-2 4-3.1 6-3.1s5.9 1.100 6 3.100a8 8 0 0 1-6 2.700z"/></svg><span>Log in</span></a>
-       ${NAVBTN.map(([l, t, c]) => `<button class="pill ${c}" onclick="authUI('signup','${t}')">${l}</button>`).join("")}`;
+       ${NAVBTN.map(([l, t, c]) => `<button class="pill ${c}" onclick="${t ? `authUI('login','${t}')` : `location.hash='#/solutions'`}">${l}</button>`).join("")}`;
 }
 
 /* ---------- auth ---------- */
 /* signup questions (important details asked once, at registration) */
 const SU = {
-  candidate: [["headline", "Headline (e.g. SAP FICO consultant)"], ["role", "Primary role (select one or more)", "mrole"], ["years", "Years of experience"], ["location", "Location (city, country)"], ["availability", "Availability", "avail"], ["jobType", "Preferred job type (select one or more)", "mtype"], ["industry", "Industry (select one or more)", "mind"]],
+  candidate: [["headline", "Headline (e.g. SAP FICO consultant)"], ["role", "Primary role (type one or more, comma separated)", "mrole"], ["years", "Years of experience"], ["location", "Location (city, country)"], ["availability", "Availability", "avail"], ["jobType", "Preferred job type (select one or more)", "mtype"], ["industry", "Industry (select one or more)", "mind"]],
   org: [["orgKind", "Organisation type", "kind"], ["website", "Website"], ["location", "HQ location"], ["industry", "Industry (select one or more)", "mind"], ["size", "Team size (number of people)"], ["contactEmail", "Hiring contact email"]],
   group: [["designation", "Your designation / title"], ["website", "Firm website (optional)"], ["location", "Firm location"], ["industry", "Primary industry (select one or more)", "mind"]]
 };
@@ -1422,8 +1531,11 @@ const authMsg = x => ({
   "auth/invalid-email": "That email address is not valid.",
   "auth/email-already-in-use": "An account with this email already exists. Try logging in.",
   "auth/weak-password": "Password must be at least 6 characters.",
-  "auth/too-many-requests": "Too many attempts. Please wait a moment and try again.",
-  "auth/network-request-failed": "Network problem. Check your connection and try again."
+  "auth/too-many-requests": "Too many attempts. Firebase has paused requests from this network for a while (usually 15 to 60 minutes). Please try again later, or use another network or email.",
+  "auth/network-request-failed": "Network problem. Check your connection and try again.",
+  "auth/operation-not-allowed": "Email/Password sign-in is turned off. Enable it in Firebase Console > Authentication > Sign-in method.",
+  "auth/unauthorized-domain": "This website address is not authorised. Add it in Firebase Console > Authentication > Settings > Authorized domains.",
+  "auth/quota-exceeded": "Firebase's daily email limit was reached. Please try again later."
 }[x.code] || String(x.message || x).replace("Firebase: ", ""));
 
 const amodal = (h, w) => modal(`<button type="button" class="mclose" aria-label="Close" onclick="closeM()">\u2715</button>` + h, w);
@@ -1436,14 +1548,16 @@ window.authUI = (mode = "login", t = "") => {
   const sw = `<p class="mut" style="text-align:center"><a href="#" onclick="authUI('${mode == "login" ? "signup" : "login"}');return false" class="lnk">${mode == "login" ? "New here? Create an account" : "Have an account? Log in"}</a></p>`;
   if (mode == "signup" && !T[t]) return amodal(`<h2>Join Provynk</h2><p class="mut">Choose how you will use the platform.</p>
     ${Object.entries(T).map(([k, v]) => `<div class="pc" style="grid-template-columns:1fr;cursor:pointer" onclick="authUI('signup','${k}')"><div><h3>${v[0]}</h3><div class="meta">${v[1]}</div></div></div>`).join("")}${sw}`);
-  if (mode == "login") return amodal(`<h2>Welcome back</h2><p class="mut">Log in to continue.</p>
+  const LN = { candidate: "Individual", group: "Group owner", org: "Employer" };
+  if (mode == "login" && !LN[t]) return amodal(`<h2>Log in</h2><p class="mut">Choose how you want to log in.</p>${Object.entries(LN).map(([k, v]) => `<div class="pc" style="grid-template-columns:1fr;cursor:pointer" onclick="authUI('login','${k}')"><div><h3>Login as ${v.toLowerCase()}</h3></div></div>`).join("")}${sw}`);
+  if (mode == "login") return amodal(`<h2>Log in as ${LN[t].toLowerCase()}</h2><p class="mut">Log in to continue.</p><input type="hidden" id="a_t" value="${t}">
     <label>Email</label><input id="a_e" type="email">
     <label style="margin-top:10px">Password</label><input id="a_p" type="password" onkeydown="if(event.key=='Enter')doAuth('login')">
     <div style="text-align:right;margin-top:6px"><a href="#" class="lnk" onclick="forgotPw();return false">Forgot password?</a></div>
     <p id="a_err" class="mut" style="color:var(--red)"></p>
     <button class="btn" style="width:100%" onclick="doAuth('login')">Log in</button>
     <p class="mut" style="text-align:center;margin:10px 0 6px">or</p>
-    <button class="btn o" style="width:100%" onclick="emailLink()">Email me a login link (no password)</button>${sw}`);
+    <button class="btn o" style="width:100%" onclick="emailLink()">Email me a login link (no password)</button><p class="mut" style="text-align:center;margin:8px 0 0"><a href="#" class="lnk" onclick="authUI('login');return false">← Choose a different login type</a></p>${sw}`);
   amodal(`<h2>Sign up as ${T[t][0]}</h2>
     <p class="mut">${T[t][1]}. All fields are required except the firm website. We will email you a link to verify your address.</p>
     <input type="hidden" id="a_t" value="${t}">
@@ -1460,29 +1574,39 @@ window.authUI = (mode = "login", t = "") => {
 };
 
 /* ---- verification email helper (works for Gmail, Yahoo, Outlook, etc.) ---- */
-const ACS = () => ({ url: location.origin + location.pathname, handleCodeInApp: false });
+/* the "continue" link only works on http(s) pages (not file://); otherwise Firebase sends its plain default link */
+const ACS = () => /^https?:$/.test(location.protocol) ? { url: location.origin + location.pathname, handleCodeInApp: false } : undefined;
+let LASTERR = "";
 const isYahoo = e => /@(yahoo|ymail|rocketmail)\.[a-z.]+$/i.test(e || "");
 const mailTip = e => isYahoo(e) ? " Yahoo can take a few minutes and often puts it in <b>Spam</b> or <b>Bulk</b>: check there, and mark it \"Not spam\". Sender: noreply@" + (auth.app.options.authDomain || "") + "." : "";
 let LASTSEND = 0;
-async function sendVerif(u, quiet) {
+async function sendVerif(u, quiet, force) {
   const wait = 30000 - (Date.now() - LASTSEND);
-  if (wait > 0) { if (!quiet) toast("Please wait " + Math.ceil(wait / 1000) + "s before resending"); return false; }
+  if (!force && wait > 0) { LASTERR = "please wait " + Math.ceil(wait / 1000) + "s"; if (!quiet) toast("Please wait " + Math.ceil(wait / 1000) + "s before resending"); return false; }
+  LASTERR = "";
   try { await sendEmailVerification(u, ACS()); }
   catch (x) {
-    if (x && x.code == "auth/unauthorized-continue-uri") { try { await sendEmailVerification(u); } catch (y) { if (!quiet) toast(authMsg(y)); return false; } }
-    else { if (!quiet) toast(authMsg(x)); return false; }
+    /* any problem with the continue link (not authorised, invalid, missing): retry with Firebase's plain default link */
+    if (x && /continue-uri/.test(x.code || "")) { try { await sendEmailVerification(u); } catch (y) { console.warn("verification email failed", y); LASTERR = authMsg(y); if (!quiet) toast(LASTERR); return false; } }
+    else { console.warn("verification email failed", x); LASTERR = authMsg(x); if (!quiet) toast(LASTERR); return false; }
   }
   LASTSEND = Date.now(); return true;
 }
-let PEND = null, PTIMER = null;
+let PEND = null, PTIMER = null, RT = null;
+/* stops people hammering "Resend" (Firebase blocks a network that asks for too many emails) */
+const coolResend = n => {
+  clearInterval(RT); let k = n;
+  const tick = () => { const b = $("#v_rs"); if (!b) return clearInterval(RT); if (k <= 0) { b.disabled = false; b.textContent = "Resend email"; clearInterval(RT); } else { b.disabled = true; b.textContent = "Resend in " + k + "s"; k--; } };
+  tick(); RT = setInterval(tick, 1000);
+};
 const stopPoll = () => { clearInterval(PTIMER); PTIMER = null; };
 function showVerify(email) {
   modal(`<h2>Verify your email</h2>
     <p class="mut">We sent a verification link to <b>${esc(email)}</b>. Open it, then come back here. Your account is created only after your email is verified. Check your spam folder if you can't find it.${mailTip(email)}</p>
     <p id="v_err" class="mut" style="color:var(--red)"></p>
     <button class="btn" style="width:100%" onclick="finishSignup()">I've verified my email</button>
-    <div class="srow"><button class="btn o s" onclick="resendSignup()">Resend email</button><button class="btn o s" onclick="cancelSignup()">Cancel</button></div>`);
-  stopPoll(); PTIMER = setInterval(() => finishSignup(true), 3000);
+    <div class="srow"><button class="btn o s" id="v_rs" onclick="resendSignup()">Resend email</button><button class="btn o s" onclick="cancelSignup()">Cancel</button></div>`);
+  stopPoll(); PTIMER = setInterval(() => finishSignup(true), 5000);
 }
 window.finishSignup = async silent => {
   if (!PEND) return;
@@ -1493,6 +1617,7 @@ window.finishSignup = async silent => {
     stopPoll();
     const { user, d } = PEND;
     await user.getIdToken(true);
+    if (!d) { PEND = null; SIGNUP = false; closeM(); await loadUser(user); return; }
     await setDoc(doc(db, "users", user.uid), { ...d, created: serverTimestamp() });
     try { localStorage.removeItem("cm_pending_" + user.uid); } catch {}
     me = user; P = d; PEND = null; SIGNUP = false;
@@ -1502,7 +1627,7 @@ window.finishSignup = async silent => {
     toast("Email verified. Welcome to Provynk!");
   } catch (x) { if (ve) ve.textContent = authMsg(x); }
 };
-window.resendSignup = async () => { if (await sendVerif(PEND.user)) toast("Verification email sent. Check Inbox and Spam."); };
+window.resendSignup = async () => { if (!PEND) return; const ok = await sendVerif(PEND.user, true, true); const ve = $("#v_err"); if (ok) { if (ve) ve.textContent = ""; toast("Verification email sent. Check Inbox and Spam."); } else if (ve) ve.textContent = "Could not send: " + LASTERR; coolResend(60); };
 window.cancelSignup = async () => { stopPoll(); PEND = null; SIGNUP = false; closeM(); await signOut(auth); };
 
 window.doAuth = async mode => {
@@ -1516,9 +1641,17 @@ window.doAuth = async mode => {
       await signInWithEmailAndPassword(auth, e, p);
       const u = auth.currentUser; SIGNUP = false;
       if (!u.emailVerified) {
-        await sendVerif(u, true);
-        await signOut(auth);
-        throw { message: "Please verify your email first. We've sent you a new verification link." };
+        /* no new email is sent here (that is what gets a network blocked); the person lands on the verify step and can press Resend */
+        let d = null; try { d = JSON.parse(localStorage.getItem("cm_pending_" + u.uid) || "null"); } catch {}
+        SIGNUP = true; PEND = { user: u, d };
+        showVerify(e);
+        const ve = $("#v_err"); if (ve) ve.textContent = "Your email is not verified yet. Open the link we sent you, or press Resend email.";
+        return;
+      }
+      const t0 = $("#a_t")?.value;
+      if (t0) {
+        let ty = ""; try { ty = (await getDoc(doc(db, "users", u.uid))).data()?.type || ""; } catch {}
+        if (ty && ty != t0) { await signOut(auth); throw { message: "This email is registered as " + ({ candidate: "an Individual", group: "a Group owner", org: "an Employer" }[ty]) + " account. Please choose the matching login type." }; }
       }
       await loadUser(u);
       closeM();
@@ -1539,9 +1672,9 @@ window.doAuth = async mode => {
     const d = { type: t, name: n, email: e.toLowerCase(), ...extra, ...(t == "group" ? { firm: f } : {}) };
     try { localStorage.setItem("cm_pending_" + c.user.uid, JSON.stringify(d)); } catch {}
     PEND = { user: c.user, d };
-    const sent = await sendVerif(c.user, true);
+    const sent = await sendVerif(c.user, true, true);
     showVerify(e);
-    if (!sent) { const ve = $("#v_err"); if (ve) ve.textContent = "We could not send the email automatically. Press Resend email."; }
+    if (!sent) { const ve = $("#v_err"); if (ve) ve.textContent = "Your account is created, but the verification email could not be sent" + (LASTERR ? " (" + LASTERR + ")" : "") + ". Wait a bit and press Resend email, or log in later to come back to this step."; coolResend(60); }
   } catch (x) {
     SIGNUP = false;
     err(authMsg(x));
@@ -1568,16 +1701,51 @@ async function loadUser(u) {
       }
     } catch {}
   }
-  if (!prof) { toast("Could not load your profile. Please sign up again."); await signOut(auth); return; }
+  if (!prof && u.emailVerified) { needProfile(); return; }
+  if (!prof) { toast("Could not load your profile. Please try again."); await signOut(auth); return; }
   me = u; P = prof;
   if (P.type == "group") try { await loadG(); } catch {}
   shell();
 }
 
+/* verified account without a profile (e.g. signed up on another device / browser): let the person finish it */
+function needProfile() {
+  modal(`<h2>Finish setting up your account</h2>
+    <p class="mut">Your email is verified. Tell us a little more to create your profile. You can add the rest later.</p>
+    <label>Account type</label><select id="cp_t" onchange="$('#cp_fw').style.display=this.value=='group'?'block':'none'"><option value="candidate">Individual</option><option value="org">Employer</option><option value="group">Group / consultancy</option></select>
+    <label>Name</label><input id="cp_n" autocomplete="name">
+    <div id="cp_fw" style="display:none"><label>Firm name</label><input id="cp_f"></div>
+    <p id="cp_err" class="mut" style="color:var(--red)"></p>
+    <button class="btn" style="width:100%" onclick="saveNewProfile()">Continue</button>
+    <div class="srow"><button class="btn o s" onclick="cancelSignup()">Sign out</button></div>`);
+}
+window.saveNewProfile = async () => {
+  const u = auth.currentUser, er = $("#cp_err"); if (!u) return;
+  const t = $("#cp_t").value, n = $("#cp_n").value.trim(), f = $("#cp_f")?.value.trim() || "";
+  if (!n) { er.textContent = "Enter a name."; return; }
+  if (t == "group" && !f) { er.textContent = "Enter your firm name."; return; }
+  try {
+    await u.getIdToken(true);
+    await setDoc(doc(db, "users", u.uid), { type: t, name: n, email: (u.email || "").toLowerCase(), ...(t == "group" ? { firm: f } : {}), created: serverTimestamp() });
+    closeM(); await loadUser(u);
+  } catch (x) { er.textContent = authMsg(x); }
+};
+
 onAuthStateChanged(auth, async u => {
   if (SIGNUP) return;               /* signup / login flow handles itself */
   if (!u) { me = null; P = null; shell(); return; }
-  if (!u.emailVerified) { await signOut(auth); return; }
+  /* refresh the user: the verification link may have been clicked in another tab / on another device */
+  try { await u.reload(); }
+  catch (x) { if (x && /user-(token-expired|disabled|not-found)/.test(x.code || "")) { await signOut(auth); return; } }
+  if (!u.emailVerified) {
+    /* do NOT sign out here: that is what broke verification (the tab opened by the email link signed the person out everywhere) */
+    let d = null; try { d = JSON.parse(localStorage.getItem("cm_pending_" + u.uid) || "null"); } catch {}
+    SIGNUP = true; PEND = { user: u, d };
+    me = null; P = null; shell();
+    showVerify(u.email);
+    return;
+  }
+  try { await u.getIdToken(true); } catch {}
   await loadUser(u);
 });
 
@@ -1588,7 +1756,7 @@ window.forgotPw = async () => {
   if (!/^\S+@\S+\.\S+$/.test(e)) return authNote("Enter your email above, then press Forgot password.");
   try {
     try { await sendPasswordResetEmail(auth, e, ACS()); }
-    catch (x) { if (x && x.code == "auth/unauthorized-continue-uri") await sendPasswordResetEmail(auth, e); else throw x; }
+    catch (x) { if (x && /continue-uri/.test(x.code || "")) await sendPasswordResetEmail(auth, e); else throw x; }
     authNote("If an account exists for " + e + ", a password reset link has been sent. Check Inbox and Spam" + (isYahoo(e) ? " (Yahoo may take a few minutes)." : "."), true);
   } catch (x) { authNote(authMsg(x)); }
 };
@@ -1637,6 +1805,7 @@ const need = t => {
 
 const fields = (o, d) => o.map(([k, l, t, full]) => `<div class="${full ? "full" : ""}"><label>${l}</label>${
   t == "area" ? `<textarea id="f_${k}" rows="4">${esc(d[k])}</textarea>`
+  : t == "role" || t == "mrole" ? `<input id="f_${k}" list="dl_roles" autocomplete="off" placeholder="e.g. Solution Architect, Program Manager" value="${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k])}">`
   : t == "mind" ? `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${csv(d[k]).join(", ") || "Select one or more industries"}</span></button><div class="msp">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label><input type="checkbox" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div></div>`
   : MS[t] ? `<div class="mchk" id="f_${k}" style="display:flex;flex-wrap:wrap;gap:6px 14px;padding:6px 0">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label style="display:flex;gap:6px;align-items:center;font-weight:500;color:var(--ink);margin:0"><input type="checkbox" style="width:auto" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div>`
   : SEL[t] ? `<select id="f_${k}">${opts(SEL[t], d[k], "Select…")}</select>`
@@ -1679,7 +1848,9 @@ const legend = () => `<div class="legend">${[["#eef2fb", "Role"], ["var(--brandl
   .map(([c, l]) => `<span><i class="dot" style="background:${c}"></i>${l}</span>`).join("")}</div>`;
 
 function filterBar(v = {}, extra = "") {
-  const f = ([id, l, o, any]) => `<div class="ff"><label>${l}</label>${o
+  const f = ([id, l, o, any]) => `<div class="ff"><label>${l}</label>${id == "r"
+    ? `<input id="r" list="dl_roles" autocomplete="off" value="${esc(v[id] || "")}" placeholder="${any}">`
+    : o
     ? msf(id, any, o, csv(v[id]))
     : `<input id="${id}" value="${esc(v[id] || "")}" placeholder="${any || ""}">`}</div>`;
   return `<div class="fgrid" id="fg">${[
@@ -1697,8 +1868,9 @@ window.clearF = () => {
 const gv = id => ($("#" + id)?.value || "").toLowerCase();
 /* multi-select filter dropdowns: tick one or more options (matches ANY of the ticked options) */
 const msf = (id, any, o, sel = []) => `<div class="msd" id="${id}" data-ph="${esc(any)}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || any)}</span></button><div class="msp">${o.map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div></div>`;
-const gm = id => [...document.querySelectorAll(`#${id} input:checked`)].map(e => e.value.toLowerCase());
-const ma = (val, id) => { const s = gm(id); if (!s.length) return true; const L = Array.isArray(val) ? val : csv(val); return L.some(x => s.includes(String(x).toLowerCase())); };
+const gm = id => { const el = $("#" + id); if (el && el.tagName == "INPUT") return csv(el.value).map(x => x.toLowerCase()); return [...document.querySelectorAll(`#${id} input:checked`)].map(e => e.value.toLowerCase()); };
+/* typed filters (role) match as "contains"; ticked dropdown filters match exactly */
+const ma = (val, id) => { const s = gm(id); if (!s.length) return true; const L = Array.isArray(val) ? val : csv(val), typed = $("#" + id)?.tagName == "INPUT"; return L.some(x => { const v = String(x).toLowerCase(); return typed ? s.some(q => v.includes(q)) : s.includes(v); }); };
 const msLabel = b => { const v = [...b.querySelectorAll("input:checked")].map(i => i.value); b.querySelector(".mst").textContent = v.join(", ") || b.dataset.ph || "Select one or more industries"; };
 const has = (a, v) => (a || []).some(x => String(x).toLowerCase() == v);
 
@@ -1780,7 +1952,7 @@ window.viewJob = id => {
     <div class="sec-label">About the role</div><p style="white-space:pre-line;margin:0">${esc(j.desc)}</p>
     ${(j.skills || []).length ? `<div class="sec-label">Required hard skills</div><div class="tr" style="margin-top:0">${j.skills.map(x => tg("hard", x)).join("")}</div>` : ""}
     ${(j.softSkills || []).length ? `<div class="sec-label">Soft skills</div><div class="tr" style="margin-top:0">${j.softSkills.map(x => tg("soft", x)).join("")}</div>` : ""}
-    <div class="srow" style="margin-top:18px">${!isCand() ? "" : `<button class="btn" onclick="apply('${id}')">Apply now</button>`}<button class="btn o" onclick="closeM()">Close</button></div>`, 1);
+    <div class="srow" style="margin-top:18px">${!me ? `<button class="btn" onclick="authUI('signup','candidate')">Sign up to apply</button>` : !isCand() ? "" : `<button class="btn" onclick="apply('${id}')">Apply now</button>`}<button class="btn o" onclick="closeM()">Close</button></div>`, 1);
 };
 
 window.apply = async id => {
@@ -1825,13 +1997,14 @@ V.applications = async () => {
 
 /* ----- candidate profile (LinkedIn-style, fully editable) ----- */
 const IF = [
-  ["name", "Full name"], ["headline", "Headline (e.g. SAP FICO consultant)"], ["role", "Primary role (select one or more)", "mrole"], ["years", "Years of experience"],
+  ["name", "Full name"], ["headline", "Headline (e.g. SAP FICO consultant)"], ["role", "Primary role (type one or more, comma separated)", "mrole"], ["years", "Years of experience"],
   ["location", "Location"], ["availability", "Availability", "avail"], ["jobType", "Preferred job type (select one or more)", "mtype"], ["industry", "Industry (select one or more)", "mind"]
 ];
 const SECT = {
   experience: { t: "experience", ico: "💼", f: [["title", "Title"], ["company", "Company"], ["from", "From (e.g. Jan 2020)"], ["to", "To (blank = present)"], ["desc", "Description", "area", 1]] },
   education: { t: "education", ico: "🎓", f: [["degree", "Degree / course"], ["school", "School / university"], ["year", "Years (e.g. 2012–2016)"], ["desc", "Notes", "area", 1]] },
   certs: { t: "certification", ico: "📜", f: [["name", "Certification"], ["issuer", "Issuer"], ["year", "Year"]] },
+  projects: { t: "project", ico: "🛠️", f: [["name", "Project name"], ["tech", "Technologies used (comma separated)"], ["role", "Your role"], ["duration", "Duration (e.g. Jan 2024 – Jun 2024)"], ["link", "LinkedIn / GitHub / project link"], ["desc", "Description", "area", 1]] },
   roster: { t: "team member", f: [["name", "Name"], ["role", "Role", "role"], ["skills", "Hard skills (comma separated)"], ["avail", "Availability", "avail"], ["consent", "Consent status", "consent"]] },
   podList: { t: "pod", f: [["name", "Pod name"], ["size", "Members (number)"], ["avail", "Availability", "avail"], ["roles", "Roles in pod (comma separated)"], ["skills", "Hard skills (comma separated)"], ["jobType", "Job type", "type"], ["industry", "Industry", "ind"], ["location", "Location"], ["desc", "Description / scope", "area", 1]] }
 };
@@ -1845,8 +2018,8 @@ const strength = u => {
 
 const entry = (sec, x, i, ed) => {
   const t = sec == "experience" ? x.title : sec == "education" ? x.degree : x.name;
-  const sub = sec == "experience" ? [x.company, x.from ? x.from + " – " + (x.to || "Present") : x.to] : sec == "education" ? [x.school, x.year] : [x.issuer, x.year];
-  return `<div class="ent"><div class="ico">${SECT[sec].ico}</div><div><b>${esc(t)}</b><div class="mut">${sub.filter(Boolean).map(esc).join(" · ")}</div>${x.desc ? `<p>${esc(x.desc)}</p>` : ""}</div>
+  const sub = sec == "experience" ? [x.company, x.from ? x.from + " – " + (x.to || "Present") : x.to] : sec == "education" ? [x.school, x.year] : sec == "projects" ? [x.tech, x.role, x.duration] : [x.issuer, x.year];
+  return `<div class="ent"><div class="ico">${SECT[sec].ico}</div><div><b>${esc(t)}</b><div class="mut">${sub.filter(Boolean).map(esc).join(" · ")}</div>${x.desc ? `<p>${esc(x.desc)}</p>` : ""}${x.link ? `<a class="lnk" target="_blank" rel="noopener" href="${esc(url(x.link))}">View link ↗</a>` : ""}</div>
     ${ed ? `<div class="ea"><button class="ib" title="Edit" onclick="editSec('${sec}',${i})">✎</button><button class="ib" title="Delete" onclick="delSec('${sec}',${i})">🗑</button></div>` : ""}</div>`;
 };
 const block = (title, sec, u, ed) => {
@@ -1870,8 +2043,9 @@ function profileMain(u, ed) {
   const skills = `<div class="card"><div class="sh"><h3>Skills</h3>${ed ? `<button class="btn o s" onclick="editSkills()">✎ Edit</button>` : ""}</div>
     <div class="sec-label" style="margin-top:0">Hard skills</div><div class="tr" style="margin-top:0">${(u.skills || []).map(x => tg("hard", x)).join("") || '<span class="empty">None added.</span>'}</div>
     <div class="sec-label">Soft skills</div><div class="tr" style="margin-top:0">${(u.softSkills || []).map(x => tg("soft", x)).join("") || '<span class="empty">None added.</span>'}</div>
+    <div class="sec-label">Niche skills</div><div class="tr" style="margin-top:0">${(u.nicheSkills || []).map(x => tg("hard", x)).join("") || '<span class="empty">None added.</span>'}</div>
     ${(u.resumeSkills || []).length ? `<div class="sec-label">Detected from resume</div><div class="tr" style="margin-top:0">${u.resumeSkills.map(x => tg("hard", x)).join("")}</div>` : ""}</div>`;
-  return head + about + block("Experience", "experience", u, ed) + block("Education", "education", u, ed) + skills + block("Certifications", "certs", u, ed);
+  return head + about + block("Experience", "experience", u, ed) + block("Education", "education", u, ed) + skills + block("Certifications", "certs", u, ed) + block("Projects", "projects", u, ed);
 }
 
 V.profile = () => {
@@ -1906,9 +2080,9 @@ window.saveIntro = async () => { await upd(read(IF)); closeM(); route(); };
 window.editAbout = () => modal(`<h2>About</h2><textarea id="f_about" rows="8">${esc(P.about)}</textarea>
   <div class="srow"><button class="btn" onclick="saveAbout()">Save</button><button class="btn o" onclick="closeM()">Cancel</button></div>`);
 window.saveAbout = async () => { await upd({ about: $("#f_about").value }); closeM(); route(); };
-window.editSkills = () => modal(`<h2>Skills</h2><label>Hard skills</label>${chips("c_h", SKILLS, P.skills)}<label>Soft skills</label>${chips("c_s", SOFT, P.softSkills)}
+window.editSkills = () => modal(`<h2>Skills</h2><label>Hard skills</label>${chips("c_h", SKILLS, P.skills)}<label>Soft skills</label>${chips("c_s", SOFT, P.softSkills)}<label>Niche skills (your rare or specialised expertise, type and press Add)</label>${chips("c_n", [], P.nicheSkills)}
   <div class="srow"><button class="btn" onclick="saveSkills()">Save</button><button class="btn o" onclick="closeM()">Cancel</button></div>`, 1);
-window.saveSkills = async () => { await upd({ skills: picked("c_h"), softSkills: picked("c_s") }); closeM(); route(); };
+window.saveSkills = async () => { await upd({ skills: picked("c_h"), softSkills: picked("c_s"), nicheSkills: picked("c_n") }); closeM(); route(); };
 
 window.editSec = (sec, i) => {
   const d = list(P, sec)[i] || {};
@@ -2107,6 +2281,7 @@ window.toggleSave = async (id, reopen) => {
 };
 
 window.viewOrg = async id => {
+  if (!me) return authUI("signup");
   const o = (await getDoc(doc(db, "users", id))).data();
   if (!o) return;
   const jobs = (await getDocs(query(collection(db, "jobs"), where("orgId", "==", id)))).docs.map(d => ({ id: d.id, ...d.data() }));
@@ -2286,29 +2461,122 @@ window.gNote = async id => {
   g.comments = [...(g.comments || []), c];
   viewUser(id);
 };
+/* group members are typed in by the owner (same details as individual sign-up); no invitations */
+const GMC = SU.candidate.filter(([k]) => !["jobType", "industry"].includes(k));
+const MF = [["name", "Full name"], ["email", "Email"], ...GMC, ["skills", "Hard skills (comma separated)"], ["nicheSkills", "Niche skills (comma separated)"]];
+let GM = [];
+const PUBD = new Set();
+const nsk = u => (u.nicheSkills || []).map(x => tg("hard", x)).join("");
+const gmList = () => GM.map((m, i) => `<div class="mut" style="display:flex;justify-content:space-between;gap:8px;padding:4px 0"><span><b>${esc(m.name)}</b> · ${esc(m.email)} · ${esc(m.headline)}${m._cvFile ? " · 📄 " + esc(m._cvFile.name) : ""}</span><a class="lnk" onclick="gmDel(${i})">✕ Remove</a></div>`).join("") || '<div class="empty">No members added yet.</div>';
+const GM_CV_MAX = 700000;
+const gmFormInner = () => fields(MF, {}) + `<div class="full"><label>Member CV (optional, PDF, max 700 KB)</label><input id="gm_cv" type="file" accept="application/pdf,.pdf"></div>`;
+const gmForm = btn => `<div class="sec-label">Member details</div><div class="form" id="gm_form">${gmFormInner()}</div><p id="gm_err" class="mut" style="color:var(--red)"></p>${btn ? `<button type="button" class="btn o s" onclick="gmAdd()">+ Add member</button>` : ""}`;
+const gmRead = () => {
+  const err = m => { $("#gm_err").textContent = m; return null; }, d = read(MF);
+  if (!d.name.trim()) return err("Enter the member's name.");
+  if (!/^\S+@\S+\.\S+$/.test(d.email.trim())) return err("Enter a valid email for the member.");
+  const miss = GMC.filter(([k]) => !String(d[k] || "").trim());
+  if (miss.length) return err("Please fill in: " + miss.map(m => m[1].replace(/ \(.*\)/, "")).join(", ") + ".");
+  if (isNaN(+d.years) || +d.years < 0) return err("Years of experience must be a number.");
+  const f = $("#gm_cv")?.files[0];
+  if (f) {
+    if (!/\.pdf$/i.test(f.name) && f.type != "application/pdf") return err("The CV must be a PDF file.");
+    if (f.size > GM_CV_MAX) return err("The CV is over 700 KB. Please upload a smaller PDF.");
+  }
+  d.name = d.name.trim(); d.email = d.email.trim().toLowerCase(); d._cvFile = f || null; return d;
+};
+const fileB64 = f => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(",")[1]); fr.onerror = () => rej(new Error("Could not read the CV file")); fr.readAsDataURL(f); });
+/* member CV files live in the groupCVs collection (never on the group document, never public). Members keep only cvId + cvName */
+async function gmStoreCV(gid, m) {
+  const f = m._cvFile; delete m._cvFile;
+  if (!f) return m;
+  m.id = m.id || "m" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  try {
+    await setDoc(doc(db, "groupCVs", gid + "_" + m.id), { groupId: gid, memberId: m.id, name: f.name, data: await fileB64(f), updated: serverTimestamp() });
+    m.cvId = m.id; m.cvName = f.name;
+  } catch (x) { toast(x && x.code == "permission-denied" ? "Member added, but the CV could not be saved: publish the latest firestore.rules (groupCVs) in Firebase Console." : "Member added, but the CV could not be saved: " + (x.message || x)); }
+  return m;
+}
+window.openMemberCV = async (gid, id) => {
+  try {
+    const d = (await getDoc(doc(db, "groupCVs", gid + "_" + id))).data();
+    if (!d || !d.data) return toast("No CV file available for this member");
+    const b = atob(d.data), a = new Uint8Array(b.length);
+    for (let i = 0; i < b.length; i++) a[i] = b.charCodeAt(i);
+    window.open(URL.createObjectURL(new Blob([a], { type: "application/pdf" })), "_blank");
+  } catch (x) { toast(x && x.code == "permission-denied" ? "You don't have permission to open this CV. If you should, publish the latest firestore.rules." : "Could not open CV: " + (x.message || x)); }
+};
+window.gmAdd = () => {
+  const d = gmRead(); if (!d) return;
+  if (GM.some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
+  GM.push(d); $("#gm_list").innerHTML = gmList(); $("#gm_form").innerHTML = gmFormInner(); $("#gm_err").textContent = "";
+};
+window.gmDel = i => { GM.splice(i, 1); $("#gm_list").innerHTML = gmList(); };
+window.newGroup = () => {
+  GM = [];
+  modal(`<h2>Create group</h2><label>Group name</label><input id="gn" placeholder="e.g. SAP delivery team"><label>Description (optional)</label><textarea id="gn_d" rows="3"></textarea>
+    <div class="sec-label">Members added</div><div id="gm_list">${gmList()}</div>${gmForm(true)}
+    <div class="srow"><button class="btn" onclick="mkGroup()">Create group</button><button class="btn o" onclick="closeM()">Cancel</button></div>`, 1);
+};
+const pubM = m => { const { email, cvId, cvName, _cvFile, ...r } = m; return r; };
+async function syncPub(gid) {
+  const g = G[gid]; if (!g || g.ownerId != me.uid) return;
+  const o = {}; ["name", "designation", "firm", "location", "industry", "website", "linkedin", "about", "skills", "photo"].forEach(k => { if (P[k] !== undefined) o[k] = P[k]; });
+  try { await setDoc(doc(db, "publicGroups", gid), { ownerId: me.uid, name: g.name, desc: g.desc || "", firm: g.firm || P.firm || "", owner: o, members: (g.members || []).map(pubM), updated: serverTimestamp() }); }
+  catch (x) { console.warn("Public group sync failed", x); }
+}
 window.mkGroup = async () => {
   const n = $("#gn").value.trim(); if (!n) return toast("Enter a group name");
-  const r = await addDoc(collection(db, "groups"), { name: n, ownerId: me.uid, ownerName: P.name, firm: P.firm || "", memberEmails: [me.email.toLowerCase()], saved: [], comments: [], created: serverTimestamp() });
-  AG = r.id; toast("Group created"); route();
+  if ($("#f_name")?.value.trim() || $("#f_email")?.value.trim()) { const d = gmRead(); if (!d) return; if (!GM.some(m => m.email == d.email)) GM.push(d); }
+  const d = { name: n, desc: $("#gn_d").value, ownerId: me.uid, ownerName: P.name, firm: P.firm || "", memberEmails: [me.email.toLowerCase()], members: GM, saved: [], comments: [] };
+  const pend = GM.map(m => m._cvFile ? m : null);
+  const clean = ms => ms.map(({ _cvFile, ...m }) => m);
+  const r = await addDoc(collection(db, "groups"), { ...d, members: clean(GM), created: serverTimestamp() });
+  let ms = [];
+  for (const m of GM) ms.push(m._cvFile ? await gmStoreCV(r.id, m) : m);
+  if (pend.some(Boolean)) await updateDoc(doc(db, "groups", r.id), { members: ms });
+  d.members = ms;
+  G[r.id] = { id: r.id, ...d }; await syncPub(r.id);
+  AG = r.id; GM = []; closeM(); toast("Group created"); route();
 };
+window.addMember = gid => {
+  if (G[gid]?.ownerId != me.uid) return toast("Only the group owner can add members");
+  modal(`<h2>Add member to ${esc(G[gid].name)}</h2>${gmForm(false)}<div class="srow"><button class="btn" onclick="saveMember('${gid}')">Save member</button><button class="btn o" onclick="closeM()">Cancel</button></div>`, 1);
+};
+window.saveMember = async gid => {
+  const d = gmRead(); if (!d) return; const g = G[gid];
+  if ((g.members || []).some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
+  const m = await gmStoreCV(gid, d);
+  const ms = [...(g.members || []), m];
+  await updateDoc(doc(db, "groups", gid), { members: ms }); g.members = ms; await syncPub(gid);
+  closeM(); toast("Member added"); route();
+};
+window.rmGMember = async (gid, i) => {
+  const g = G[gid]; if (g?.ownerId != me.uid) return toast("Only the group owner can remove members");
+  if (!confirm("Remove this member?")) return;
+  const gone = (g.members || [])[i], ms = (g.members || []).filter((_, j) => j != i);
+  if (gone?.cvId) { try { await deleteDoc(doc(db, "groupCVs", gid + "_" + gone.cvId)); } catch { } }
+  await updateDoc(doc(db, "groups", gid), { members: ms }); g.members = ms; await syncPub(gid); route();
+};
+const gMembersHtml = (g, own) => (g.members || []).map((m, i) => `<div class="pc" style="grid-template-columns:auto 1fr auto">${av(m)}<div><h3>${esc(m.name)}</h3><div class="meta">${[m.headline, m.location, m.years ? m.years + " yrs" : "", m.availability ? "Available: " + m.availability : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="mut">${esc(m.email || "")}</div><div class="tr">${tags({ ...m, location: "" })}${nsk(m)}</div></div><div class="act">${m.cvId ? `<button class="btn o s" onclick="openMemberCV('${g.id}','${esc(m.cvId)}')">📄 View CV</button>` : ""}${own ? `<button class="btn o s" onclick="rmGMember('${g.id}',${i})">Remove</button>` : ""}</div></div>`).join("") || '<div class="empty">No members yet. Use “+ Add member”.</div>';
 /* Invitation email service: create a free EmailJS account (emailjs.com), add an email service and a template, then fill these 3 values.
    Template: To = {{to_email}}, From name = {{from_name}}, Reply-To = {{reply_to}}, Subject = {{subject}}, Body = {{message}} */
 const EMAILJS = { service: "", template: "", key: "" };
 /* group account profile (editable) */
 const GF = [["name", "Full name"], ["firm", "Firm / company name"], ["designation", "Your designation / title"], ["website", "Firm website"], ["linkedin", "LinkedIn URL"],
-  ["location", "Firm location"], ["industry", "Primary industry", "ind"], ["about", "About you / the firm", "area", 1]];
+  ["location", "Firm location"], ["industry", "Primary industry", "ind"], ["skills", "Skills / expertise (comma separated)"], ["about", "About you / the firm", "area", 1]];
 const gProfile = (u, ed) => `<div class="card phead">
   <div class="hd-top"><div class="hd"><div class="avw">${av(u, "lg")}${ed ? `<button class="camb sm" title="Change profile photo" onclick="photoUI('photo')">📷</button>` : ""}</div></div>${ed ? `<button class="btn o s" style="margin-top:14px" onclick="editGProfile()">✎ Edit profile</button>` : ""}</div>
   <h2 style="margin-top:10px">${esc(u.name)}</h2>
   <div style="font-size:15px">${esc([u.designation, u.firm].filter(Boolean).join(" · ") || (ed ? "Add your designation and firm" : ""))}</div>
   <div class="mut">${[u.location, u.industry, u.email].filter(Boolean).map(esc).join(" · ")}</div>
   <div class="srow" style="margin-top:10px">${u.website ? `<a class="btn o s" target="_blank" rel="noopener" href="${esc(url(u.website))}">Website</a>` : ""}${u.linkedin ? `<a class="btn o s" target="_blank" rel="noopener" href="${esc(url(u.linkedin))}">LinkedIn</a>` : ""}</div>
-  <div class="sec-label">About</div>${u.about ? `<p style="white-space:pre-line;margin:0">${esc(u.about)}</p>` : `<div class="empty">${ed ? "Describe yourself and your firm." : "Not provided."}</div>`}</div>`;
+  ${(u.skills || []).length ? `<div class="sec-label">Skills</div><div class="tr" style="margin-top:0">${u.skills.map(x => tg("hard", x)).join("")}</div>` : ""}<div class="sec-label">About</div>${u.about ? `<p style="white-space:pre-line;margin:0">${esc(u.about)}</p>` : `<div class="empty">${ed ? "Describe yourself and your firm." : "Not provided."}</div>`}</div>`;
 window.editGProfile = () => modal(`<h2>Edit profile</h2><div class="form">${fields(GF, P)}</div>
   <div class="srow"><button class="btn" onclick="saveGProfile()">Save</button><button class="btn o" onclick="closeM()">Cancel</button></div>`, 1);
 window.saveGProfile = async () => {
   const d = read(GF); if (!d.name.trim()) return toast("Name is required");
-  await upd(d); closeM(); authBox(); route();
+  await upd(d); Object.values(G).filter(g => g.ownerId == me.uid).forEach(g => syncPub(g.id)); closeM(); authBox(); route();
 };
 /* CV files are stored in the "resumes" collection and can be opened by employers, groups and the person's group mates */
 const cvBtn = (id, u) => u && u.resumeName ? `<button class="btn o" onclick="openCV('${id}')">📄 View CV</button>` : "";
@@ -2349,37 +2617,7 @@ window.editGroup = gid => { const g = G[gid]; modal(`<h2>Edit group</h2><label>G
   <div class="srow"><button class="btn" onclick="saveGroup('${gid}')">Save</button><button class="btn o" onclick="closeM()">Cancel</button></div>`); };
 window.saveGroup = async gid => {
   const n = $("#eg_n").value.trim(); if (!n) return toast("Enter a group name");
-  await updateDoc(doc(db, "groups", gid), { name: n, desc: $("#eg_d").value }); closeM(); toast("Group updated"); route();
-};
-/* invitations: the person is added to the group only after accepting */
-window.addMember = async gid => {
-  const e = $("#am_" + gid).value.trim().toLowerCase(), g = G[gid];
-  if (g.ownerId != me.uid) return toast("Only the group owner can add members");
-  if (!/^\S+@\S+\.\S+$/.test(e)) return toast("Enter a valid email");
-  if ((g.memberEmails || []).includes(e)) return toast("Already a member");
-  let acct = null;
-  try { acct = await memberUser(e); } catch (x) { return toast("Could not check this email: " + x.message); }
-  if (!acct) return toast("No account exists with this email id.");
-  if (acct.type == "org") return toast("This email is registered as an employer / company account, so it can't be invited to a group.");
-  const my = me.email.toLowerCase(), link = location.origin + location.pathname + "#/groups";
-  try {
-    await setDoc(doc(db, "invites", gid + "_" + e), { groupId: gid, groupName: g.name, inviteeEmail: e, invitedBy: me.uid, invitedByName: P.name, invitedByEmail: my, status: "pending", created: serverTimestamp() });
-  } catch (x) { return toast("Could not send invitation: " + x.message); }
-  const subject = `${P.name} invited you to join "${g.name}" on Provynk`;
-  const text = `${P.name} (${my}) has invited you to join the group "${g.name}" on Provynk.\n\nLog in (or sign up as Consultancy / Group with this email address) and accept the invitation under My groups:\n${link}\n\nYou will only be added to the group once you accept.\n\n— Provynk`;
-  if (EMAILJS.service && EMAILJS.template && EMAILJS.key) {
-    try {
-      const r = await fetch("https://api.emailjs.com/api/v1.0/email/send", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service_id: EMAILJS.service, template_id: EMAILJS.template, user_id: EMAILJS.key,
-          template_params: { to_email: e, from_name: "Provynk", inviter_name: P.name, inviter_email: my, reply_to: my, group_name: g.name, link, subject, message: text } }) });
-      if (!r.ok) throw new Error(await r.text());
-      toast("Invitation email sent to " + e);
-    } catch (x) { toast("Invitation saved, but the email could not be sent: " + x.message); }
-  } else {
-    /* the person has an account, so the request appears in their "My groups" section */
-    toast("Request sent to " + e);
-  }
-  route();
+  await updateDoc(doc(db, "groups", gid), { name: n, desc: $("#eg_d").value }); Object.assign(G[gid], { name: n, desc: $("#eg_d").value }); await syncPub(gid); closeM(); toast("Group updated"); route();
 };
 window.cancelInv = async id => { await deleteDoc(doc(db, "invites", id)); toast("Invitation cancelled"); route(); };
 window.acceptInv = async (id, gid) => {
@@ -2431,29 +2669,23 @@ V.groups = async () => {
   try { await loadG(); } catch (e) { return $("#app").innerHTML = `<div class="page"><p>Could not load groups: ${esc(e.message)}</p></div>`; }
   const gs = Object.values(G), mail = me.email.toLowerCase();
   let inv = [], sent = [];
-  try {
-    inv = (await getDocs(query(collection(db, "invites"), where("inviteeEmail", "==", mail), where("status", "==", "pending")))).docs.map(d => ({ id: d.id, ...d.data() }));
-    sent = (await getDocs(query(collection(db, "invites"), where("invitedBy", "==", me.uid)))).docs.map(d => ({ id: d.id, ...d.data() }));
-  } catch {}
+  Object.values(G).filter(g => g.ownerId == me.uid && !PUBD.has(g.id)).forEach(g => { PUBD.add(g.id); syncPub(g.id); });
   $("#app").innerHTML = `${pHero("Consultancy / group", `Hello, ${firstName(P.name)}`, "Review talent together with your colleagues, with one shared shortlist and notes.", [[gs.length, "Groups"], [gs.reduce((n, g) => n + (g.memberEmails || []).length, 0), "Members"], [gs.reduce((n, g) => n + (g.saved || []).length, 0), "Shortlisted"], [inv.length, "Pending invites"]], `<a class="btn" href="#/talent">Search talent</a>`)}
     <div class="page"><div class="pl"><div>${gProfile(P, true)}</div><div class="side">
-      ${tipCard("How groups work", ["Create a group and give it a clear name, for example “SAP hiring panel”", "Invite colleagues by email; they join only after accepting", "Everyone searches talent and companies together", "Star people and companies to build one shared shortlist with notes"])}
-      ${chkCard("Setup checklist", [["Complete your firm profile", !!(P.firm && P.designation)], ["Add a firm website", !!P.website], ["Create your first group", gs.length > 0], ["Invite a colleague", gs.some(g => (g.memberEmails || []).length > 1) || sent.length > 0], ["Shortlist a candidate", gs.some(g => (g.saved || []).length > 0)]])}
+      ${tipCard("How groups work", ["Create a group and give it a clear name, for example “SAP hiring panel”", "Add your group members by typing in their details", "Everyone searches talent and companies together", "Star people and companies to build one shared shortlist with notes"])}
+      ${chkCard("Setup checklist", [["Complete your firm profile", !!(P.firm && P.designation)], ["Add a firm website", !!P.website], ["Create your first group", gs.length > 0], ["Add a group member", gs.some(g => (g.members || []).length > 0)], ["Shortlist a candidate", gs.some(g => (g.saved || []).length > 0)]])}
     </div></div>
     <h2 style="margin-top:28px">My groups</h2>
-    <p class="mut">A group lets colleagues from your firm review the same individuals and companies together. Invite colleagues by email; they are added to the group only after they accept the invitation.</p>
+    <p class="mut">A group lets colleagues from your firm review the same individuals and companies together. Add your members by typing in their details. Your group, its owner and members are shown publicly on the Provynk home page (members' emails and CVs are not shown).</p>
     ${inv.length ? `<div class="card"><h3>Invitations for you</h3>${inv.map(i => `<div class="pc" style="grid-template-columns:1fr auto"><div><b>${esc(i.groupName)}</b><div class="mut">Invited by ${esc(i.invitedByName)} (${esc(i.invitedByEmail)})</div></div>
       <div class="act"><button class="btn s" onclick="acceptInv('${esc(i.id)}','${esc(i.groupId)}')">Accept</button><button class="btn o s" onclick="declineInv('${esc(i.id)}')">Decline</button></div></div>`).join("")}</div>` : ""}
-    <div class="card"><div class="addc" style="margin:0"><input id="gn" placeholder="New group name (e.g. SAP hiring panel)"><button class="btn" onclick="mkGroup()">Create group</button></div></div>
+    <div class="card"><div class="srow" style="margin:0;align-items:center"><button class="btn" onclick="newGroup()">+ Create group</button><span class="mut">Name your group and type in the details of your members.</span></div></div>
     ${gs.map(g => { const own = g.ownerId == me.uid, pend = sent.filter(i => i.groupId == g.id && i.status != "accepted"); return `<div class="card"><div class="sh"><h3>${esc(g.name)}${own ? ' <span class="pod">OWNER</span>' : ""}</h3><div class="srow" style="margin:0">${own ? `<button class="btn o s" onclick="location.hash='#/analysis?g=${g.id}'">📊 Team analysis</button><button class="btn o s" onclick="editGroup('${g.id}')">✎ Edit group</button>` : ""}<button class="btn s" onclick="useGroup('${g.id}')">Search as this group</button></div></div>
       ${g.desc ? `<p class="mut" style="white-space:pre-line">${esc(g.desc)}</p>` : ""}
-      <div class="sec-label" style="margin-top:0">Members (${(g.memberEmails || []).length})</div>
-      <div id="mb_${g.id}" class="mut">Loading…</div>
-      ${own && pend.length ? `<div class="sec-label">Requests sent</div>${pend.map(i => `<div class="mut">${esc(i.inviteeEmail)} · <b>${i.status == "declined" ? "Declined" : "Pending"}</b> <a class="lnk" onclick="cancelInv('${esc(i.id)}')">${i.status == "declined" ? "✕ Dismiss" : "✕ Cancel"}</a></div>`).join("")}` : ""}
-      ${own ? `<div class="addc" style="margin-top:10px"><input id="am_${g.id}" type="email" placeholder="colleague@firm.com"><button class="btn o s" onclick="addMember('${g.id}')">Send request</button></div>` : ""}
+      <div class="sec-label" style="margin-top:0">Members (${(g.members || []).length})</div>${gMembersHtml(g, own)}${own ? `<div style="margin-top:10px"><button class="btn o s" onclick="addMember('${g.id}')">+ Add member</button></div>` : ""}
       <div class="sec-label">Shared shortlist (${(g.saved || []).length})</div><div id="sl_${g.id}" class="mut">Loading…</div></div>`; }).join("") || "<p class='mut' style='margin-top:16px'>You are not in a group yet. Create one above.</p>"}</div>
     ${pCta("Build your shared shortlist", "Search individuals and companies, then star the best fits for your group.", `<a class="btn" href="#/talent">Search talent</a>`)}`;
-    gs.forEach(g => { shortlistFill(g); membersFill(g); });
+    gs.forEach(g => { shortlistFill(g); });
 };
 
 /* ======================================================================
@@ -3154,6 +3386,171 @@ const MEDIA = {
   poster: ""
 };
 const imgTag = u => u ? `<img src="${u}" alt="" loading="lazy" onerror="this.remove()">` : "";
+/* ---------- landing: Learning & Development, public search, Find Solutions ---------- */
+const LEARN = [
+  ["AI in SAP", "Inside SAP: How We Use AI, Data & Cloud Apps to Run Better", "SAP", "https://www.youtube.com/watch?v=Sf8BANkfDGE"],
+  ["SAP Joule Studio", "What's New in SAP BTP: Joule Studio Skill Builder", "SAP", "https://www.youtube.com/watch?v=sCJ6PsskeI8"],
+  ["SAP BTP", "SAP Business Technology Platform in 2026 – Overview", "SAP Community", "https://www.youtube.com/watch?v=IuwGK1MfmY0"],
+  ["SAP Signavio", "Introducing the SAP Signavio Suite", "SAP Learning", "https://learning.sap.com/courses/introducing-business-transformation-management-for-enterprise-architects/introducing-the-sap-signavio-suite-1"],
+  ["SAP LeanIX", "Navigating the Era of AI-Native Enterprise Architecture with SAP LeanIX", "SAP", "https://www.sap.com/videos/navigating-the-era-of-ai-native-1313605"],
+  ["SAP Cloud ALM", "SAP Cloud ALM for Implementation Overview", "Services and Support from SAP", "https://www.youtube.com/watch?v=lLcVrgnbqlA"],
+  ["SAP Business Data Cloud", "SAP Business Data Cloud – Preserving Business Context for AI", "SAP", "https://www.youtube.com/watch?v=kIpnLAhc5Dc"],
+  ["SAP S/4HANA Cloud Private Edition", "SAP Private Edition – Learning and Overview Resources", "SAP", "https://developers.sap.com/concepts/sap-s4hana-cloud-private-edition/"],
+  ["SAP S/4HANA Cloud Public Edition", "SAP Public Edition – Video Library and Learning Resources", "SAP", "https://help.sap.com/docs/r/p/SAP_S4HANA_CLOUD?locale=en-US"],
+  ["SAP Transformation Strategy", "Inside SAP: How We Use AI, Data & Cloud Apps to Run Better", "SAP", "https://www.youtube.com/watch?v=Sf8BANkfDGE"]
+];
+const ytId = u => (String(u).match(/[?&]v=([\w-]{11})/) || [])[1] || "";
+const isVid = x => !!ytId(x[3]) || /sap\.com\/videos\//.test(x[3]);
+const vCard = x => { const id = ytId(x[3]); return `<a class="vcard" href="${esc(x[3])}" target="_blank" rel="noopener"><div class="th"><span>${esc(x[0])}</span>${id ? `<img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : ""}<span class="vpl">${isVid(x) ? "▶" : "↗"}</span></div>
+  <div class="bd"><span class="tp">${esc(x[0])}</span><h4>${esc(x[1])}</h4><div class="mut" style="font-size:13px">${esc(x[2])}</div></div></a>`; };
+const learnSec = () => `<section class="b" id="learn"><div class="wrap">
+  <div class="sec-h"><p class="eyebrow">Learning &amp; Development</p><h2>Learn SAP from the people who build it</h2></div>
+  <p class="sec-sub">Hand-picked videos and learning resources on the SAP topics that matter most. Click any card to open it.</p>
+  <div class="lt"><input id="l_q" placeholder="Search topic, title or publisher"><select id="l_p"><option value="">All publishers</option>${[...new Set(LEARN.map(x => x[2]))].map(p => `<option>${esc(p)}</option>`).join("")}</select><select id="l_t"><option value="">All formats</option><option value="v">Videos</option><option value="c">Courses &amp; guides</option></select></div>
+  <div class="vgrid" id="vgrid"></div><p class="mut" id="vnone" style="display:none;text-align:center">No resources match your search.</p>
+  <div style="text-align:center;margin-top:22px"><button class="btn o" id="vmore">View more</button></div></div></section>`;
+function learnInit() {
+  const g = $("#vgrid"); if (!g) return; let exp = false;
+  const L = [...LEARN].sort((a, b) => !!ytId(b[3]) - !!ytId(a[3]));
+  const draw = () => {
+    const q = $("#l_q").value.toLowerCase(), p = $("#l_p").value, t = $("#l_t").value, f = q || p || t;
+    const r = L.filter(x => (!q || x.join(" ").toLowerCase().includes(q)) && (!p || x[2] == p) && (!t || (t == "v") == isVid(x)));
+    g.innerHTML = r.slice(0, exp || f ? r.length : 4).map(vCard).join("");
+    $("#vnone").style.display = r.length ? "none" : "block";
+    const b = $("#vmore"); b.style.display = !f && r.length > 4 ? "" : "none"; b.textContent = exp ? "Show less" : "View more (" + (r.length - 4) + ")";
+  };
+  $("#vmore").onclick = () => { exp = !exp; draw(); };
+  ["l_q", "l_p", "l_t"].forEach(i => $("#" + i).oninput = draw);
+  draw();
+}
+const XTRA = `<div class="ff xt"><label>Availability</label>${msf("av", "Any", AVAIL)}</div><div class="ff xt"><label>Min. years experience</label><input id="y" type="number" min="0" placeholder="0"></div><div class="ff xt"><label>Min. ATS score</label><input id="a" type="number" min="0" max="100" placeholder="0"></div>`;
+const findSec = () => `<section class="b" id="find" style="display:none"><div class="wrap">
+  <div class="sec-h"><p class="eyebrow">Open to everyone</p><h2>Explore jobs, talent &amp; groups</h2></div>
+  <p class="sec-sub">Browse open roles, registered professionals and consultancy groups. Sign up to apply for a job or to view a full profile.</p>
+  <div id="pres" class="mut" style="margin-top:16px"></div></div></section>`;
+const PG = {};
+function findInit() {
+  const res = $("#pres"); if (!res) return;
+  let J = [], I = [], GR = [], m = "job", shown = 6, loaded = false, active = false;
+  const rows = r => r.status == "fulfilled" ? r.value.docs.map(d => ({ id: d.id, ...d.data() })) : [];
+  const tx = o => JSON.stringify(o).toLowerCase(), lc = v => !gv("l") || (v || "").toLowerCase().includes(gv("l"));
+  const pj = j => `<div class="pc"><div class="ini sq">${esc(ini(j.orgName))}</div><div><h3>${esc(j.title)}</h3><div class="meta">${[j.orgName, j.location, j.exp ? j.exp + "+ yrs experience" : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="tr">${tags({ ...j, location: "" })}</div><p class="mut">${esc((j.desc || "").slice(0, 240))}${(j.desc || "").length > 240 ? "…" : ""}</p></div>
+    <div class="act"><button class="btn s" onclick="authUI('signup','candidate')">Apply</button><button class="btn o s" onclick="viewJob('${j.id}')">View details</button></div></div>`;
+  const pi = u => `<div class="pc">${av(u)}<div><h3>${esc(u.name)}</h3><div class="meta">${[u.headline, u.years ? u.years + " yrs" : "", u.availability ? "Available: " + u.availability : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="tr">${tags(u)}${nsk(u)}</div></div>
+    <div class="act">${u.atsScore != null ? `<span class="match">ATS ${u.atsScore}</span>` : ""}<button class="btn o s" onclick="authUI('signup')">View profile</button></div></div>`;
+  const pg = g => `<div class="pc"><div class="ini sq">${esc(ini(g.name))}</div><div><h3>${esc(g.name)} <span class="pod">GROUP · ${(g.members || []).length + 1} people</span></h3><div class="meta">${[g.owner?.name ? "Owner: " + g.owner.name : "", g.firm].filter(Boolean).map(esc).join(" · ")}</div><p class="mut">${esc((g.desc || "").slice(0, 200))}</p></div>
+    <div class="act"><button class="btn o s" onclick="viewPubGroup('${g.id}')">View group</button></div></div>`;
+  const draw = () => {
+    const y = +gv("y") || 0, a = +gv("a") || 0, k = gv("k");
+    const jobs = J.filter(j => (!k || tx({ ...j, applyUrl: "", source: "" }).includes(k)) && ma(j.role, "r") && ma(j.skills, "s") && ma(j.softSkills, "ss") && lc(j.location) && ma(j.jobType, "t") && ma(j.industry, "i"))
+      .sort((p, q) => (q.created?.seconds || 0) - (p.created?.seconds || 0));
+    const inds = I.filter(u => (!k || tx([u.name, u.headline, u.about, u.skills, u.nicheSkills, u.softSkills, u.experience]).includes(k)) && ma(u.role, "r") && ma([...(u.skills || []), ...(u.nicheSkills || []), ...(u.resumeSkills || [])], "s") && ma(u.softSkills, "ss") && lc(u.location) && ma(u.jobType, "t") && ma(u.industry, "i") && ma(u.availability, "av") && (+u.years || 0) >= y && (u.atsScore || 0) >= a)
+      .sort((p, q) => (q.atsScore || 0) - (p.atsScore || 0));
+    const grps = GR.filter(g => { const ps = [g.owner || {}, ...(g.members || [])]; return (!k || tx([g.name, g.desc, g.firm, ps]).includes(k)) && ps.some(p => ma(p.role, "r") && ma([...(p.skills || []), ...(p.nicheSkills || [])], "s") && ma(p.softSkills, "ss") && lc(p.location) && ma(p.jobType, "t") && ma(p.industry, "i")); });
+    const D = { job: [jobs, pj, "Jobs", "job"], ind: [inds, pi, "Individuals", "individual"], grp: [grps, pg, "Groups", "group"] };
+    document.querySelectorAll("#ptabs button").forEach(b => { const d = D[b.dataset.m]; b.textContent = d[2] + (loaded && d[0].length ? " (" + d[0].length + ")" : ""); b.classList.toggle("on", b.dataset.m == m); });
+    $("#pbox").classList.toggle("pj", m != "ind");
+    const [list, card] = D[m];
+    res.innerHTML = !loaded ? "" : list.slice(0, shown).map(card).join("")
+      + (list.length > shown ? `<div style="text-align:center;margin:18px 0"><button class="btn o" onclick="findMore()">Load more</button></div>` : "");
+    const fs = $("#find"); if (fs) fs.style.display = active && loaded && list.length ? "" : "none";
+  };
+  const load = async () => {
+    if (loaded) return; loaded = true;
+    const [a, b, c] = await Promise.allSettled([getDocs(query(collection(db, "jobs"), limit(300))), getDocs(query(collection(db, "users"), where("type", "==", "candidate"), limit(500))), getDocs(query(collection(db, "publicGroups"), limit(200)))]);
+    J = rows(a); I = rows(b).filter(u => u.visible !== false); GR = rows(c);
+    J.forEach(j => JOBS[j.id] = j); GR.forEach(g => PG[g.id] = g); draw();
+  };
+  window.findMore = () => { shown += 6; draw(); };
+  window.findTab = t => { m = t; shown = 6; active = true; load(); draw(); };
+  window.findSearch = () => { shown = 6; active = true; load(); draw(); setTimeout(() => document.getElementById("find")?.scrollIntoView({ behavior: "smooth" }), 60); };
+  $("#ptabs").onclick = e => { const b = e.target.closest("button"); if (b) findTab(b.dataset.m); };
+  $("#fg").oninput = () => { active = true; shown = 6; draw(); };
+  draw();
+  load();
+}
+window.heroSearchGo = () => { document.getElementById("hsearch")?.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(() => document.getElementById("k")?.focus({ preventScroll: true }), 400); };
+window.findGo = t => { window.findTab && window.findTab(t); goSec("find"); };
+window.viewPubGroup = id => {
+  const g = PG[id]; if (!g) return; const o = g.owner || {};
+  modal(`<h2>${esc(g.name)}</h2>${g.desc ? `<p class="mut" style="white-space:pre-line">${esc(g.desc)}</p>` : ""}
+    <div class="sec-label">Group owner</div>${gProfile({ ...o, email: "" }, false)}
+    <div class="sec-label">Members (${(g.members || []).length})</div>
+    ${(g.members || []).map(x => `<div class="pc" style="grid-template-columns:auto 1fr">${av(x)}<div><h3>${esc(x.name)}</h3><div class="meta">${[x.headline, x.years ? x.years + " yrs experience" : "", x.location, x.availability ? "Available: " + x.availability : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="tr">${tags({ ...x, location: "" })}${nsk(x)}</div></div></div>`).join("") || '<div class="empty">No members added yet.</div>'}
+    <div class="srow" style="margin-top:16px"><button class="btn" onclick="authUI('signup')">Sign up to connect</button><button class="btn o" onclick="closeM()">Close</button></div>`, 1);
+};
+/* Find Solutions page: message is e-mailed to contactprovynk@gmail.com through FormSubmit (free, no backend) */
+const SOL_TO = "contactprovynk@gmail.com";
+const SOLF = { candidate: SU.candidate, org: SU.org, group: [...SU.group, ["members", "Number of people in your group"]] };
+V.solutions = () => {
+  const as = new URLSearchParams(location.hash.split("?")[1] || "").get("as");
+  setTimeout(() => { as && SOLF[as] && solPick(as); revealFx(".sl-card,.sl-steps,.sl-step,.sl-fh", .1); }, 0);
+  const IM = id => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=65`;
+  const OFF = [["candidate", "👤", "For individuals", "Showcase your expertise, get matched to roles that fit your skills and keep learning with curated resources.", "photo-1573164713714-d95e436ab8d6"],
+    ["org", "🏢", "For employers", "Access vetted SAP and enterprise technology specialists on contract, permanent or project basis, and hire ready-made delivery teams.", "photo-1556761175-5973dc0f32e7"],
+    ["group", "👥", "For groups", "Present your consulting team to employers who need proven delivery capacity, and review talent together.", "photo-1522071820081-009f0129c71c"]];
+  return `<div class="sv sl">
+  <div class="sv-hero"><div class="sv-bg"><img src="${IM("photo-1521737604893-d14cc237f11d")}" alt="" onerror="this.remove()"></div><div class="sv-tint"></div><span class="sv-orb o1"></span><span class="sv-orb o2"></span>
+    <div class="sv-hi"><p class="sv-eb">Talent solutions</p><h2>The right expertise, the right people, the right <b>outcome</b></h2>
+      <p class="sv-sub">Whether you are an individual, an employer or a group of people, tell us what you need and our team will get back to you.</p>
+      <div class="sv-chips"><span>Individuals</span><span>Employers</span><span>Groups</span></div>
+      <button class="btn" style="margin-top:26px" onclick="document.getElementById('solform').scrollIntoView({behavior:'smooth'})">Leave a message for us <i style="font-style:normal">→</i></button></div></div>
+  <div class="sl-sec"><div class="sec-h"><p class="eyebrow">What we offer</p><h2>Solutions for every side of the network</h2></div>
+    <div class="sl-cards">${OFF.map(([k, ic, t, d, im]) => `<div class="sl-card"><div class="sl-img"><img src="${IM(im)}" alt="" loading="lazy" onerror="this.remove()"><span class="sl-ic">${ic}</span></div>
+      <div class="sl-body"><h3>${t}</h3><p class="mut">${d}</p><button class="btn o s" onclick="solPick('${k}');document.getElementById('solform').scrollIntoView({behavior:'smooth'})">Get started <i style="font-style:normal">→</i></button></div></div>`).join("")}</div></div>
+  <div class="sl-band"><div class="sl-sec" style="padding-top:0;padding-bottom:0"><div class="sec-h"><p class="eyebrow">How it works</p><h2>Three simple steps</h2></div>
+    <div class="sl-steps">${[["Tell us who you are", "Choose individual, employer or group of people."], ["Share your details", "Fill in a short form, like sign-up. Attaching a CV or brief is optional."], ["We get back to you", "Our team replies to you by email."]].map(([t, d], i) => `<div class="sl-step"><span class="sl-n">${i + 1}</span><h3>${t}</h3><p class="mut">${d}</p></div>`).join("")}</div></div></div>
+  <section class="b" id="solform"><div class="wrap"><div class="sl-fh"><div><div class="sec-h"><p class="eyebrow">Leave a message for us</p><h2>Tell us about your need</h2></div>
+      <p class="sec-sub">First, tell us who you are:</p></div>
+      <div class="sl-fimg"><img src="${IM("photo-1486406146926-c627a92ad1ab")}" alt="" loading="lazy" onerror="this.remove()"><span class="sl-tag">✉️ We reply by email</span></div></div>
+      <div class="grid3" id="solpick">${[["candidate", "An individual", "Looking for a role or opportunities"], ["org", "An employer", "A company that wants to hire"], ["group", "A group of people", "A consultancy or team"]].map(([k, t, d]) => `<div class="card aud" style="cursor:pointer" onclick="solPick('${k}')"><h3>${t}</h3><p class="mut">${d}</p></div>`).join("")}</div>
+      <div id="solbody"></div></div></section>
+  </div>`;
+};
+window.solPick = t => {
+  const N = { candidate: "Your full name", org: "Company name", group: "Your full name" };
+  document.querySelectorAll("#solpick .card").forEach((c, i) => c.style.outline = ["candidate", "org", "group"][i] == t ? "3px solid var(--brand)" : "");
+  $("#solbody").innerHTML = `<div class="card" style="margin-top:20px"><input type="hidden" id="s_t" value="${t}"><div class="form">
+    <div class="full"><label>${N[t]} *</label><input id="s_n"></div>
+    ${t == "group" ? `<div class="full"><label>Group / firm name</label><input id="s_f"></div>` : ""}
+    <div class="full"><label>Email *</label><input id="s_e" type="email"></div><div class="full"><label>Phone (optional)</label><input id="s_ph"></div>
+    ${fields(SOLF[t], {})}
+    <div class="full"><label>Your message *</label><textarea id="s_m" rows="5"></textarea></div>
+    <div class="full"><label>Attach a document, e.g. your CV (optional, max 5 MB)</label><input id="s_file" type="file" accept=".pdf,.doc,.docx,.txt,.rtf,.png,.jpg,.jpeg"></div></div>
+    <p id="s_err" class="mut" style="color:var(--red)"></p><button class="btn" id="s_btn" onclick="solSend()">Send message</button></div>`;
+  if (me) { const ne = $("#s_e"); if (ne && !ne.value) ne.value = me.email || ""; const nn = $("#s_n"); if (nn && !nn.value && P?.type == t) nn.value = P.name || ""; }
+  $("#s_n").focus();
+};
+window.solSend = async () => {
+  const err = m => { $("#s_err").textContent = m; }, t = $("#s_t").value, n = $("#s_n").value.trim(), e = $("#s_e").value.trim(), msg = $("#s_m").value.trim(), f = $("#s_file").files[0];
+  if (!n || !/^\S+@\S+\.\S+$/.test(e) || !msg) return err("Please enter your name, a valid email and a message.");
+  if (f && f.size > 5e6) return err("The attachment is over 5 MB.");
+  const x = read(SOLF[t]), LB = { candidate: "Individual", org: "Employer", group: "Group of people" }, fd = new FormData();
+  fd.append("_subject", "Provynk enquiry (" + LB[t] + "): " + n); fd.append("_template", "table"); fd.append("_captcha", "false");
+  fd.append("I am", LB[t]); fd.append("Name", n); fd.append("email", e); fd.append("Phone", $("#s_ph").value.trim());
+  if ($("#s_f")) fd.append("Group / firm name", $("#s_f").value.trim());
+  SOLF[t].forEach(([k, l]) => fd.append(l.replace(/ \(.*\)/, ""), Array.isArray(x[k]) ? x[k].join(", ") : String(x[k] || "")));
+  fd.append("Message", msg); if (f) fd.append("attachment", f);
+  const b = $("#s_btn"); b.disabled = true; b.textContent = "Sending…"; err("");
+  try {
+    const rec = { type: t, name: n.slice(0, 120), email: e.toLowerCase().slice(0, 200), message: msg.slice(0, 5000), created: serverTimestamp(),
+      details: Object.fromEntries(SOLF[t].map(([k]) => [k, (Array.isArray(x[k]) ? x[k].join(", ") : String(x[k] || "")).slice(0, 300)])) };
+    const ph = $("#s_ph").value.trim(); if (ph) rec.phone = ph.slice(0, 40);
+    if ($("#s_f")?.value.trim()) rec.firm = $("#s_f").value.trim().slice(0, 120);
+    if (f) rec.attachmentName = f.name.slice(0, 200);
+    if (me) rec.uid = me.uid;
+    /* saved in Firestore (solutionRequests) and e-mailed through FormSubmit; the request succeeds if either one works */
+    const [fs, em] = await Promise.allSettled([
+      addDoc(collection(db, "solutionRequests"), rec),
+      fetch("https://formsubmit.co/ajax/" + SOL_TO, { method: "POST", body: fd, headers: { Accept: "application/json" } }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok || j.success === false || j.success === "false") throw new Error(j.message || "Send failed"); })
+    ]);
+    if (fs.status != "fulfilled") console.warn("solutionRequests save failed:", fs.reason);
+    if (em.status != "fulfilled") console.warn("e-mail send failed:", em.reason);
+    if (fs.status != "fulfilled" && em.status != "fulfilled") throw em.reason || fs.reason;
+    $("#solbody").innerHTML = `<div class="card empty-big" style="margin-top:20px"><div class="em">✅</div><h3>Thank you, ${esc(n.split(" ")[0])}!</h3><p class="mut">Your message has been sent to the Provynk team. We will reply to ${esc(e)} soon.</p></div>`;
+  } catch (x) { err("Could not send: " + (x.message || x) + ". Please try again or write to " + SOL_TO + "."); b.disabled = false; b.textContent = "Send message"; }
+};
+
 V.home = () => {
   const N = [[60, 60, "i"], [170, 40, "e"], [290, 70, "g"], [110, 150, "e"], [230, 160, "i"], [340, 170, "i"], [60, 250, "g"], [170, 270, "i"], [290, 270, "e"]];
   const L = [[0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [3, 4], [4, 5], [3, 6], [4, 7], [5, 8], [6, 7], [7, 8], [1, 3], [4, 8]];
@@ -3170,8 +3567,10 @@ V.home = () => {
   return `<div class="hero rg"><div class="hbg">${imgTag(MEDIA.hero)}</div><div class="tint"></div><span class="streak s1"></span><span class="streak s2"></span><span class="streak s3"></span><div class="wrap lh"><div class="rv">
       <h1>Enterprise tech talent, <b>matched with the teams that need it.</b></h1>
       <p>Provynk is a global network for SAP and enterprise technology professionals, the employers who hire them and the consultancies who evaluate them.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="abtn" onclick="authUI('signup','org')">Build your team <i>→</i></button><button class="abtn" onclick="authUI('signup','candidate')">Find your next role <i>→</i></button><a class="hl hero-login" href="#" onclick="authUI('login');return false">Already a member? <span>Log in</span></a></div>
-    </div><div class="rv d2">${mesh}</div></div><div class="scrollhint">Scroll ↓</div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="abtn" onclick="authUI('login','group')">Build your team <i>→</i></button><button class="abtn" onclick="heroSearchGo()">Find your next role <i>→</i></button><a class="hl hero-login" href="#" onclick="authUI('login');return false">Already a member? <span>Log in</span></a></div>
+    </div><div class="rv d2">${mesh}</div><div class="hsb" id="hsearch"><div class="toggle" id="ptabs"><button data-m="job" class="on">Jobs</button><button data-m="ind">Individuals</button><button data-m="grp">Groups</button></div><div id="pbox" class="pj">${filterBar({}, XTRA + `<div class="ff" style="align-self:end"><button class="btn" onclick="findSearch()">Search <i style="font-style:normal">→</i></button></div>`)}</div></div></div><div class="scrollhint">Scroll ↓</div></div>
+
+  ${findSec()}
 
   <section class="b"><div class="wrap two"><div>
       <h2>Who we are</h2>
@@ -3189,23 +3588,14 @@ V.home = () => {
   </div></section>
 
 
-  <section class="b" id="services" style="background:#fff"><div class="wrap">
-    <div class="sec-h"><p class="eyebrow">Services</p><h2>Everything you need to build an enterprise tech team</h2></div>
-    <p class="sec-sub">From a single SAP specialist to a full delivery squad, one network covers sourcing, screening and shortlisting.</p>
-    <div class="svc">${[["🧩","SAP talent sourcing","FICO, MM, SD, ABAP, S/4HANA, BTP and more, matched by role, skill, industry and availability."],["📋","Job posting & pipeline","Post roles, receive applicants and move each one through a clear hiring pipeline."],["🔎","Expert talent search","Filter by hard and soft skills, location, job type, experience and ATS score."],["👥","Group evaluation","Consultancies and hiring panels review profiles together with a shared shortlist and notes."],["📄","Resume ATS scoring","Candidates see their score, improvement tips and the jobs that fit best."],["☁️","Cloud, data & security","Beyond SAP: cloud and infrastructure, cyber security, data and analytics, software development."]].map(([i,t,d])=>`<div class="card"><div class="ic">${i}</div><h3>${t}</h3><p class="mut">${d}</p></div>`).join("")}</div>
-  </div></section>
 
-  <section class="b" id="hire"><div class="wrap">
-    <div class="sec-h"><p class="eyebrow">Hire</p><h2>Hire on-demand experts in three steps</h2></div>
-    <p class="sec-sub">Skip the noise of generic job boards. Describe the need, review matched experts, and hire the right fit for the project.</p>
-    <div class="steps">${[["Tell us what you need","Post a role or search the network by skill, module, industry and availability."],["Get matched","Review ranked profiles with ATS scores, experience and job-type preferences."],["Shortlist & hire","Save candidates, share with your team or group, and move forward with confidence."]].map(([t,d])=>`<div class="st"><h3>${t}</h3><p class="mut">${d}</p></div>`).join("")}</div>
-    <div style="text-align:center;margin-top:26px"><button class="btn" onclick="authUI('signup','org')">Start hiring</button> <button class="btn o" onclick="authUI('signup','candidate')">Join as a consultant</button></div>
-  </div></section>
+
+  ${learnSec()}
 
   <section class="b" id="news" style="background:#fff"><div class="wrap">
-    <div class="sec-h"><p class="eyebrow">Newsroom</p><h2>Latest in AI, GCCs in India &amp; IT</h2></div>
-    <p class="sec-sub">Live headlines from around the web, refreshed every time you visit.</p>
-    <div class="news-tabs" id="ntabs">${[["ai","AI"],["gcc","GCC in India"],["it","IT News"]].map(([k,l],i)=>`<button class="${i?"":"on"}" data-k="${k}" onclick="loadNews('${k}',this)">${l}</button>`).join("")}</div>
+    <div class="sec-h"><p class="eyebrow">Newsroom</p><h2>Enterprise Technology Briefing</h2></div>
+    <p class="sec-sub">Curated live headlines on SAP, AI, enterprise transformation, cloud and global capability centres, refreshed every time you visit.</p>
+    <div class="news-tabs" id="ntabs">${[["sap","SAP"],["ai","AI"],["et","Enterprise Transformation"],["cloud","Cloud Solutions"],["gcc","GCCs in India"],["it","IT News"]].map(([k,l],i)=>`<button class="${i?"":"on"}" data-k="${k}" onclick="loadNews('${k}',this)">${l}</button>`).join("")}</div>
     <p class="nstat" id="nstat"></p><div class="ngrid" id="ngrid"></div>
   </div></section>
 
@@ -3221,8 +3611,6 @@ V.home = () => {
 
   ${MEDIA.video ? `<section class="b" style="background:#fff"><div class="wrap"><h2>Meet Provynk</h2><video class="vid" controls preload="metadata" ${MEDIA.poster ? `poster="${MEDIA.poster}"` : ""} src="${MEDIA.video}"></video></div></section>` : ""}
 
-  <section class="b" style="background:#fff"><div class="wrap"><h2>Technologies we cover</h2>
-    <div class="chips" style="margin-top:12px">${TECH.map(t => `<span class="chip" style="cursor:default">${t}</span>`).join("")}</div></div></section>
 
   <div class="ctab">${imgTag(MEDIA.cta)}<div class="wrap"><h2>Ready to join Provynk?</h2><p style="color:#cfd9e6;margin:0 auto 20px">Create a free account in under a minute.</p>
     <button class="btn gold" onclick="authUI('signup')">Sign up</button> <button class="btn o" style="background:transparent;color:#fff;border-color:#8fa6c4" onclick="authUI('login')">Log in</button></div></div>
@@ -3233,7 +3621,7 @@ const CLIENTS = ["Philips|philips.com","Cardinal Health|cardinalhealth.com","Sul
 const LOGO_ALT = { TCS: ["https://cdn.simpleicons.org/tcs/1b3a8a", "https://icons.duckduckgo.com/ip3/www.tcs.com.ico"], HCL: ["https://icons.duckduckgo.com/ip3/www.hcltech.com.ico", "https://www.google.com/s2/favicons?domain=hcltech.com&sz=128"] };
 const logoSrcs = (n, d) => LOGO_ALT[n] || [`https://www.google.com/s2/favicons?domain=${d}&sz=128`, `https://icons.duckduckgo.com/ip3/www.${d}.ico`];
 function landingFx() {
-  const TH = [["Who we are", "t-sky"], ["What we do", "t-mint"], ["Everything you need", "t-ice"], ["Hire on-demand", "t-dark"], ["Latest in AI", "t-sand"], ["See how your resume", "t-sky"], ["Meet Provynk", "t-rose"], ["Technologies", "t-sun"], ["Everything you need", "t-ice"]];
+  const TH = [["Who we are", "t-sky"], ["What we do", "t-mint"], ["Everything you need", "t-ice"], ["Hire on-demand", "t-dark"], ["Enterprise Technology Briefing", "t-sand"], ["See how your resume", "t-sky"], ["Meet Provynk", "t-rose"], ["Technologies", "t-sun"], ["Everything you need", "t-ice"], ["Learn SAP", "t-mint"], ["Explore jobs", "t-sky"]];
   document.querySelectorAll("#app section.b").forEach(sec => { const h = sec.querySelector("h2")?.textContent || "", m = TH.find(([x]) => h.includes(x)); if (m) { sec.style.background = ""; sec.classList.add(m[1]); } });
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
   document.querySelectorAll("section.b .wrap > *, section.b .grid3 .card, .ctab .wrap").forEach((el, i) => { el.classList.add("rv"); el.style.transitionDelay = (i % 3) * .12 + "s"; io.observe(el); });
@@ -3247,18 +3635,19 @@ function landingFx() {
 
 /* ---------- router ---------- */
 
-/* ---------- landing helpers: news, scrolling, SAP menu ---------- */
+/* ---------- landing helpers: news, scrolling ---------- */
 document.addEventListener("change", e => { const b = e.target.closest?.(".msd"); if (b) msLabel(b); });
 document.addEventListener("click", e => document.querySelectorAll(".msd.open").forEach(m => { if (!m.contains(e.target)) m.classList.remove("open"); }));
 window.goSec = id => {
   const f = () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   if ((location.hash.slice(2) || "home").split("?")[0] == "home") f(); else { location.hash = "#/"; setTimeout(f, 450); }
 };
-window.sapGo = k => { if (me) location.hash = k == "jobs" ? "#/jobs?q=SAP" : "#/talent"; else authUI("login"); };
 const NEWS_IMG = {
   ai: ["photo-1677442136019-21780ecad995", "photo-1620712943543-bcc4688e7485", "photo-1555255707-c07966088b7b", "photo-1485827404703-89b55fcc595e"],
   gcc: ["photo-1486406146926-c627a92ad1ab", "photo-1497366216548-37526070297c", "photo-1556761175-5973dc0f32e7", "photo-1522071820081-009f0129c71c"],
   it: ["photo-1518770660439-4636190af475", "photo-1451187580459-43490279c0fa", "photo-1550751827-4bd374c3f58b", "photo-1573164713714-d95e436ab8d6"],
+  et: ["photo-1552664730-d307ca884978", "photo-1454165804606-c3d57bc86b40", "photo-1542744173-8e7e53415bb0", "photo-1556761175-5973dc0f32e7"],
+  cloud: ["photo-1451187580459-43490279c0fa", "photo-1544197150-b99a580bb7a8", "photo-1558494949-ef010cbdcc31", "photo-1518770660439-4636190af475"],
   sap: ["photo-1551288049-bebda4e38f71", "photo-1460925895917-afdab827c52f", "photo-1504384308090-c894fdcc538d", "photo-1531297484001-80022131f5a1"]
 };
 /* Optional: paste a free GNews API key (gnews.io) to add keyed, image-rich headlines. Works without it. */
@@ -3271,6 +3660,8 @@ const NEWS_SRC = {
   ai: { tag: "AI", dev: "https://dev.to/api/articles?tag=ai&per_page=10&top=7", feeds: [FD.tcai, gq("artificial intelligence when:3d")], gn: "artificial intelligence" },
   gcc: { tag: "GCC India", feeds: [gq("GCC India global capability centre when:14d"), gq("\"global capability centres\" India when:14d"), FD.ett, FD.inc, FD.ys, FD.mint, FD.bs], filter: /\bGCCs?\b|global capability|capability cent/i, gn: "GCC India global capability centre" },
   it: { tag: "IT News", feeds: [FD.ett, FD.mint, FD.bs, FD.tc, gq("IT services India when:3d")], gn: "IT services India technology" },
+  et: { tag: "Enterprise Transformation", feeds: [gq("enterprise digital transformation when:7d"), gq("ERP transformation OR \"business transformation\" technology when:14d"), FD.ett, FD.mint], filter: /transformation|ERP|modernis|moderniz|S\/4|re-?platform/i, gn: "enterprise digital transformation" },
+  cloud: { tag: "Cloud Solutions", dev: "https://dev.to/api/articles?tag=cloud&per_page=8&top=7", feeds: [gq("cloud computing AWS OR Azure OR \"Google Cloud\" when:5d"), gq("enterprise cloud migration when:14d"), FD.tc], gn: "enterprise cloud computing" },
   sap: { tag: "SAP", dev: "https://dev.to/api/articles?tag=sap&per_page=6", feeds: [gq("SAP S/4HANA OR SAP BTP when:14d")], gn: "SAP S/4HANA" }
 };
 const ago = d => { const t = Date.parse(d); if (!t) return ""; const h = Math.round((Date.now() - t) / 36e5); return h < 1 ? "Just now" : h < 24 ? h + "h ago" : Math.round(h / 24) + "d ago"; };
@@ -3364,8 +3755,8 @@ const teamCard = (m, i) => `<div class="card pf" style="margin-top:${i ? 24 : 0}
       ${(b.after || []).map(t => `<p style="margin:0 0 14px;line-height:1.7">${esc(t)}</p>`).join("")}`).join("")}
     ${m.end ? `<p style="margin:22px 0 0;font-weight:700;color:var(--navy);line-height:1.6">${esc(m.end)}</p>` : ""}
   </div></div>`;
-V.team = () => `<div class="page"><div class="sec-h"><p class="eyebrow">Our Team</p><h2>The people behind Provynk</h2></div>
-  ${TEAM.map(teamCard).join("")}</div>`;
+V.team = () => { setTimeout(() => revealFx(".tm .card.pf .in > h4, .tm .card.pf .in > p, .tm .card.pf .in > ul", .06), 0); return `<div class="page tm"><div class="sec-h"><p class="eyebrow">Our Team</p><h2>The people behind Provynk</h2></div>
+  ${TEAM.map(teamCard).join("")}</div>`; };
 V.contact = () => {
   const C = CONTACT;
   return `<div class="page"><div class="sec-h"><p class="eyebrow">Contact</p><h2>Let’s talk about your talent needs</h2></div><div class="ctgrid">
@@ -3378,19 +3769,52 @@ V.contact = () => {
       <button class="btn" onclick="authUI('signup','org')">Start hiring</button> <button class="btn o" onclick="authUI('signup','candidate')">Find a role</button></div>
   </div></div>`;
 };
-const SERVICES = [["🧩","SAP talent sourcing","FICO, MM, SD, ABAP, S/4HANA, BTP and more, matched by role, skill, industry and availability."],["📋","Job posting & pipeline","Post roles, receive applicants and move each one through a clear hiring pipeline."],["🔎","Expert talent search","Filter by hard and soft skills, location, job type, experience and ATS score."],["👥","Group evaluation","Consultancies and hiring panels review profiles together with a shared shortlist and notes."],["📄","Resume ATS scoring","Candidates see their score, improvement tips and the jobs that fit best."],["☁️","Cloud, data & security","Beyond SAP: cloud and infrastructure, cyber security, data and analytics, software development."]];
-V.services = () => `<div class="page"><div class="sec-h"><p class="eyebrow">Services</p><h2>Everything you need to build an enterprise tech team</h2></div><p class="sec-sub">From a single SAP specialist to a full delivery squad, one network covers sourcing, screening and shortlisting.</p><div class="svc">${SERVICES.map(([i, t, d]) => `<div class="card"><div class="ic">${i}</div><h3>${t}</h3><p class="mut">${d}</p></div>`).join("")}</div></div>`;
+const SERVICES = [
+  ["Explore Jobs", "Browse open SAP and enterprise tech roles and narrow them down by role, skill, industry and job type. Every listing shows the company, location and experience needed, so you can quickly see which roles fit you.", "Explore jobs", "jobs", "photo-1486406146926-c627a92ad1ab"],
+  ["Job posting & pipeline", "Post a role, receive applicants and move each one through a clear hiring pipeline. Everything about a hire stays in one place, so nobody gets lost between steps.", "Post a job", "post", "photo-1460925895917-afdab827c52f"],
+  ["Expert talent search", "Filter registered professionals by hard and soft skills, location, job type, experience and ATS score, so you find the right expert without sifting through noise.", "Search talent", "talent", "photo-1551288049-bebda4e38f71"],
+  ["Group evaluation", "Consultancies and hiring panels review profiles together, with a shared shortlist and notes that everyone in the group can see.", "Start group evaluation", "group", "photo-1522071820081-009f0129c71c"],
+  ["Resume ATS scoring", "See your resume's ATS score, get tips to improve it and find the jobs that fit it best. This needs an individual login.", "Check my resume", "ats", "photo-1531297484001-80022131f5a1"]
+];
+/* scroll-reveal helper (adds .sv-r, then .sv-on when the element enters the screen) */
+window.revealFx = (sel, step = .08) => {
+  const els = [...document.querySelectorAll(sel)];
+  if (!("IntersectionObserver" in window)) return els.forEach(e => e.classList.add("sv-on"));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const t = e.target; t.classList.add("sv-on"); io.unobserve(t); setTimeout(() => t.style.transitionDelay = "", 1500); } }), { threshold: .15 });
+  els.forEach((el, i) => { el.classList.add("sv-r"); if (step) el.style.transitionDelay = (i % 3) * step + "s"; io.observe(el); });
+};
+window.svcGo = k => {
+  const hs = tab => { location.hash = "#/"; setTimeout(() => { heroSearchGo(); if (tab) document.querySelector(`#ptabs button[data-m="${tab}"]`)?.click(); }, 450); };
+  if (k == "jobs") return me ? (location.hash = isCand() ? "#/jobs" : "#/talent") : hs("job");
+  if (k == "talent") return me ? (location.hash = isCand() ? "#/jobs" : "#/talent") : hs("ind");
+  if (k == "post") return me && isOrg() ? (location.hash = "#/dashboard?tab=post") : authUI("signup", "org");
+  if (k == "group") return me && isGrp() ? (location.hash = "#/groups") : authUI("signup", "group");
+  if (k == "ats") return me && isCand() ? (location.hash = "#/profile") : authUI("login", "candidate");
+};
+V.services = () => {
+  setTimeout(() => revealFx(".sv-row", 0), 0);
+  return `<div class="sv">
+  <div class="sv-hero"><div class="sv-bg"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=70" alt="" onerror="this.remove()"></div><div class="sv-tint"></div><span class="sv-orb o1"></span><span class="sv-orb o2"></span>
+    <div class="sv-hi"><p class="sv-eb">Services</p><h2>Everything you need to build an <b>enterprise tech team</b></h2>
+      <p class="sv-sub">From a single SAP specialist to a full delivery squad, one network covers sourcing, screening and shortlisting.</p>
+      <div class="sv-chips"><span>Sourcing</span><span>Screening</span><span>Shortlisting</span></div></div></div>
+  <div class="sv-list">${SERVICES.map(([t, d, b, k, im], i) => `<div class="sv-row"><div class="sv-img"><div class="sv-ph"><img src="https://images.unsplash.com/${im}?auto=format&fit=crop&w=900&q=65" alt="" loading="lazy" onerror="this.remove()"></div><span class="sv-num">0${i + 1}</span></div>
+    <div class="sv-txt"><p class="sv-k">Service 0${i + 1}</p><h3>${t}</h3><span class="sv-bar"></span><p class="mut">${d}</p><button class="btn" onclick="svcGo('${k}')">${b} <i style="font-style:normal">→</i></button></div></div>`).join("")}</div>
+  <div class="sv-cta"><div><h3>Not sure where to start?</h3><p>Tell us what you need and our team will get back to you.</p></div><button class="btn gold" onclick="location.hash='#/solutions'">Find solutions →</button></div>
+  </div>`;
+};
+V.learn = () => { setTimeout(learnInit, 0); return `<div class="page">${learnSec()}</div>`; };
 V.blog = () => { setTimeout(() => renderNews("sap", $("#bgrid")), 0); return `<div class="page"><div class="sec-h"><p class="eyebrow">SAP Blog</p><h2>Latest SAP news &amp; insights</h2></div><p class="sec-sub">Fresh headlines on SAP S/4HANA, BTP and the wider SAP ecosystem.</p><div class="ngrid" id="bgrid"></div></div>`; };
 
 async function route() {
   redraw = () => {};
   let h = (location.hash.slice(2) || "home").split("?")[0];
-  if (!me && !["team", "contact", "blog"].includes(h)) h = "home";
+  if (!me && !["team", "contact", "blog", "solutions", "services"].includes(h)) h = "home";
   else if (h == "home") { location.hash = homeHash(); return; }
   const v = V[h] || V.home;
   if (!["team", "contact", "blog"].includes(h)) { /* landing & app views unchanged */ }
   const o = await v();
-  if (typeof o == "string") { $("#app").innerHTML = o; if (h == "home") { landingFx(); renderNews("ai", $("#ngrid")); } }
+  if (typeof o == "string") { $("#app").innerHTML = o; if (h == "home") { landingFx(); renderNews("sap", $("#ngrid")); learnInit(); findInit(); } }
   window.scrollTo(0, 0);
 }
 async function count() {
@@ -3429,7 +3853,7 @@ window.checkVer = async silent => {
 };
 window.addEventListener("focus", () => { if (me && !me.emailVerified) checkVer(true); });
 /* every action that writes data requires a verified email (the security rules enforce this too) */
-["upd", "post", "apply", "saveJob", "delJob", "setSt", "mkGroup", "addMember", "rmMember", "gToggle", "gNote", "toggleSave",
+["upd", "post", "apply", "saveJob", "delJob", "setSt", "mkGroup", "addMember", "saveMember", "rmGMember", "rmMember", "gToggle", "gNote", "toggleSave",
  "saveGProfile", "saveGroup", "cancelInv", "acceptInv", "declineInv", "saveSec", "delSec", "saveIntro", "saveAbout", "saveSkills", "saveOrg", "cropSave", "resume"].forEach(n => {
   const f = window[n]; if (f) window[n] = (...a) => ver() ? f(...a) : undefined;
 });
