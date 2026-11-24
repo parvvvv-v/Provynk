@@ -1305,6 +1305,55 @@ img,svg,video{max-width:100%}
 @media(max-width:860px){.hero.rg .lh{grid-template-columns:1fr}.hsb{max-width:100%}.hsb .toggle{flex-wrap:wrap}}
 @media(max-width:600px){.scrollhint{display:none}.hero.rg{padding-bottom:48px}.hsb .fgrid{padding:18px 14px 16px}}
 @media(min-width:601px) and (max-width:1023px){.hero.rg h1{font-size:clamp(34px,6vw,52px)}}
+/* ===== Founder command centre ===== */
+.fd{--fb:#0b1220;--fb2:#111a2e;--fc:#18233b;--fl:rgba(255,255,255,.08);--fa:#38bdf8;--fg:#34d399;--fo:#fbbf24;--fr:#f87171;--fp:#a78bfa;background:var(--fb);color:#e5ecf6;min-height:calc(100vh - 66px);display:grid;grid-template-columns:230px 1fr;font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+.fd *{box-sizing:border-box}
+.fd-side{background:var(--fb2);border-right:1px solid var(--fl);padding:20px 12px;position:sticky;top:66px;height:calc(100vh - 66px);overflow:auto}
+.fd-brand{display:flex;gap:10px;align-items:center;padding:4px 10px 18px}
+.fd-brand i{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--fa),var(--fp));display:grid;place-items:center;font-style:normal;font-weight:800;color:#06101f;animation:fdpulse 3s ease-in-out infinite}
+.fd-brand b{display:block;font-size:14px}.fd-brand span{font-size:11px;color:#8da2c0}
+.fd-side button{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;color:#a9bad3;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13.5px;margin-bottom:2px;transition:all .2s}
+.fd-side button:hover{background:var(--fc);color:#fff;transform:translateX(3px)}
+.fd-side button.on{background:linear-gradient(90deg,rgba(56,189,248,.22),rgba(167,139,250,.12));color:#fff;box-shadow:inset 3px 0 0 var(--fa)}
+.fd-side em{margin-left:auto;font-style:normal;font-size:11px;background:var(--fc);padding:1px 8px;border-radius:99px;color:#cfe0f7}
+.fd-main{padding:26px 28px 60px;min-width:0}
+.fd-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:22px;animation:fdin .6s both}
+.fd-top h1{margin:0;font-size:28px;letter-spacing:-.6px;background:linear-gradient(90deg,#fff,var(--fa));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fd-top p{margin:4px 0 0;color:#8da2c0;font-size:13px}
+.fd-btn{background:linear-gradient(135deg,var(--fa),var(--fp));color:#06101f;border:0;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px;transition:transform .2s,box-shadow .2s}
+.fd-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(56,189,248,.35)}
+.fd-btn.g{background:var(--fc);color:#dbe8fa;border:1px solid var(--fl)}
+.fd-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:20px}
+.fd-k{background:var(--fb2);border:1px solid var(--fl);border-radius:14px;padding:16px;position:relative;overflow:hidden;animation:fdin .6s both;transition:transform .25s,border-color .25s}
+.fd-k:hover{transform:translateY(-4px);border-color:var(--fa)}
+.fd-k:after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:var(--kc,var(--fa));opacity:.14}
+.fd-k b{display:block;font-size:30px;letter-spacing:-1px}.fd-k span{font-size:12px;color:#8da2c0}
+.fd-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-bottom:18px}
+.fd-c{background:var(--fb2);border:1px solid var(--fl);border-radius:14px;padding:16px;grid-column:span 6;min-width:0;animation:fdin .7s both}
+.fd-c.w4{grid-column:span 4}.fd-c.w8{grid-column:span 8}.fd-c.w12{grid-column:span 12}
+.fd-c h4{margin:0 0 12px;font-size:13px;color:#cfe0f7;letter-spacing:.2px}
+.fd-c canvas{max-height:300px}
+.fd-tools{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px;align-items:center}
+.fd-tools input{background:var(--fc);border:1px solid var(--fl);color:#fff;border-radius:10px;padding:9px 12px;min-width:240px;outline:none}
+.fd-tools input:focus{border-color:var(--fa)}
+.fd-tw{overflow:auto;max-height:560px;border:1px solid var(--fl);border-radius:12px}
+.fd table{width:100%;border-collapse:collapse;font-size:12.5px}
+.fd th{position:sticky;top:0;background:#0f1a2f;text-align:left;padding:10px;color:#9fb3d1;font-size:11px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--fl)}
+.fd th:hover{color:#fff}
+.fd td{padding:9px 10px;border-bottom:1px solid var(--fl);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fd tbody tr{cursor:pointer;transition:background .15s;animation:fdrow .4s both}
+.fd tbody tr:hover td{background:rgba(56,189,248,.08)}
+.fd-pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11px;background:var(--fc);color:#cfe0f7}
+.fd-pill.g{background:rgba(52,211,153,.16);color:var(--fg)}.fd-pill.o{background:rgba(251,191,36,.16);color:var(--fo)}.fd-pill.r{background:rgba(248,113,113,.16);color:var(--fr)}.fd-pill.a{background:rgba(56,189,248,.16);color:var(--fa)}
+.fd-math{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.fd-math div{background:var(--fc);border-radius:10px;padding:10px 12px}.fd-math b{display:block;font-size:18px}.fd-math span{font-size:11px;color:#8da2c0}
+.fd-warn{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);color:#fecaca;padding:10px 14px;border-radius:10px;margin-bottom:16px;font-size:13px}
+.fd-det{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;font-size:13px;max-height:60vh;overflow:auto}
+.fd-det b{color:#64748b;font-weight:600}.fd-det span{word-break:break-word;color:#0f172a}
+@keyframes fdin{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fdrow{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes fdpulse{50%{box-shadow:0 0 0 8px rgba(56,189,248,.15)}}
+@media(max-width:900px){.fd{grid-template-columns:1fr}.fd-side{position:static;height:auto;display:flex;overflow:auto;gap:4px;padding:10px}.fd-side button{white-space:nowrap;width:auto}.fd-brand{display:none}.fd-c,.fd-c.w4,.fd-c.w8{grid-column:span 12}.fd-main{padding:18px 14px 50px}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
 </head>
@@ -1376,7 +1425,10 @@ const isOrg = () => P?.type === "org";
 const isGrp = () => P?.type === "group";
 const isCand = () => P?.type === "candidate";
 const isHire = () => !!P && P.type !== "candidate";
-const homeHash = () => P?.type === "org" ? "#/dashboard" : P?.type === "group" ? "#/groups" : "#/profile";
+const FOUNDER_EMAIL = "contactprovynk@gmail.com", FOUNDER_HASH = "3e7ca8363551622b5269518273bdb94e94bd890444d43baadbd5be8fe4187517";
+const isFounder = () => P?.type === "founder";
+const sha256 = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, "0")).join("");
+const homeHash = () => P?.type === "founder" ? "#/founder" : P?.type === "org" ? "#/dashboard" : P?.type === "group" ? "#/groups" : "#/profile";
 const av = (u, c = "") => u.photo ? `<img class="ini ${c}" src="${esc(u.photo)}" alt="">` : `<div class="ini ${c}">${esc(ini(u.name))}</div>`;
 const url = u => /^https?:\/\//i.test(u) ? u : "https://" + u;
 const tg = (c, x) => x ? (["role", "jobtype", "industry"].includes(c) ? csv(x) : [x]).map(v => `<span class="tag ${c}">${esc(v)}</span>`).join("") : "";
@@ -1406,6 +1458,7 @@ function nav() {
     $("#nav").innerHTML = `<a class="nv" href="#/services">Services</a><a class="nv" href="#/team">Our Team</a><a class="nv" href="#/contact">Contact</a><a class="nv" onclick="goSec('learn')">Learn</a>`;
     return;
   }
+  if (isFounder()) { $("#nav").innerHTML = `<a class="nv" href="#/founder">Founder dashboard</a><a class="nv" href="#/services">Services</a><a class="nv" href="#/team">Our Team</a><a class="nv" href="#/contact">Contact</a>`; return; }
   const cand = isCand(), emp = isOrg(), grp = isGrp();
   $("#nav").innerHTML =
     (cand ? `<div class="dd"><a href="#/jobs" tabindex="0">Candidates</a><div>
@@ -1648,7 +1701,19 @@ window.doAuth = async mode => {
     if (!p) throw { message: "Enter your password." };
     if (mode == "login") {
       SIGNUP = true;
-      await signInWithEmailAndPassword(auth, e, p);
+      try { await signInWithEmailAndPassword(auth, e, p); }
+      catch (x) {
+        /* first ever founder login: create the founder's Firebase account (only when the password matches), then verify the email */
+        if (e.toLowerCase() === FOUNDER_EMAIL && /user-not-found|invalid-credential|invalid-login/.test(x.code || "") && await sha256(p) === FOUNDER_HASH) {
+          let c; try { c = await createUserWithEmailAndPassword(auth, e, p); } catch { throw x; }
+          PEND = { user: c.user, d: null };
+          const sent = await sendVerif(c.user, true, true);
+          showVerify(e);
+          if (!sent) { const ve = $("#v_err"); if (ve) ve.textContent = "Account created, but the verification email could not be sent. Press Resend email."; }
+          return;
+        }
+        throw x;
+      }
       const u = auth.currentUser; SIGNUP = false;
       if (!u.emailVerified) {
         /* no new email is sent here (that is what gets a network blocked); the person lands on the verify step and can press Resend */
@@ -1659,7 +1724,7 @@ window.doAuth = async mode => {
         return;
       }
       const t0 = $("#a_t")?.value;
-      if (t0) {
+      if (t0 && e.toLowerCase() !== FOUNDER_EMAIL) {
         let ty = ""; try { ty = (await getDoc(doc(db, "users", u.uid))).data()?.type || ""; } catch {}
         if (ty && ty != t0) { await signOut(auth); throw { message: "This email is registered as " + ({ candidate: "an Individual", group: "a Group owner", org: "an Employer" }[ty]) + " account. Please choose the matching login type." }; }
       }
@@ -1694,6 +1759,10 @@ window.doAuth = async mode => {
 window.logout = () => signOut(auth);
 
 async function loadUser(u) {
+  if (u.emailVerified && (u.email || "").toLowerCase() === FOUNDER_EMAIL) {
+    me = u; P = { type: "founder", name: FOUNDER.name, email: FOUNDER_EMAIL, photo: FOUNDER.photo };
+    shell(); return;
+  }
   let prof = null;
   for (let i = 0; i < 3 && !prof; i++) {
     try { prof = (await getDoc(doc(db, "users", u.uid))).data(); } catch {}
@@ -3815,6 +3884,237 @@ V.services = () => {
 };
 V.learn = () => { setTimeout(learnInit, 0); return `<div class="page">${learnSec()}</div>`; };
 V.blog = () => { setTimeout(() => renderNews("sap", $("#bgrid")), 0); return `<div class="page"><div class="sec-h"><p class="eyebrow">SAP Blog</p><h2>Latest SAP news &amp; insights</h2></div><p class="sec-sub">Fresh headlines on SAP S/4HANA, BTP and the wider SAP ecosystem.</p><div class="ngrid" id="bgrid"></div></div>`; };
+
+/* ================= FOUNDER COMMAND CENTRE ================= */
+const FD = { tab: "ov", D: null, S: {}, ch: [], qs: {}, srt: {}, at: null };
+const FD_TABS = [["ov", "📊", "Overview"], ["ind", "👤", "Individuals"], ["org", "🏢", "Employers"], ["grp", "👥", "Groups"], ["job", "💼", "Job postings"], ["app", "🤝", "Hirings & applications"], ["cv", "📄", "Resumes"], ["inv", "✉️", "Invites & mail"], ["enq", "📨", "Enquiries"], ["exp", "📥", "Excel & reports"]];
+const FDC = ["#38bdf8", "#34d399", "#fbbf24", "#f87171", "#a78bfa", "#fb923c", "#2dd4bf", "#f472b6", "#60a5fa", "#a3e635"];
+const fdTs = v => v?.toDate ? v.toDate() : v?.seconds ? new Date(v.seconds * 1000) : v ? new Date(v) : null;
+const fdDate = v => { const d = fdTs(v); return d && !isNaN(d) ? d.toISOString().slice(0, 10) : ""; };
+const fdFlat = v => v == null ? "" : Array.isArray(v) ? v.map(fdFlat).join(", ") : v?.toDate ? fdDate(v) : typeof v == "object" ? JSON.stringify(v) : v;
+const fdCnt = (a, f) => { const o = {}; a.forEach(x => { const k = f(x); (Array.isArray(k) ? k : [k]).forEach(v => { v = String(v ?? "").trim(); if (v) o[v] = (o[v] || 0) + 1; }); }); return o; };
+const fdTop = (o, n = 8) => Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, n);
+const fdList = v => Array.isArray(v) ? v : csv(v);
+const fdMonth = v => { const d = fdTs(v); return d && !isNaN(d) ? d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") : null; };
+function fdSeries(lists) {
+  const all = lists.map(l => fdCnt(l, x => fdMonth(x.created || x.updated)));
+  const ks = [...new Set(all.flatMap(o => Object.keys(o)))].sort();
+  if (!ks.length) return { labels: [], data: lists.map(() => []) };
+  const labels = []; let [y, m] = ks[0].split("-").map(Number); const [ey, em] = ks[ks.length - 1].split("-").map(Number);
+  while (y < ey || (y == ey && m <= em)) { labels.push(y + "-" + String(m).padStart(2, "0")); if (++m > 12) { m = 1; y++; } }
+  return { labels, data: all.map(o => labels.map(k => o[k] || 0)) };
+}
+const fdStats = a => {
+  a = a.map(Number).filter(isFinite).sort((x, y) => x - y); if (!a.length) return null;
+  const n = a.length, mean = a.reduce((s, x) => s + x, 0) / n, sd = Math.sqrt(a.reduce((s, x) => s + (x - mean) ** 2, 0) / n);
+  const q = p => { const i = (n - 1) * p, l = Math.floor(i); return a[l] + (a[Math.min(l + 1, n - 1)] - a[l]) * (i - l); };
+  return { n, mean, sd, min: a[0], max: a[n - 1], med: q(.5), q1: q(.25), q3: q(.75) };
+};
+const fdReg = pts => {
+  const n = pts.length; if (n < 2) return null;
+  const sx = pts.reduce((s, p) => s + p[0], 0), sy = pts.reduce((s, p) => s + p[1], 0), sxy = pts.reduce((s, p) => s + p[0] * p[1], 0), sxx = pts.reduce((s, p) => s + p[0] ** 2, 0), syy = pts.reduce((s, p) => s + p[1] ** 2, 0);
+  const d = n * sxx - sx * sx; if (!d) return null;
+  const b = (n * sxy - sx * sy) / d, a = (sy - b * sx) / n, r = (n * sxy - sx * sy) / Math.sqrt(d * (n * syy - sy * sy) || 1);
+  return { a, b, r2: r * r };
+};
+const f1 = x => x == null || !isFinite(x) ? "–" : (Math.round(x * 100) / 100).toString();
+
+async function fdLoad() {
+  const names = ["users", "jobs", "applications", "groups", "publicGroups", "resumes", "invites", "solutionRequests", "mail", "groupCVs"];
+  const res = await Promise.allSettled(names.map(n => getDocs(collection(db, n))));
+  const D = { bad: [] };
+  res.forEach((r, i) => {
+    if (r.status == "fulfilled") D[names[i]] = r.value.docs.map(d => { const o = { id: d.id, ...d.data() }; if (names[i] == "resumes") { o.kb = Math.round((o.data || "").length * .75 / 1024); o.hasFile = !!o.data; delete o.data; } return o; });
+    else { D[names[i]] = []; D.bad.push(names[i]); }
+  });
+  return D;
+}
+
+function fdSpecs(D) {
+  const uMap = Object.fromEntries(D.users.map(u => [u.id, u]));
+  const un = id => uMap[id]?.name || id || "";
+  const cand = D.users.filter(u => u.type == "candidate"), orgs = D.users.filter(u => u.type == "org"), gown = D.users.filter(u => u.type == "group");
+  const appsByJob = fdCnt(D.applications, a => a.jobId), appsByOrg = fdCnt(D.applications, a => a.orgId), jobsByOrg = fdCnt(D.jobs, j => j.orgId);
+  const resByUid = Object.fromEntries(D.resumes.map(r => [r.id, r]));
+  const grpByOwner = fdCnt(D.groups, g => g.ownerId);
+  const C = { uMap, un, cand, orgs, gown, appsByJob, appsByOrg, jobsByOrg, resByUid, offers: D.applications.filter(a => a.status == "Offer") };
+  const dt = r => fdDate(r.created);
+  const S = {
+    ind: ["Individuals", [["Name", r => r.name], ["Email", r => r.email], ["Headline", r => r.headline], ["Role", r => fdFlat(r.role)], ["Years", r => r.years], ["Location", r => r.location], ["Availability", r => r.availability], ["Job type", r => r.jobType], ["Industry", r => fdFlat(r.industry)], ["Skills", r => fdFlat(r.skills)], ["Resume", r => resByUid[r.id] ? "Yes" : "No"], ["Joined", dt]], cand],
+    org: ["Employers / companies", [["Company", r => r.name], ["Type", r => r.orgKind], ["Login email", r => r.email], ["Hiring contact", r => r.contactEmail], ["Website", r => r.website], ["Location", r => r.location], ["Industry", r => fdFlat(r.industry)], ["Team size", r => r.size], ["Founded", r => r.founded], ["Jobs posted", r => jobsByOrg[r.id] || 0], ["Applicants", r => appsByOrg[r.id] || 0], ["Joined", dt]], orgs],
+    gown: ["Group owners", [["Name", r => r.name], ["Firm", r => r.firm], ["Designation", r => r.designation], ["Email", r => r.email], ["Location", r => r.location], ["Industry", r => fdFlat(r.industry)], ["Website", r => r.website], ["Groups owned", r => grpByOwner[r.id] || 0], ["Joined", dt]], gown],
+    grp: ["Groups", [["Group", r => r.name], ["Owner", r => un(r.ownerId)], ["Members", r => (r.memberEmails || []).length], ["Member emails", r => fdFlat(r.memberEmails)], ["Shortlisted", r => Object.keys(r.saved || {}).length || (Array.isArray(r.saved) ? r.saved.length : 0)], ["Created", dt]], D.groups],
+    job: ["Job postings", [["Title", r => r.title], ["Employer", r => r.orgName || un(r.orgId)], ["Role", r => fdFlat(r.role)], ["Location", r => r.location], ["Job type", r => fdFlat(r.jobType)], ["Industry", r => fdFlat(r.industry)], ["Experience", r => r.exp], ["Skills", r => fdFlat(r.skills)], ["Applicants", r => appsByJob[r.id] || 0], ["Posted", dt]], D.jobs],
+    app: ["Applications & hiring pipeline", [["Candidate", r => r.candidateName || un(r.candidateId)], ["Job", r => r.jobTitle], ["Employer", r => un(r.orgId)], ["Status", r => r.status, "pill"], ["Applied", dt]], D.applications],
+    hire: ["Hires (status = Offer)", [["Candidate", r => r.candidateName || un(r.candidateId)], ["Job", r => r.jobTitle], ["Employer", r => un(r.orgId)], ["Date", dt]], C.offers],
+    cv: ["Resumes", [["Person", r => un(r.id)], ["File", r => r.name], ["Size (KB)", r => r.kb], ["Shared with groups", r => (r.groupIds || []).length], ["Updated", r => fdDate(r.updated)]], D.resumes],
+    inv: ["Group invitations", [["Group", r => D.groups.find(g => g.id == r.groupId)?.name || r.groupId], ["Invited by", r => un(r.invitedBy)], ["Invitee", r => r.inviteeEmail], ["Status", r => r.status, "pill"], ["Sent", dt]], D.invites],
+    mail: ["Outgoing emails", [["To", r => fdFlat(r.to)], ["Reply-to", r => r.replyTo], ["Subject", r => r.message?.subject]], D.mail],
+    enq: ["Find-Solutions enquiries", [["Type", r => r.type], ["Name", r => r.name], ["Email", r => r.email], ["Phone", r => r.phone], ["Firm", r => r.firm], ["Message", r => r.message], ["Attachment", r => r.attachmentName], ["Received", dt]], D.solutionRequests],
+    gcv: ["Group member CVs (typed by owners)", [["Group", r => D.groups.find(g => g.id == r.groupId)?.name || r.groupId], ["Member", r => r.name || r.memberId], ["Email", r => r.email], ["Role", r => fdFlat(r.role)], ["Skills", r => fdFlat(r.skills)]], D.groupCVs]
+  };
+  Object.values(S).forEach(t => { t.push(t[2].map(r => t[1].map(c => fdFlat(c[1](r))))); });
+  FD.S = S; FD.C = C; return S;
+}
+
+const fdPillCls = v => ({ Offer: "g", accepted: "g", Confirmed: "g", Rejected: "r", declined: "r", Interview: "o", pending: "o", Screened: "o", Applied: "a" }[v] || "");
+function fdTable(id) {
+  const t = FD.S[id];
+  return `<div class="fd-c w12"><h4>${t[0]} <span class="fd-pill a" id="${id}_n"></span></h4><div class="fd-tools"><input placeholder="Search ${t[0].toLowerCase()}…" value="${esc(FD.qs[id] || "")}" oninput="fdQ('${id}',this.value)"><button class="fd-btn g" onclick="fdXls('${id}')">⬇ Excel sheet</button><button class="fd-btn g" onclick="fdCsv('${id}')">⬇ CSV</button></div><div class="fd-tw"><table><thead id="${id}_h"></thead><tbody id="${id}_b"></tbody></table></div></div>`;
+}
+function fdFill(id) {
+  const t = FD.S[id], h = $("#" + id + "_h"), b = $("#" + id + "_b"); if (!t || !h || !b) return;
+  const q = (FD.qs[id] || "").toLowerCase(), s = FD.srt[id];
+  let idx = t[3].map((v, i) => i).filter(i => !q || t[3][i].join(" ").toLowerCase().includes(q));
+  if (s) idx.sort((x, y) => { const a = t[3][x][s.c], c = t[3][y][s.c], na = a !== "" && isFinite(a), nc = c !== "" && isFinite(c); return (na && nc ? a - c : String(a).localeCompare(String(c))) * s.d; });
+  h.innerHTML = `<tr>${t[1].map((c, j) => `<th onclick="fdSort('${id}',${j})">${c[0]}${s && s.c == j ? (s.d > 0 ? " ▲" : " ▼") : ""}</th>`).join("")}</tr>`;
+  b.innerHTML = idx.slice(0, 300).map((i, k) => `<tr style="animation-delay:${Math.min(k, 20) * 18}ms" onclick="fdDet('${id}',${i})">${t[3][i].map((v, j) => `<td title="${esc(v)}">${t[1][j][2] == "pill" && v ? `<span class="fd-pill ${fdPillCls(v)}">${esc(v)}</span>` : esc(v)}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="${t[1].length}" style="text-align:center;color:#8da2c0;padding:24px">No records</td></tr>`;
+  $("#" + id + "_n").textContent = (idx.length == t[2].length ? idx.length : idx.length + " of " + t[2].length) + (idx.length > 300 ? " (first 300 shown, export for all)" : "");
+}
+window.fdQ = (id, v) => { FD.qs[id] = v; fdFill(id); };
+window.fdSort = (id, c) => { const s = FD.srt[id]; FD.srt[id] = { c, d: s && s.c == c ? -s.d : 1 }; fdFill(id); };
+window.fdDet = (id, i) => {
+  const t = FD.S[id], r = t[2][i];
+  const keys = Object.keys(r).filter(k => k != "data");
+  modal(`<h2>${esc(t[1][0][1](r) || t[0])}</h2><p class="mut">${esc(t[0])} · full record</p><div class="fd-det">${keys.map(k => `<b>${esc(k)}</b><span>${esc(String(fdFlat(r[k])))}</span>`).join("")}</div>
+    <div class="srow" style="margin-top:14px">${id == "cv" || (id == "ind" && FD.C.resByUid[r.id]) ? `<button class="btn" onclick="openCV('${r.id}')">📄 Open CV</button>` : ""}<button class="btn o" onclick="closeM()">Close</button></div>`, true);
+};
+const fdRowsObj = id => { const t = FD.S[id]; return t[3].map(v => Object.fromEntries(t[1].map((c, j) => [c[0], v[j]]))); };
+const fdFile = (n, ext) => `provynk-${n}-${new Date().toISOString().slice(0, 10)}.${ext}`;
+window.fdXls = id => { const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(fdRowsObj(id)), FD.S[id][0].slice(0, 31).replace(/[\\\/?*\[\]:]/g, "")); XLSX.writeFile(wb, fdFile(id, "xlsx")); };
+window.fdCsv = id => { const c = XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet(fdRowsObj(id))), a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["\ufeff" + c], { type: "text/csv" })); a.download = fdFile(id, "csv"); a.click(); };
+window.fdAll = () => {
+  const wb = XLSX.utils.book_new(), K = fdKpis();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["Metric", "Value"], ...K.map(k => [k[0], +(+k[1]).toFixed(2)])]), "Summary");
+  const m = fdSeries([FD.D.users, FD.D.jobs, FD.D.applications]);
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([["Month", "New users", "New jobs", "New applications"], ...m.labels.map((l, i) => [l, m.data[0][i], m.data[1][i], m.data[2][i]])]), "Monthly growth");
+  Object.keys(FD.S).forEach(id => XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(fdRowsObj(id)), FD.S[id][0].slice(0, 31).replace(/[\\\/?*\[\]:]/g, "")));
+  XLSX.writeFile(wb, fdFile("full-platform-report", "xlsx"));
+};
+function fdKpis() {
+  const D = FD.D, C = FD.C, n = D.applications.length, off = C.offers.length;
+  return [["Individuals", C.cand.length, "#38bdf8"], ["Employers", C.orgs.length, "#34d399"], ["Group owners", C.gown.length, "#a78bfa"], ["Groups", D.groups.length, "#f472b6"], ["Job postings", D.jobs.length, "#fbbf24"], ["Applications", n, "#60a5fa"], ["Hires (Offers)", off, "#34d399"], ["Resumes", D.resumes.length, "#fb923c"], ["Enquiries", D.solutionRequests.length, "#2dd4bf"], ["Pending invites", D.invites.filter(i => i.status == "pending").length, "#f87171"], ["Hire rate %", n ? off / n * 100 : 0, "#a3e635", 1], ["Avg applicants / job", D.jobs.length ? n / D.jobs.length : 0, "#38bdf8", 1]];
+}
+const kpiHtml = list => `<div class="fd-kpis">${list.map(k => `<div class="fd-k" style="--kc:${k[2]}"><b class="fd-n" data-n="${k[1]}" data-d="${k[3] || 0}">0</b><span>${k[0]}</span></div>`).join("")}</div>`;
+const cardHtml = (id, title, w = "") => `<div class="fd-c ${w}"><h4>${title}</h4><canvas id="${id}"></canvas></div>`;
+const mathBox = (label, s) => s ? `<div class="fd-c w12"><h4>🧮 ${label} · n = ${s.n}</h4><div class="fd-math">${[["Mean", s.mean], ["Median", s.med], ["Std dev", s.sd], ["Min", s.min], ["Q1", s.q1], ["Q3", s.q3], ["Max", s.max]].map(([l, v]) => `<div><b>${f1(v)}</b><span>${l}</span></div>`).join("")}</div></div>` : "";
+
+function fdChart(id, type, labels, sets, o = {}) {
+  const el = document.getElementById(id); if (!el || !window.Chart) return;
+  const pie = ["doughnut", "pie", "polarArea"].includes(type), grid = { color: "rgba(255,255,255,.06)" }, tick = { color: "#8da2c0" };
+  FD.ch.push(new Chart(el, {
+    type, data: { labels, datasets: sets.map((s, i) => ({ borderWidth: pie ? 0 : 2, tension: .35, borderRadius: type == "bar" ? 6 : 0, borderColor: FDC[i % 10], backgroundColor: pie ? labels.map((_, j) => FDC[j % 10]) : FDC[i % 10] + (type == "line" ? "33" : "cc"), fill: type == "line" && !!o.fill, ...s })) },
+    options: { indexAxis: o.h ? "y" : "x", responsive: true, animation: { duration: 1400, easing: "easeOutQuart" }, plugins: { legend: { display: pie || sets.length > 1, labels: { color: "#cfe0f7" } } }, scales: pie ? {} : { x: { ticks: tick, grid, ...(o.x || {}) }, y: { ticks: tick, grid, beginAtZero: true, ...(o.y || {}) } } }
+  }));
+}
+const fdBar = (id, pairs, o = {}) => fdChart(id, o.type || "bar", pairs.map(p => p[0]), [{ label: o.label || "Count", data: pairs.map(p => p[1]) }], o);
+
+function fdCharts(tab) {
+  const D = FD.D, C = FD.C, A = D.applications;
+  const growth = fdSeries([D.users, D.jobs, A]);
+  const lab = growth.labels;
+  if (tab == "ov") {
+    fdChart("c1", "line", lab, [{ label: "New users", data: growth.data[0] }, { label: "New jobs", data: growth.data[1] }, { label: "Applications", data: growth.data[2] }], { fill: true });
+    fdBar("c2", fdTop(fdCnt(D.users, u => u.type), 5).map(([k, v]) => [({ candidate: "Individuals", org: "Employers", group: "Group owners" }[k] || k), v]), { type: "doughnut" });
+    const cum = []; growth.data[0].reduce((s, v, i) => cum[i] = s + v, 0);
+    const reg = fdReg(cum.map((v, i) => [i, v]));
+    if (reg) { const nxt = k => { let [y, m] = (lab[lab.length - 1] || "2026-01").split("-").map(Number); m += k; while (m > 12) { m -= 12; y++; } return y + "-" + String(m).padStart(2, "0"); }; const fl = [...lab, nxt(1), nxt(2), nxt(3)], n = lab.length;
+      fdChart("c3", "line", fl, [{ label: "Total users", data: [...cum, null, null, null] }, { label: "Forecast (linear trend)", data: fl.map((_, i) => i >= n - 1 ? reg.a + reg.b * i : null), borderDash: [6, 5], borderColor: "#fbbf24", backgroundColor: "#fbbf2433" }], { fill: true }); }
+    fdBar("c4", ST.map(s => [s, A.filter(a => a.status == s).length]), { h: true, label: "Applications" });
+    fdBar("c5", fdTop(fdCnt(D.jobs, j => fdList(j.jobType)), 6));
+    fdBar("c6", fdTop(fdCnt(D.jobs, j => fdList(j.industry)), 8), { h: true });
+    fdBar("c7", fdTop(fdCnt(C.cand, u => u.skills), 10), { h: true });
+    fdBar("c8", fdTop(fdCnt(C.cand, u => u.availability), 6), { type: "polarArea" });
+    fdBar("c9", fdTop(fdCnt(C.cand, u => (u.location || "").split(",")[0]), 8));
+  }
+  if (tab == "ind") {
+    fdBar("c1", fdTop(fdCnt(C.cand, u => u.availability), 6), { type: "doughnut" });
+    fdBar("c2", fdTop(fdCnt(C.cand, u => (u.location || "").split(",")[0]), 10), { h: true });
+    fdBar("c3", fdTop(fdCnt(C.cand, u => u.skills), 12), { h: true });
+    const bins = [["0–2", 0, 2], ["3–5", 3, 5], ["6–10", 6, 10], ["11–15", 11, 15], ["16–20", 16, 20], ["20+", 21, 99]];
+    fdBar("c4", bins.map(([l, a, b]) => [l + " yrs", C.cand.filter(u => +u.years >= a && +u.years <= b).length]));
+    const pts = C.cand.filter(u => isFinite(u.years) && u.years !== "").map(u => [+u.years, (u.skills || []).length]), reg = fdReg(pts);
+    const xs = pts.map(p => p[0]), x0 = Math.min(...xs, 0), x1 = Math.max(...xs, 1);
+    fdChart("c5", "scatter", [], [{ label: "Individuals (years vs skills)", data: pts.map(p => ({ x: p[0], y: p[1] })), pointRadius: 5 }, ...(reg ? [{ type: "line", label: `Trend: y = ${f1(reg.a)} + ${f1(reg.b)}x  (R² ${f1(reg.r2)})`, data: [{ x: x0, y: reg.a + reg.b * x0 }, { x: x1, y: reg.a + reg.b * x1 }], pointRadius: 0, borderColor: "#fbbf24", backgroundColor: "#fbbf24" }] : [])], { x: { type: "linear", title: { display: true, text: "Years of experience", color: "#8da2c0" } } });
+    fdBar("c6", fdTop(fdCnt(C.cand, u => fdList(u.industry)), 8), { type: "pie" });
+  }
+  if (tab == "org") {
+    fdBar("c1", fdTop(fdCnt(C.orgs, u => u.orgKind), 6), { type: "doughnut" });
+    fdBar("c2", fdTop(fdCnt(C.orgs, u => fdList(u.industry)), 8), { h: true });
+    fdBar("c3", fdTop(Object.fromEntries(C.orgs.map(u => [u.name, C.jobsByOrg[u.id] || 0])), 8), { label: "Jobs posted" });
+    fdBar("c4", fdTop(Object.fromEntries(C.orgs.map(u => [u.name, C.appsByOrg[u.id] || 0])), 8), { label: "Applicants" });
+  }
+  if (tab == "grp") {
+    fdBar("c1", fdTop(Object.fromEntries(D.groups.map(g => [g.name || g.id, (g.memberEmails || []).length])), 10), { label: "Members" });
+    fdBar("c2", fdTop(fdCnt(C.gown, u => fdList(u.industry)), 8), { type: "doughnut" });
+  }
+  if (tab == "job") {
+    fdBar("c1", fdTop(fdCnt(D.jobs, j => fdList(j.jobType)), 6), { type: "doughnut" });
+    fdBar("c2", fdTop(fdCnt(D.jobs, j => fdList(j.industry)), 8), { h: true });
+    fdBar("c3", fdTop(fdCnt(D.jobs, j => fdList(j.role)), 8), { h: true });
+    fdChart("c4", "line", lab, [{ label: "Jobs posted", data: growth.data[1] }], { fill: true });
+    fdBar("c5", fdTop(Object.fromEntries(D.jobs.map(j => [j.title, C.appsByJob[j.id] || 0])), 10), { label: "Applicants" });
+    fdBar("c6", fdTop(fdCnt(D.jobs, j => j.skills), 10), { h: true });
+  }
+  if (tab == "app") {
+    fdBar("c1", ST.map(s => [s, A.filter(a => a.status == s).length]), { h: true, label: "Applications" });
+    fdChart("c2", "line", lab, [{ label: "Applications", data: growth.data[2] }], { fill: true });
+    fdBar("c3", fdTop(Object.fromEntries(Object.entries(fdCnt(C.offers, a => a.orgId)).map(([k, v]) => [C.un(k), v])), 8), { label: "Hires" });
+    fdBar("c4", fdTop(fdCnt(A, a => a.jobTitle), 8), { h: true });
+  }
+  if (tab == "cv") {
+    fdBar("c1", [["With resume", C.cand.filter(u => C.resByUid[u.id]).length], ["Without resume", C.cand.filter(u => !C.resByUid[u.id]).length]], { type: "doughnut" });
+    const m = fdSeries([D.resumes]); fdChart("c2", "line", m.labels, [{ label: "Resumes updated", data: m.data[0] }], { fill: true });
+  }
+  if (tab == "inv") fdBar("c1", fdTop(fdCnt(D.invites, i => i.status), 4), { type: "doughnut" });
+  if (tab == "enq") {
+    fdBar("c1", fdTop(fdCnt(D.solutionRequests, r => r.type), 4), { type: "doughnut" });
+    const m = fdSeries([D.solutionRequests]); fdChart("c2", "line", m.labels, [{ label: "Enquiries", data: m.data[0] }], { fill: true });
+  }
+}
+
+function fdBody(tab) {
+  const D = FD.D, C = FD.C, K = fdKpis(), A = D.applications, c = (n, t, w) => cardHtml("c" + n, t, w);
+  if (tab == "ov") return kpiHtml(K) + `<div class="fd-grid">${c(1, "Platform growth by month", "w8")}${c(2, "Account types", "w4")}${c(3, "User growth & 3-month forecast", "")}${c(4, "Hiring pipeline funnel", "")}${c(5, "Jobs by type", "w4")}${c(6, "Jobs by industry", "w4")}${c(7, "Top skills among individuals", "w4")}${c(8, "Individual availability", "w4")}${c(9, "Top individual locations", "w8")}
+    ${mathBox("Years of experience (individuals)", fdStats(C.cand.map(u => u.years)))}${mathBox("Applicants per job", fdStats(D.jobs.map(j => C.appsByJob[j.id] || 0)))}${mathBox("Skills per individual", fdStats(C.cand.map(u => (u.skills || []).length)))}${mathBox("Employer team size", fdStats(C.orgs.map(u => u.size)))}</div>`;
+  if (tab == "ind") return kpiHtml([K[0], ["With resume", C.cand.filter(u => C.resByUid[u.id]).length, "#fb923c"], ["Immediately available", C.cand.filter(u => u.availability == "Immediately").length, "#34d399"]]) + `<div class="fd-grid">${c(1, "Availability", "w4")}${c(2, "Locations", "w8")}${c(3, "Top skills", "w6")}${c(4, "Experience distribution", "w6")}${c(5, "Experience vs skills · regression", "w8")}${c(6, "Industries", "w4")}${mathBox("Years of experience", fdStats(C.cand.map(u => u.years)))}${fdTable("ind")}</div>`;
+  if (tab == "org") return kpiHtml([K[1], K[4], K[5]]) + `<div class="fd-grid">${c(1, "Organisation types", "w4")}${c(2, "Industries", "w8")}${c(3, "Jobs posted per employer", "w6")}${c(4, "Applicants per employer", "w6")}${mathBox("Employer team size", fdStats(C.orgs.map(u => u.size)))}${fdTable("org")}</div>`;
+  if (tab == "grp") return kpiHtml([K[2], K[3], ["Total members", D.groups.reduce((s, g) => s + (g.memberEmails || []).length, 0), "#34d399"], K[9]]) + `<div class="fd-grid">${c(1, "Members per group", "w8")}${c(2, "Group owner industries", "w4")}${mathBox("Members per group", fdStats(D.groups.map(g => (g.memberEmails || []).length)))}${fdTable("gown")}${fdTable("grp")}${fdTable("gcv")}</div>`;
+  if (tab == "job") return kpiHtml([K[4], K[5], K[11]]) + `<div class="fd-grid">${c(1, "By job type", "w4")}${c(2, "By industry", "w8")}${c(3, "By role", "w6")}${c(4, "Jobs posted by month", "w6")}${c(5, "Most-applied jobs", "w6")}${c(6, "Skills in demand", "w6")}${mathBox("Applicants per job", fdStats(D.jobs.map(j => C.appsByJob[j.id] || 0)))}${fdTable("job")}</div>`;
+  if (tab == "app") return kpiHtml([K[5], K[6], K[10], ...ST.map((s, i) => [s, A.filter(a => a.status == s).length, FDC[i]])]) + `<div class="fd-grid">${c(1, "Pipeline funnel", "w4")}${c(2, "Applications by month", "w8")}${c(3, "Hires per employer", "w6")}${c(4, "Most-applied job titles", "w6")}${fdTable("hire")}${fdTable("app")}</div>`;
+  if (tab == "cv") return kpiHtml([K[7], ["Total size (MB)", D.resumes.reduce((s, r) => s + (r.kb || 0), 0) / 1024, "#38bdf8", 2]]) + `<div class="fd-grid">${c(1, "Resume coverage", "w4")}${c(2, "Resumes by month", "w8")}${mathBox("Resume size (KB)", fdStats(D.resumes.map(r => r.kb)))}${fdTable("cv")}</div>`;
+  if (tab == "inv") return kpiHtml([["Invitations", D.invites.length, "#38bdf8"], K[9], ["Emails queued", D.mail.length, "#fbbf24"]]) + `<div class="fd-grid">${c(1, "Invitation status", "w4")}${fdTable("inv")}${fdTable("mail")}</div>`;
+  if (tab == "enq") return kpiHtml([K[8]]) + `<div class="fd-grid">${c(1, "Enquirer type", "w4")}${c(2, "Enquiries by month", "w8")}${fdTable("enq")}</div>`;
+  return `<div class="fd-grid"><div class="fd-c w12"><h4>📥 Excel & reports</h4><p style="color:#8da2c0;font-size:13px;margin-top:0">One workbook with a summary sheet, monthly growth and a sheet for every part of the platform. Individual sheets are also on each tab.</p><div class="fd-tools"><button class="fd-btn" onclick="fdAll()">⬇ Full platform workbook (.xlsx)</button><button class="fd-btn g" onclick="window.print()">🖨 Print / save as PDF</button></div></div>
+    <div class="fd-c w12"><h4>Individual sheets</h4><div class="fd-tools">${Object.keys(FD.S).map(id => `<button class="fd-btn g" onclick="fdXls('${id}')">${FD.S[id][0]} · ${FD.S[id][2].length}</button>`).join("")}</div></div></div>`;
+}
+
+function fdAnim() {
+  document.querySelectorAll(".fd-c,.fd-k").forEach((e, i) => e.style.animationDelay = Math.min(i, 16) * 55 + "ms");
+  document.querySelectorAll(".fd-n").forEach(el => { const to = +el.dataset.n, d = +el.dataset.d || 0, t0 = performance.now(); const st = t => { const p = Math.min(1, (t - t0) / 1300); el.textContent = (to * (1 - Math.pow(1 - p, 3))).toFixed(d); if (p < 1) requestAnimationFrame(st); }; requestAnimationFrame(st); });
+}
+function fdDraw() {
+  FD.ch.forEach(c => { try { c.destroy(); } catch {} }); FD.ch = [];
+  const D = FD.D; fdSpecs(D);
+  const tab = FD.tab, cnt = { ind: FD.C.cand.length, org: FD.C.orgs.length, grp: FD.C.gown.length, job: D.jobs.length, app: D.applications.length, cv: D.resumes.length, inv: D.invites.length + D.mail.length, enq: D.solutionRequests.length };
+  const cur = FD_TABS.find(t => t[0] == tab);
+  $("#app").innerHTML = `<div class="fd"><aside class="fd-side"><div class="fd-brand"><i>P</i><div><b>Provynk</b><span>Founder command centre</span></div></div>
+    ${FD_TABS.map(t => `<button class="${t[0] == tab ? "on" : ""}" onclick="fdGo('${t[0]}')"><span>${t[1]}</span>${t[2]}${cnt[t[0]] != null ? `<em>${cnt[t[0]]}</em>` : ""}</button>`).join("")}</aside>
+    <main class="fd-main"><div class="fd-top"><div><h1>${cur[1]} ${cur[2]}</h1><p>Welcome, ${esc(P.name)} · live data as of ${FD.at}</p></div><div class="fd-tools" style="margin:0"><button class="fd-btn g" onclick="fdRefresh()">⟳ Refresh</button><button class="fd-btn" onclick="fdAll()">⬇ Full Excel report</button></div></div>
+    ${D.bad.length ? `<div class="fd-warn">Could not read: <b>${D.bad.join(", ")}</b>. Publish the updated firestore.rules in Firebase Console → Firestore → Rules, and make sure the founder email is verified, then press Refresh.</div>` : ""}
+    ${fdBody(tab)}</main></div>`;
+  setTimeout(() => { fdCharts(tab); fdAnim(); Object.keys(FD.S).forEach(fdFill); window.scrollTo(0, 0); }, 30);
+}
+window.fdGo = t => { FD.tab = t; history.replaceState(null, "", "#/founder?tab=" + t); fdDraw(); };
+window.fdRefresh = async () => { toast("Refreshing…"); FD.D = await fdLoad(); FD.at = new Date().toLocaleTimeString(); fdDraw(); };
+V.founder = async () => {
+  if (!need("founder")) return;
+  const t = (location.hash.split("tab=")[1] || "ov").split("&")[0];
+  FD.tab = FD_TABS.some(x => x[0] == t) ? t : "ov";
+  $("#app").innerHTML = `<div class="fd"><main class="fd-main"><div class="fd-top"><h1>Loading platform data…</h1></div></main></div>`;
+  if (!FD.D || FD.uid != me.uid) { FD.D = await fdLoad(); FD.uid = me.uid; FD.at = new Date().toLocaleTimeString(); }
+  fdDraw();
+};
 
 async function route() {
   redraw = () => {};
