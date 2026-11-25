@@ -1891,7 +1891,7 @@ const fields = (o, d) => o.map(([k, l, t, full]) => `<div class="${full ? "full"
   t == "area" ? `<textarea id="f_${k}" rows="4">${esc(d[k])}</textarea>`
   : t == "grole" ? (() => { const sel = csv(d[k]), cust = sel.filter(x => !ROLES.includes(x)); return `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || "Select one or more roles")}</span></button><div class="msp" onchange="grUpd('${k}')">${ROLES.map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}<label><input type="checkbox" value="__other" ${cust.length ? "checked" : ""}> Other (specify)</label><input type="text" id="f_${k}_o" placeholder="Specify role(s) / add your own, comma separated" style="width:100%;margin-top:4px;display:${cust.length ? "block" : "none"}" value="${esc(cust.join(", "))}" oninput="grUpd('${k}')"></div></div>`; })()
   : t == "role" || t == "mrole" ? `<input id="f_${k}" list="dl_roles" autocomplete="off" placeholder="e.g. Solution Architect, Program Manager" value="${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k])}">`
-  : t == "mind" ? `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${csv(d[k]).join(", ") || "Select one or more industries"}</span></button><div class="msp">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label><input type="checkbox" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div></div>`
+  : t == "mind" || t == "ind" ? (() => { const sel = csv(d[k]); return `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || "Select or type industries")}</span></button><div class="msp">${[...new Set([...INDS, ...sel])].map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}<input type="text" class="msx" id="f_${k}_x" autocomplete="off" placeholder="Other industry: type your own (comma separated)" style="width:100%;margin-top:4px;min-width:220px"></div></div>`; })()
   : MS[t] ? `<div class="mchk" id="f_${k}" style="display:flex;flex-wrap:wrap;gap:6px 14px;padding:6px 0">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label style="display:flex;gap:6px;align-items:center;font-weight:500;color:var(--ink);margin:0"><input type="checkbox" style="width:auto" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div>`
   : SEL[t] ? `<select id="f_${k}">${opts(SEL[t], d[k], "Select…")}</select>`
   : `<input id="f_${k}" value="${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k])}">`}</div>`).join("");
@@ -1899,8 +1899,11 @@ const fields = (o, d) => o.map(([k, l, t, full]) => `<div class="${full ? "full"
 /* multi-select role dropdown (group members): ticked roles + "Other (specify)" free-text categories */
 const grRead = k => { const b = [...document.querySelectorAll(`#f_${k} input[type=checkbox]:checked`)].map(e => e.value), other = b.includes("__other"), extra = other ? csv($("#f_" + k + "_o")?.value) : []; return [...new Set([...b.filter(x => x != "__other"), ...extra])].join(", "); };
 window.grUpd = k => { const s = $("#f_" + k + " .mst"); if (s) s.textContent = grRead(k) || "Select one or more roles"; const o = $("#f_" + k + "_o"), c = $("#f_" + k + ' input[value="__other"]'); if (o && c) o.style.display = c.checked ? "block" : "none"; };
+/* industry dropdown: ticked options + anything typed in the "Other" box */
+const indRead = k => [...new Set([...[...document.querySelectorAll(`#f_${k} input[type=checkbox]:checked`)].map(e => e.value), ...csv($("#f_" + k + "_x")?.value)])].join(", ");
 const read = o => Object.fromEntries(o.map(([k, , t]) => {
   if (t == "grole") return [k, grRead(k)];
+  if (t == "mind" || t == "ind") return [k, indRead(k)];
   if (MS[t]) return [k, [...document.querySelectorAll(`#f_${k} input:checked`)].map(e => e.value).join(", ")];
   const v = $("#f_" + k).value;
   return [k, CSVK.includes(k) ? csv(v) : v];
@@ -1956,11 +1959,12 @@ window.clearF = () => {
 };
 const gv = id => ($("#" + id)?.value || "").toLowerCase();
 /* multi-select filter dropdowns: tick one or more options (matches ANY of the ticked options) */
-const msf = (id, any, o, sel = []) => `<div class="msd" id="${id}" data-ph="${esc(any)}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || any)}</span></button><div class="msp">${o.map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div></div>`;
-const gm = id => { const el = $("#" + id); if (el && el.tagName == "INPUT") return csv(el.value).map(x => x.toLowerCase()); return [...document.querySelectorAll(`#${id} input:checked`)].map(e => e.value.toLowerCase()); };
+const msf = (id, any, o, sel = []) => { const ex = id == "i" ? sel.filter(x => !o.includes(x)) : []; return `<div class="msd" id="${id}" data-ph="${esc(any)}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || any)}</span></button><div class="msp">${o.map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}${id == "i" ? `<input type="text" class="msx" autocomplete="off" placeholder="Other industry: type here" value="${esc(ex.join(", "))}" style="width:100%;margin-top:4px;min-width:200px">` : ""}</div></div>`; };
+const gx = id => csv($("#" + id + " .msx")?.value).map(x => x.toLowerCase());
+const gm = id => { const el = $("#" + id); if (el && el.tagName == "INPUT") return csv(el.value).map(x => x.toLowerCase()); return [...[...document.querySelectorAll(`#${id} input:checked`)].map(e => e.value.toLowerCase()), ...gx(id)]; };
 /* typed filters (role) match as "contains"; ticked dropdown filters match exactly */
-const ma = (val, id) => { const s = gm(id); if (!s.length) return true; const L = Array.isArray(val) ? val : csv(val), typed = $("#" + id)?.tagName == "INPUT"; return L.some(x => { const v = String(x).toLowerCase(); return typed ? s.some(q => v.includes(q)) : s.includes(v); }); };
-const msLabel = b => { const v = [...b.querySelectorAll("input:checked")].map(i => i.value); b.querySelector(".mst").textContent = v.join(", ") || b.dataset.ph || "Select one or more industries"; };
+const ma = (val, id) => { const el = $("#" + id), inp = el?.tagName == "INPUT", c = inp ? [] : [...document.querySelectorAll(`#${id} input:checked`)].map(e => e.value.toLowerCase()), t = inp ? gm(id) : gx(id); if (!c.length && !t.length) return true; const L = Array.isArray(val) ? val : csv(val); return L.some(x => { const v = String(x).toLowerCase(); return c.includes(v) || t.some(q => v.includes(q)); }); };
+const msLabel = b => { const v = [...b.querySelectorAll("input:checked")].map(i => i.value), x = b.querySelector(".msx"); if (x) v.push(...csv(x.value)); b.querySelector(".mst").textContent = v.join(", ") || b.dataset.ph || "Select or type industries"; };
 const has = (a, v) => (a || []).some(x => String(x).toLowerCase() == v);
 
 /* ---------- views ---------- */
@@ -2552,7 +2556,7 @@ window.gNote = async id => {
 };
 /* group members are typed in by the owner (same details as individual sign-up); no invitations */
 const GMC = SU.candidate.filter(([k]) => !["jobType", "industry"].includes(k));
-const MF = [["name", "Full name"], ["email", "Email (optional)"], ...GMC.map(f => f[0] == "role" ? ["role", "Primary role (select one or more)", "grole"] : f), ["skills", "Hard skills (comma separated)"], ["nicheSkills", "Niche skills (comma separated)"]];
+const MF = [["name", "Full name"], ["email", "Email (optional)"], ...GMC.map(f => f[0] == "role" ? ["role", "Primary role (select one or more)", "grole"] : f), ["industry", "Industry (select one or more, or type your own)", "mind"], ["skills", "Hard skills (comma separated)"], ["nicheSkills", "Niche skills (comma separated)"]];
 let GM = [];
 const PUBD = new Set();
 const nsk = u => (u.nicheSkills || []).map(x => tg("hard", x)).join("");
@@ -3991,6 +3995,7 @@ function landingFx() {
 
 /* ---------- landing helpers: news, scrolling ---------- */
 document.addEventListener("change", e => { const b = e.target.closest?.(".msd"); if (b) msLabel(b); });
+document.addEventListener("input", e => { const b = e.target.closest?.(".msd"); if (b && e.target.classList?.contains("msx")) msLabel(b); });
 document.addEventListener("click", e => document.querySelectorAll(".msd.open").forEach(m => { if (!m.contains(e.target)) m.classList.remove("open"); }));
 window.goSec = id => {
   const f = () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
