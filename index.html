@@ -1386,7 +1386,7 @@ img,svg,video{max-width:100%}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, sendPasswordResetEmail, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, getAdditionalUserInfo, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, addDoc, deleteDoc, updateDoc, collection, getDocs, getCountFromServer, query, where, limit, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, addDoc, deleteDoc, updateDoc, collection, getDocs, getCountFromServer, query, where, limit, orderBy, serverTimestamp, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* 1) PASTE YOUR FIREBASE WEB CONFIG HERE (Console > Project settings > Your apps) */
 const CONFIG = {
@@ -1889,13 +1889,18 @@ const need = t => {
 
 const fields = (o, d) => o.map(([k, l, t, full]) => `<div class="${full ? "full" : ""}"><label>${l}</label>${
   t == "area" ? `<textarea id="f_${k}" rows="4">${esc(d[k])}</textarea>`
+  : t == "grole" ? (() => { const sel = csv(d[k]), cust = sel.filter(x => !ROLES.includes(x)); return `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${esc(sel.join(", ") || "Select one or more roles")}</span></button><div class="msp" onchange="grUpd('${k}')">${ROLES.map(x => `<label><input type="checkbox" value="${esc(x)}" ${sel.includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}<label><input type="checkbox" value="__other" ${cust.length ? "checked" : ""}> Other (specify)</label><input type="text" id="f_${k}_o" placeholder="Specify role(s) / add your own, comma separated" style="width:100%;margin-top:4px;display:${cust.length ? "block" : "none"}" value="${esc(cust.join(", "))}" oninput="grUpd('${k}')"></div></div>`; })()
   : t == "role" || t == "mrole" ? `<input id="f_${k}" list="dl_roles" autocomplete="off" placeholder="e.g. Solution Architect, Program Manager" value="${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k])}">`
   : t == "mind" ? `<div class="msd" id="f_${k}"><button type="button" class="msb" onclick="this.parentNode.classList.toggle('open')"><span class="mst">${csv(d[k]).join(", ") || "Select one or more industries"}</span></button><div class="msp">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label><input type="checkbox" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div></div>`
   : MS[t] ? `<div class="mchk" id="f_${k}" style="display:flex;flex-wrap:wrap;gap:6px 14px;padding:6px 0">${[...new Set([...MS[t], ...csv(d[k])])].map(x => `<label style="display:flex;gap:6px;align-items:center;font-weight:500;color:var(--ink);margin:0"><input type="checkbox" style="width:auto" value="${esc(x)}" ${csv(d[k]).includes(x) ? "checked" : ""}> ${esc(x)}</label>`).join("")}</div>`
   : SEL[t] ? `<select id="f_${k}">${opts(SEL[t], d[k], "Select…")}</select>`
   : `<input id="f_${k}" value="${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k])}">`}</div>`).join("");
 
+/* multi-select role dropdown (group members): ticked roles + "Other (specify)" free-text categories */
+const grRead = k => { const b = [...document.querySelectorAll(`#f_${k} input[type=checkbox]:checked`)].map(e => e.value), other = b.includes("__other"), extra = other ? csv($("#f_" + k + "_o")?.value) : []; return [...new Set([...b.filter(x => x != "__other"), ...extra])].join(", "); };
+window.grUpd = k => { const s = $("#f_" + k + " .mst"); if (s) s.textContent = grRead(k) || "Select one or more roles"; const o = $("#f_" + k + "_o"), c = $("#f_" + k + ' input[value="__other"]'); if (o && c) o.style.display = c.checked ? "block" : "none"; };
 const read = o => Object.fromEntries(o.map(([k, , t]) => {
+  if (t == "grole") return [k, grRead(k)];
   if (MS[t]) return [k, [...document.querySelectorAll(`#f_${k} input:checked`)].map(e => e.value).join(", ")];
   const v = $("#f_" + k).value;
   return [k, CSVK.includes(k) ? csv(v) : v];
@@ -2547,18 +2552,18 @@ window.gNote = async id => {
 };
 /* group members are typed in by the owner (same details as individual sign-up); no invitations */
 const GMC = SU.candidate.filter(([k]) => !["jobType", "industry"].includes(k));
-const MF = [["name", "Full name"], ["email", "Email"], ...GMC, ["skills", "Hard skills (comma separated)"], ["nicheSkills", "Niche skills (comma separated)"]];
+const MF = [["name", "Full name"], ["email", "Email (optional)"], ...GMC.map(f => f[0] == "role" ? ["role", "Primary role (select one or more)", "grole"] : f), ["skills", "Hard skills (comma separated)"], ["nicheSkills", "Niche skills (comma separated)"]];
 let GM = [];
 const PUBD = new Set();
 const nsk = u => (u.nicheSkills || []).map(x => tg("hard", x)).join("");
-const gmList = () => GM.map((m, i) => `<div class="mut" style="display:flex;justify-content:space-between;gap:8px;padding:4px 0"><span><b>${esc(m.name)}</b> · ${esc(m.email)} · ${esc(m.headline)}${m._cvFile ? " · 📄 " + esc(m._cvFile.name) : ""}</span><a class="lnk" onclick="gmDel(${i})">✕ Remove</a></div>`).join("") || '<div class="empty">No members added yet.</div>';
+const gmList = () => GM.map((m, i) => `<div class="mut" style="display:flex;justify-content:space-between;gap:8px;padding:4px 0"><span><b>${esc(m.name)}</b>${m.email ? " · " + esc(m.email) : ""} · ${esc(m.headline)}${m._cvFile ? " · 📄 " + esc(m._cvFile.name) : ""}</span><a class="lnk" onclick="gmDel(${i})">✕ Remove</a></div>`).join("") || '<div class="empty">No members added yet.</div>';
 const GM_CV_MAX = 700000;
-const gmFormInner = () => fields(MF, {}) + `<div class="full"><label>Member CV (optional, PDF, max 700 KB)</label><input id="gm_cv" type="file" accept="application/pdf,.pdf"></div>`;
-const gmForm = btn => `<div class="sec-label">Member details</div><div class="form" id="gm_form">${gmFormInner()}</div><p id="gm_err" class="mut" style="color:var(--red)"></p>${btn ? `<button type="button" class="btn o s" onclick="gmAdd()">+ Add member</button>` : ""}`;
+const gmFormInner = (d = {}) => fields(MF, d) + `<div class="full"><label>Member CV (optional, PDF, max 700 KB)</label><input id="gm_cv" type="file" accept="application/pdf,.pdf"></div>`;
+const gmForm = (btn, d) => `<div class="sec-label">Member details</div><div class="form" id="gm_form">${gmFormInner(d || {})}</div><p id="gm_err" class="mut" style="color:var(--red)"></p>${btn ? `<button type="button" class="btn o s" onclick="gmAdd()">+ Add member</button>` : ""}`;
 const gmRead = () => {
   const err = m => { $("#gm_err").textContent = m; return null; }, d = read(MF);
   if (!d.name.trim()) return err("Enter the member's name.");
-  if (!/^\S+@\S+\.\S+$/.test(d.email.trim())) return err("Enter a valid email for the member.");
+  if (d.email.trim() && !/^\S+@\S+\.\S+$/.test(d.email.trim())) return err("Enter a valid email, or leave it empty.");
   const miss = GMC.filter(([k]) => !String(d[k] || "").trim());
   if (miss.length) return err("Please fill in: " + miss.map(m => m[1].replace(/ \(.*\)/, "")).join(", ") + ".");
   if (isNaN(+d.years) || +d.years < 0) return err("Years of experience must be a number.");
@@ -2592,7 +2597,7 @@ window.openMemberCV = async (gid, id) => {
 };
 window.gmAdd = () => {
   const d = gmRead(); if (!d) return;
-  if (GM.some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
+  if (d.email && GM.some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
   GM.push(d); $("#gm_list").innerHTML = gmList(); $("#gm_form").innerHTML = gmFormInner(); $("#gm_err").textContent = "";
 };
 window.gmDel = i => { GM.splice(i, 1); $("#gm_list").innerHTML = gmList(); };
@@ -2611,7 +2616,7 @@ async function syncPub(gid) {
 }
 window.mkGroup = async () => {
   const n = $("#gn").value.trim(); if (!n) return toast("Enter a group name");
-  if ($("#f_name")?.value.trim() || $("#f_email")?.value.trim()) { const d = gmRead(); if (!d) return; if (!GM.some(m => m.email == d.email)) GM.push(d); }
+  if ($("#f_name")?.value.trim() || $("#f_email")?.value.trim()) { const d = gmRead(); if (!d) return; if (!d.email || !GM.some(m => m.email == d.email)) GM.push(d); }
   const d = { name: n, desc: $("#gn_d").value, ownerId: me.uid, ownerName: P.name, firm: P.firm || "", memberEmails: [me.email.toLowerCase()], members: GM, saved: [], comments: [] };
   const pend = GM.map(m => m._cvFile ? m : null);
   const clean = ms => ms.map(({ _cvFile, ...m }) => m);
@@ -2629,11 +2634,24 @@ window.addMember = gid => {
 };
 window.saveMember = async gid => {
   const d = gmRead(); if (!d) return; const g = G[gid];
-  if ((g.members || []).some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
+  if (d.email && (g.members || []).some(m => m.email == d.email)) return $("#gm_err").textContent = "This member is already added.";
   const m = await gmStoreCV(gid, d);
   const ms = [...(g.members || []), m];
   await updateDoc(doc(db, "groups", gid), { members: ms }); g.members = ms; await syncPub(gid);
   closeM(); toast("Member added"); route();
+};
+window.editMember = (gid, i) => {
+  const g = G[gid], m = (g?.members || [])[i]; if (g?.ownerId != me.uid || !m) return toast("Only the group owner can edit members");
+  modal(`<h2>Edit member</h2>${gmForm(false, m)}${m.cvName ? `<p class="mut">Current CV: 📄 ${esc(m.cvName)}. Choose a new file above only if you want to replace it.</p>` : ""}<div class="srow"><button class="btn" onclick="saveMemberEdit('${gid}',${i})">Save changes</button><button class="btn o" onclick="closeM()">Cancel</button></div>`, 1);
+};
+window.saveMemberEdit = async (gid, i) => {
+  const d = gmRead(); if (!d) return; const g = G[gid], old = (g.members || [])[i]; if (!old) return;
+  if (d.email && (g.members || []).some((x, j) => j != i && x.email == d.email)) return $("#gm_err").textContent = "Another member already has this email.";
+  let m = { ...old, ...d };
+  if (m._cvFile) m = await gmStoreCV(gid, m); else delete m._cvFile;
+  const ms = (g.members || []).map((x, j) => j == i ? m : x);
+  await updateDoc(doc(db, "groups", gid), { members: ms }); g.members = ms; await syncPub(gid);
+  closeM(); toast("Member updated"); route();
 };
 window.rmGMember = async (gid, i) => {
   const g = G[gid]; if (g?.ownerId != me.uid) return toast("Only the group owner can remove members");
@@ -2642,7 +2660,7 @@ window.rmGMember = async (gid, i) => {
   if (gone?.cvId) { try { await deleteDoc(doc(db, "groupCVs", gid + "_" + gone.cvId)); } catch { } }
   await updateDoc(doc(db, "groups", gid), { members: ms }); g.members = ms; await syncPub(gid); route();
 };
-const gMembersHtml = (g, own) => (g.members || []).map((m, i) => `<div class="pc" style="grid-template-columns:auto 1fr auto">${av(m)}<div><h3>${esc(m.name)}</h3><div class="meta">${[m.headline, m.location, m.years ? m.years + " yrs" : "", m.availability ? "Available: " + m.availability : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="mut">${esc(m.email || "")}</div><div class="tr">${tags({ ...m, location: "" })}${nsk(m)}</div></div><div class="act">${m.cvId ? `<button class="btn o s" onclick="openMemberCV('${g.id}','${esc(m.cvId)}')">📄 View CV</button>` : ""}${own ? `<button class="btn o s" onclick="rmGMember('${g.id}',${i})">Remove</button>` : ""}</div></div>`).join("") || '<div class="empty">No members yet. Use “+ Add member”.</div>';
+const gMembersHtml = (g, own) => (g.members || []).map((m, i) => `<div class="pc" style="grid-template-columns:auto 1fr auto">${av(m)}<div><h3>${esc(m.name)}</h3><div class="meta">${[m.headline, m.location, m.years ? m.years + " yrs" : "", m.availability ? "Available: " + m.availability : ""].filter(Boolean).map(esc).join(" · ")}</div><div class="mut">${esc(m.email || "")}</div><div class="tr">${tags({ ...m, location: "" })}${nsk(m)}</div></div><div class="act">${m.cvId ? `<button class="btn o s" onclick="openMemberCV('${g.id}','${esc(m.cvId)}')">📄 View CV</button>` : ""}${own ? `<button class="btn o s" onclick="editMember('${g.id}',${i})">✎ Edit</button><button class="btn o s" onclick="rmGMember('${g.id}',${i})">Remove</button>` : ""}</div></div>`).join("") || '<div class="empty">No members yet. Use “+ Add member”.</div>';
 /* Invitation email service: create a free EmailJS account (emailjs.com), add an email service and a template, then fill these 3 values.
    Template: To = {{to_email}}, From name = {{from_name}}, Reply-To = {{reply_to}}, Subject = {{subject}}, Body = {{message}} */
 const EMAILJS = { service: "", template: "", key: "" };
@@ -3621,12 +3639,19 @@ window.solSend = async () => {
       details: Object.fromEntries(SOLF[t].map(([k]) => [k, (Array.isArray(x[k]) ? x[k].join(", ") : String(x[k] || "")).slice(0, 300)])) };
     const ph = $("#s_ph").value.trim(); if (ph) rec.phone = ph.slice(0, 40);
     if ($("#s_f")?.value.trim()) rec.firm = $("#s_f").value.trim().slice(0, 120);
-    if (f) rec.attachmentName = f.name.slice(0, 200);
+    let b64 = "", chunks = [];
+    if (f) {
+      rec.attachmentName = f.name.slice(0, 200);
+      b64 = await new Promise((ok, no) => { const fr = new FileReader(); fr.onload = () => ok(String(fr.result).split(",")[1] || ""); fr.onerror = () => no(fr.error); fr.readAsDataURL(f); });
+      for (let i = 0; i < b64.length; i += 700000) chunks.push(b64.slice(i, i + 700000));
+      rec.attachmentType = (f.type || "application/octet-stream").slice(0, 100); rec.attachmentChunks = chunks.length;
+    }
     if (me) rec.uid = me.uid;
     /* saved in Firestore (solutionRequests) and e-mailed through FormSubmit; the request succeeds if either one works */
     const [fs, em] = await Promise.allSettled([
-      addDoc(collection(db, "solutionRequests"), rec),
-      fetch("https://formsubmit.co/ajax/" + SOL_TO, { method: "POST", body: fd, headers: { Accept: "application/json" } }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok || j.success === false || j.success === "false") throw new Error(j.message || "Send failed"); })
+      (async () => { const ref = await addDoc(collection(db, "solutionRequests"), rec); await Promise.all(chunks.map((c, i) => setDoc(doc(db, "solutionRequests", ref.id, "files", String(i)), { i, data: c }))); })(),
+      /* with a file, FormSubmit's normal (non-AJAX) endpoint is used because the AJAX one cannot deliver attachments */
+      f ? fetch("https://formsubmit.co/" + SOL_TO, { method: "POST", body: fd, mode: "no-cors" }) : fetch("https://formsubmit.co/ajax/" + SOL_TO, { method: "POST", body: fd, headers: { Accept: "application/json" } }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok || j.success === false || j.success === "false") throw new Error(j.message || "Send failed"); })
     ]);
     if (fs.status != "fulfilled") console.warn("solutionRequests save failed:", fs.reason);
     if (em.status != "fulfilled") console.warn("e-mail send failed:", em.reason);
@@ -3655,7 +3680,13 @@ const fPct = (a, b) => b ? Math.round(a / b * 1000) / 10 + "%" : "–";
 /* ---- table definitions: [label, value(row), isNumber, isBadge] ---- */
 const fUsers = t => FDX.data.users.filter(u => u.type == t);
 const fAppsOf = id => FDX.data.applications.filter(a => a.orgId == id || a.jobId == id);
+const fDur = v => { v = Math.round(+v || 0); return v >= 3600 ? Math.floor(v / 3600) + "h " + Math.floor(v % 3600 / 60) + "m" : v >= 60 ? Math.floor(v / 60) + "m " + (v % 60) + "s" : v + "s"; };
+const fPV = () => FDX.data.pageViews || [];
+const fPageAgg = () => { const m = {}; fPV().forEach(v => { const o = m[v.page] = m[v.page] || { id: v.page, page: v.page, views: 0, vids: new Set(), time: 0 }; o.views++; o.vids.add(v.vid); o.time += +v.dur || 0; }); return Object.values(m).sort((a, b) => b.views - a.views); };
+const fPgName = p => p == "/" ? "/ (home page)" : p;
 const TB = {
+  pages: { title: "Pages visited", file: "Page analytics", rows: fPageAgg, cols: [["Page", r => fPgName(r.page)], ["Views", r => r.views, 1], ["Unique visitors", r => r.vids.size, 1], ["Total time (min)", r => Math.round(r.time / 6) / 10, 1], ["Avg time per view (sec)", r => r.views ? Math.round(r.time / r.views) : 0, 1], ["Avg time per view", r => r.views ? fDur(r.time / r.views) : ""]] },
+  visits: { title: "Recent visits", file: "Visits", rows: fPV, cols: [["Page", v => fPgName(v.page)], ["Visitor ID", v => v.vid], ["Session ID", v => v.sid], ["Logged in", v => v.uid ? "Yes" : "No"], ["Time on page (sec)", v => +v.dur || 0, 1], ["Time on page", v => fDur(v.dur)], ["Visited at", v => { const d = fTs(v.start); return d ? d.toISOString().slice(0, 16).replace("T", " ") : ""; }]] },
   individuals: { title: "Individuals", file: "Individuals", rows: () => fUsers("candidate"), cols: [["Name", u => u.name], ["Email", u => u.email], ["Headline", u => u.headline], ["Role", u => fList(u.role)], ["Years exp.", u => u.years === "" || u.years == null ? "" : +u.years, 1], ["Location", u => u.location], ["Availability", u => u.availability], ["Hard skills", u => fList(u.skills)], ["Soft skills", u => fList(u.softSkills)], ["Industry", u => fList(u.industry)], ["ATS score", u => u.atsScore, 1], ["Visibility", u => u.visible === false ? "Hidden" : "Public"], ["Joined", u => fDate(u.created)]] },
   employers: { title: "Employers", file: "Employers", rows: () => fUsers("org"), cols: [["Company", u => u.name], ["Email", u => u.email], ["Type", u => u.orgKind], ["Website", u => u.website], ["Location", u => u.location], ["Industry", u => fList(u.industry)], ["Team size", u => u.size === "" || u.size == null ? "" : +u.size || u.size, 1], ["Hiring contact", u => u.contactEmail], ["Jobs posted", u => FDX.data.jobs.filter(j => j.orgId == u.id).length, 1], ["Applications", u => FDX.data.applications.filter(a => a.orgId == u.id).length, 1], ["Joined", u => fDate(u.created)]] },
   gowners: { title: "Group owners", file: "Group owners", rows: () => fUsers("group"), cols: [["Name", u => u.name], ["Email", u => u.email], ["Firm", u => u.firm], ["Designation", u => u.designation], ["Website", u => u.website], ["Location", u => u.location], ["Industry", u => fList(u.industry)], ["Groups owned", u => FDX.data.groups.filter(g => g.ownerId == u.id).length, 1], ["Joined", u => fDate(u.created)]] },
@@ -3663,11 +3694,11 @@ const TB = {
   jobs: { title: "Job postings", file: "Jobs", rows: () => FDX.data.jobs, cols: [["Title", j => j.title], ["Employer", j => j.orgName || fU(j.orgId).name], ["Location", j => j.location], ["Job type", j => fList(j.jobType)], ["Industry", j => fList(j.industry)], ["Role", j => fList(j.role)], ["Hard skills", j => fList(j.skills)], ["Min. exp (yrs)", j => j.exp === "" || j.exp == null ? "" : +j.exp, 1], ["Applicants", j => FDX.data.applications.filter(a => a.jobId == j.id).length, 1], ["Posted", j => fDate(j.created)]] },
   hirings: { title: "Applications & hirings", file: "Applications", rows: () => FDX.data.applications, cols: [["Candidate", a => fU(a.candidateId).name || a.candidateName], ["Candidate email", a => fU(a.candidateId).email], ["Job", a => (FDX.J[a.jobId] || {}).title || a.jobTitle], ["Employer", a => fU(a.orgId).name || (FDX.J[a.jobId] || {}).orgName], ["Status", a => a.status, 0, 1], ["Applied", a => fDate(a.created)]] },
   resumes: { title: "Resumes / CVs", file: "Resumes", rows: () => FDX.res || [], cols: [["Candidate", r => fU(r.id).name], ["Email", r => fU(r.id).email], ["File", r => r.name], ["Size (KB)", r => r.data ? Math.round(r.data.length * .75 / 1024) : 0, 1], ["Shared with groups", r => (r.groupIds || []).length, 1], ["ATS score", r => fU(r.id).atsScore, 1], ["Updated", r => fDate(r.updated)], ["Download", r => "⬇ Download", 0, 2]] },
-  enquiries: { title: "Find Solutions enquiries", file: "Enquiries", rows: () => FDX.data.solutionRequests, cols: [["From", r => ({ candidate: "Individual", org: "Employer", group: "Group" })[r.type] || r.type], ["Name", r => r.name], ["Email", r => r.email], ["Phone", r => r.phone], ["Firm", r => r.firm], ["Message", r => r.message], ["Details", r => r.details ? Object.entries(r.details).filter(x => x[1]).map(x => x[0] + ": " + x[1]).join(" | ") : ""], ["Attachment", r => r.attachmentName], ["Received", r => fDate(r.created)]] },
+  enquiries: { title: "Find Solutions enquiries", file: "Enquiries", rows: () => FDX.data.solutionRequests, cols: [["From", r => ({ candidate: "Individual", org: "Employer", group: "Group" })[r.type] || r.type], ["Name", r => r.name], ["Email", r => r.email], ["Phone", r => r.phone], ["Firm", r => r.firm], ["Message", r => r.message], ["Details", r => r.details ? Object.entries(r.details).filter(x => x[1]).map(x => x[0] + ": " + x[1]).join(" | ") : ""], ["Attachment", r => r.attachmentName, false, 3], ["Received", r => fDate(r.created)]] },
   invites: { title: "Group invitations", file: "Invitations", rows: () => FDX.data.invites, cols: [["Group", i => (FDX.data.groups.find(g => g.id == i.groupId) || {}).name || i.groupName || i.groupId], ["Invited email", i => i.inviteeEmail], ["Invited by", i => fU(i.invitedBy).name || i.invitedBy], ["Status", i => i.status, 0, 1], ["Sent", i => fDate(i.created)]] }
 };
 const fBadge = v => `<span class="fd-bd ${/^(Offer|accepted)$/i.test(v) ? "ok" : /^(Rejected|declined)$/i.test(v) ? "no" : /^(Applied|pending)$/i.test(v) ? "wait" : "mid"}">${esc(v || "–")}</span>`;
-const fCell = (v, c, r) => c[3] == 1 ? fBadge(v) : c[3] == 2 ? `<a class="fd-dl" onclick="event.stopPropagation();dlRes('${esc(r.id)}')">${esc(v)}</a>` : (s => `<span title="${esc(s)}">${esc(s.length > 70 ? s.slice(0, 70) + "…" : s)}</span>`)(String(v ?? ""));
+const fCell = (v, c, r) => c[3] == 1 ? fBadge(v) : c[3] == 2 ? `<a class="fd-dl" onclick="event.stopPropagation();dlRes('${esc(r.id)}')">${esc(v)}</a>` : c[3] == 3 ? (v ? `<a class="fd-dl" onclick="event.stopPropagation();dlSol('${esc(r.id)}')">⬇ ${esc(v)}</a>` : "") : (s => `<span title="${esc(s)}">${esc(s.length > 70 ? s.slice(0, 70) + "…" : s)}</span>`)(String(v ?? ""));
 
 function fBody(k) {
   const T = TB[k], tb = document.getElementById("fb_" + k); if (!tb) return;
@@ -3688,6 +3719,7 @@ window.fMore = k => { FDX.n[k] = (FDX.n[k] || 25) + 50; fBody(k); };
 window.fSort = (k, i) => { const s = FDX.sort[k]; FDX.sort[k] = s && s.i == i ? { i, d: -s.d } : { i, d: 1 }; fBody(k); };
 const fv = v => v == null ? "" : v.seconds ? fDate(v) + " " + (fTs(v).toISOString().slice(11, 16)) : Array.isArray(v) ? v.map(x => typeof x == "object" ? JSON.stringify(x) : x).join(", ") : typeof v == "object" ? JSON.stringify(v).slice(0, 700) : String(v);
 window.fRow = (k, i) => { const r = FDX.cur[k]?.[i]; if (!r) return; amodal(`<h2>${esc(r.name || r.title || r.email || r.inviteeEmail || "Record")}</h2><p class="mut">${TB[k].title} · id ${esc(r.id)}</p><div class="fd-sc" style="max-height:60vh"><table class="fd-kv">${Object.entries(r).filter(([a]) => !["photo", "data"].includes(a)).map(([a, v]) => `<tr><th>${esc(a)}</th><td>${esc(fv(v).slice(0, 2500))}</td></tr>`).join("")}</table></div>`, 1); };
+window.dlSol = async id => { try { const r = (FDX.data.solutionRequests || []).find(x => x.id == id) || {}; const sn = await getDocs(collection(db, "solutionRequests", id, "files")); if (sn.empty) return toast("No file stored for this enquiry"); const b64 = sn.docs.map(d => d.data()).sort((a, b) => a.i - b.i).map(d => d.data).join(""), bin = atob(b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([u8], { type: r.attachmentType || "application/octet-stream" })); a.download = r.attachmentName || "attachment"; a.click(); } catch (x) { toast("Could not download: " + (x.message || x)); } };
 window.dlRes = async id => { try { const d = (await getDoc(doc(db, "resumes", id))).data(); if (!d?.data) return toast("No file stored"); const bin = atob(d.data), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([u8])); a.download = d.name || "resume"; a.click(); } catch (x) { toast("Could not download: " + (x.message || x)); } };
 
 /* ---- Excel / CSV ---- */
@@ -3712,7 +3744,7 @@ window.fXlsAll = async () => {
   const ws2 = XLSX.utils.aoa_to_sheet(st); ws2["!cols"] = [{ wch: 18 }, { wch: 14 }, { wch: 22 }];
   ["COUNT", "AVERAGE", "MEDIAN", "STDEV.P", "MIN", "MAX"].forEach((fn, i) => { ws2["B" + (i + 2)].f = `${fn}(Individuals!${atsI}2:${atsI}${end})`; ws2["C" + (i + 2)].f = `${fn}(Individuals!${yrI}2:${yrI}${end})`; });
   XLSX.utils.book_append_sheet(wb, ws2, "Statistics");
-  ["individuals", "employers", "gowners", "groups", "jobs", "hirings", "resumes", "enquiries", "invites"].forEach(k => XLSX.utils.book_append_sheet(wb, fSheet(k), TB[k].file.slice(0, 31)));
+  ["individuals", "employers", "gowners", "groups", "jobs", "hirings", "resumes", "enquiries", "invites", "pages", "visits"].forEach(k => XLSX.utils.book_append_sheet(wb, fSheet(k), TB[k].file.slice(0, 31)));
   fSave(wb, "Provynk_Full_Platform_Data"); toast("Excel workbook downloaded");
 };
 
@@ -3721,6 +3753,7 @@ async function fLoad() {
   const names = ["users", "jobs", "applications", "groups", "publicGroups", "invites", "solutionRequests", "groupCVs"];
   const rs = await Promise.allSettled(names.map(n => getDocs(query(collection(db, n), limit(3000)))));
   FDX.err = {}; names.forEach((n, i) => { if (rs[i].status == "fulfilled") FDX.data[n] = rs[i].value.docs.map(d => ({ id: d.id, ...d.data() })); else { FDX.data[n] = []; FDX.err[n] = rs[i].reason?.code || "error"; } });
+  try { FDX.data.pageViews = (await getDocs(query(collection(db, "pageViews"), orderBy("start", "desc"), limit(5000)))).docs.map(d => ({ id: d.id, ...d.data() })); } catch (x) { FDX.data.pageViews = []; FDX.err.pageViews = x.code || "error"; }
   FDX.U = {}; FDX.data.users.forEach(u => FDX.U[u.id] = u); FDX.J = {}; FDX.data.jobs.forEach(j => FDX.J[j.id] = j);
   try { FDX.resN = (await getCountFromServer(collection(db, "resumes"))).data().count; } catch { FDX.resN = null; }
   FDX.loaded = true;
@@ -3817,14 +3850,30 @@ const FT = {
     post(() => { const ms = fMonths(), [l, v] = fTop(fCount(I, i => i.status), 4); fChart("c_is", "doughnut", l, [{ data: v }]); fChart("c_im", "line", ms, [{ label: "Invitations", data: fMonthly(I, ms) }]); });
     return `<div class="fd-grid">${fPanel("c_is", "Invitation outcome")}${fPanel("c_im", "Invitations over time", "", "w2")}</div>${fTable("invites")}`;
   },
+  visitors(post) {
+    const V = fPV(), vs = new Set(V.map(v => v.vid)), ss = new Set(V.map(v => v.sid)), tot = V.reduce((a, v) => a + (+v.dur || 0), 0), now = Date.now();
+    const inDays = n => V.filter(v => { const d = fTs(v.start); return d && now - d < n * 864e5; });
+    const d1 = inDays(1), d7 = inDays(7), li = V.filter(v => v.uid).length, pa = fPageAgg();
+    const days = []; for (let i = 29; i >= 0; i--) days.push(new Date(now - i * 864e5).toISOString().slice(0, 10));
+    const perDay = days.map(d => V.filter(v => fDate(v.start) == d)), top = pa.slice(0, 10);
+    post(() => {
+      fChart("c_vd", "line", days.map(d => d.slice(5)), [{ label: "Page views", data: perDay.map(a => a.length) }, { label: "Unique visitors", data: perDay.map(a => new Set(a.map(v => v.vid)).size) }]);
+      fChart("c_vp", "bar", top.map(x => fPgName(x.page)), [{ label: "Views", data: top.map(x => x.views) }], { h: 1 });
+      fChart("c_vt", "bar", top.map(x => fPgName(x.page)), [{ label: "Avg seconds per view", data: top.map(x => x.views ? Math.round(x.time / x.views) : 0) }], { h: 1, mono: 1 });
+      fChart("c_vl", "doughnut", ["Not logged in", "Logged in"], [{ data: [V.length - li, li] }]);
+    });
+    return `<div class="fd-kpis sm">${fKpi("👁️", V.length, "Page views", "+" + d7.length + " in 7 days", PAL[0])}${fKpi("🌐", vs.size, "Unique visitors", new Set(d7.map(v => v.vid)).size + " in 7 days · " + new Set(d1.map(v => v.vid)).size + " today", PAL[3])}${fKpi("🧭", ss.size, "Sessions", V.length && ss.size ? (V.length / ss.size).toFixed(1) + " pages per session" : "–", PAL[4])}${fKpi("⏱️", V.length ? Math.round(tot / V.length) : 0, "Avg seconds per page", "Avg per session: " + (ss.size ? fDur(tot / ss.size) : "–"), PAL[2])}${fKpi("🔓", V.length - li, "Visits without login", fPct(V.length - li, V.length) + " of all views", PAL[1])}</div>
+    <div class="fd-grid">${fPanel("c_vd", "Visits over the last 30 days", "Page views and unique visitors per day", "w2")}${fPanel("c_vl", "Logged in vs not logged in")}${fPanel("c_vp", "Most visited pages", "Top 10 by views", "w2")}${fPanel("c_vt", "Time spent per page", "Average seconds per view", "")}</div>
+    <p class="mut" style="padding:0 6px 14px">Every browser is counted, logged in or not (your own visits as founder are excluded). Time is counted only while the tab is visible. Tracking starts from the day this version is published${V.length ? "" : "; no visits have been recorded yet"}. Latest 5,000 visits are shown.</p>${fTable("pages")}${fTable("visits")}`;
+  },
   data() {
-    const D = FDX.data, rows = [["Individuals", fUsers("candidate").length, "individuals"], ["Employers", fUsers("org").length, "employers"], ["Group owners", fUsers("group").length, "gowners"], ["Groups", D.groups.length, "groups"], ["Job postings", D.jobs.length, "jobs"], ["Applications", D.applications.length, "hirings"], ["Resumes", FDX.resN ?? "", "resumes"], ["Enquiries", D.solutionRequests.length, "enquiries"], ["Invitations", D.invites.length, "invites"]];
+    const D = FDX.data, rows = [["Page analytics", fPageAgg().length, "pages"], ["Page visits", fPV().length, "visits"], ["Individuals", fUsers("candidate").length, "individuals"], ["Employers", fUsers("org").length, "employers"], ["Group owners", fUsers("group").length, "gowners"], ["Groups", D.groups.length, "groups"], ["Job postings", D.jobs.length, "jobs"], ["Applications", D.applications.length, "hirings"], ["Resumes", FDX.resN ?? "", "resumes"], ["Enquiries", D.solutionRequests.length, "enquiries"], ["Invitations", D.invites.length, "invites"]];
     return `<div class="fd-grid"><div class="fd-p fd-in w3"><h4>Data sheets &amp; Excel</h4><p class="mut">Every table on the platform is available as its own sheet. Download one sheet, or the full workbook with a Summary sheet and a Statistics sheet that use live Excel formulas.</p>
     <button class="fd-b big" onclick="fXlsAll()">⬇ Download full Excel workbook</button>
     <table class="fd-st" style="margin-top:18px"><thead><tr><th>Sheet</th><th>Records</th><th>Export</th></tr></thead><tbody>${rows.map(([l, n, k]) => `<tr><td>${l}</td><td>${n}</td><td><a class="fd-dl" onclick="fXls('${k}')">Excel</a> · <a class="fd-dl" onclick="fCsv('${k}')">CSV</a></td></tr>`).join("")}</tbody></table></div></div>`;
   }
 };
-const FNAV = [["overview", "📊", "Overview"], ["individuals", "👤", "Individuals"], ["employers", "🏢", "Employers"], ["groups", "👥", "Groups"], ["jobs", "💼", "Job postings"], ["hirings", "🎯", "Hirings"], ["resumes", "📄", "Resumes"], ["enquiries", "✉️", "Enquiries"], ["invites", "📬", "Invitations"], ["data", "📑", "Excel & data"]];
+const FNAV = [["overview", "📊", "Overview"], ["visitors", "🌐", "Visitors"], ["individuals", "👤", "Individuals"], ["employers", "🏢", "Employers"], ["groups", "👥", "Groups"], ["jobs", "💼", "Job postings"], ["hirings", "🎯", "Hirings"], ["resumes", "📄", "Resumes"], ["enquiries", "✉️", "Enquiries"], ["invites", "📬", "Invitations"], ["data", "📑", "Excel & data"]];
 const fCountUp = () => document.querySelectorAll("#fdc .cnt").forEach(el => { const to = +el.dataset.v || 0, t0 = performance.now(), d = 1100; const st = t => { const p = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e).toLocaleString(); if (p < 1) requestAnimationFrame(st); }; requestAnimationFrame(st); });
 async function fShow(t) {
   FDX.tab = t; FDX.charts.forEach(c => c.destroy()); FDX.charts = [];
@@ -3841,7 +3890,7 @@ window.fTab = t => { fShow(t); document.getElementById("fd")?.scrollIntoView({ b
 window.fRefresh = async () => { const b = document.getElementById("fdrf"); if (b) { b.disabled = true; b.textContent = "Refreshing…"; } FDX.res = null; await fLoad(); fDraw(); toast("Data refreshed"); };
 function fDraw() {
   const root = document.getElementById("fd"); if (!root) return;
-  const cnt = { individuals: fUsers("candidate").length, employers: fUsers("org").length, groups: FDX.data.groups.length, jobs: FDX.data.jobs.length, hirings: FDX.data.applications.length, enquiries: FDX.data.solutionRequests.length, invites: FDX.data.invites.length };
+  const cnt = { individuals: fUsers("candidate").length, employers: fUsers("org").length, groups: FDX.data.groups.length, jobs: FDX.data.jobs.length, hirings: FDX.data.applications.length, enquiries: FDX.data.solutionRequests.length, invites: FDX.data.invites.length, visitors: fPV().length };
   root.innerHTML = `<aside class="fd-side"><div class="fd-brand"><span class="fd-live"></span><div><b>Founder Console</b><small>Provynk · full platform view</small></div></div>
     <nav class="fd-nav">${FNAV.map(([k, ic, l]) => `<button data-t="${k}" onclick="fShow('${k}')"><span>${ic}</span>${l}${cnt[k] != null ? `<em>${cnt[k]}</em>` : ""}</button>`).join("")}</nav></aside>
     <section class="fd-main"><div class="fd-top"><div><h2>Welcome back, ${esc((FOUNDER.name || "Founder").split(" ")[0])}</h2><p class="mut">${new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · everything happening on Provynk, in one place</p></div>
@@ -4131,6 +4180,35 @@ async function count() {
 }
 window.route = route;
 window.addEventListener("hashchange", route);
+/* ---------- visitor analytics: anonymous page views + time on page (read only by the Founder dashboard) ---------- */
+(() => {
+  const rnd = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  const keep = (st, k) => { try { let v = st.getItem(k); if (!v) { v = rnd(); st.setItem(k, v); } return v; } catch { return rnd(); } };
+  const vid = keep(localStorage, "pv_vid"), sid = keep(sessionStorage, "pv_sid");
+  let cur = null;
+  const pageOf = () => { const seg = (location.hash.slice(1) || "/").split("?")[0].split("/").filter(Boolean)[0]; return !seg || seg == "home" ? "/" : "/" + seg; };
+  const pause = c => { if (c.t0) { c.acc += (Date.now() - c.t0) / 1000; c.t0 = 0; } };
+  const secs = c => Math.min(14400, Math.round(c.acc + (c.t0 ? (Date.now() - c.t0) / 1000 : 0)));
+  const flush = async c => {
+    if (!c || (me && isFounder())) return;
+    const dur = secs(c); if (c.sent == dur) return; c.sent = dur;
+    try {
+      if (!c.made) { c.made = true; await setDoc(doc(db, "pageViews", c.id), { sid, vid, page: c.page, start: serverTimestamp(), dur, ...(me ? { uid: me.uid } : {}) }); }
+      else await updateDoc(doc(db, "pageViews", c.id), { dur });
+    } catch {}
+  };
+  const begin = () => {
+    const page = pageOf(); if (cur && cur.page == page) return;
+    if (cur) { pause(cur); flush(cur); }
+    const c = cur = { id: rnd() + rnd(), page, acc: 0, t0: document.hidden ? 0 : Date.now(), made: false, sent: -1 };
+    setTimeout(() => flush(c), 3000);
+  };
+  const hide = () => { if (cur) { pause(cur); flush(cur); } };
+  document.addEventListener("visibilitychange", () => { if (document.hidden) hide(); else if (cur && !cur.t0) cur.t0 = Date.now(); });
+  window.addEventListener("pagehide", hide);
+  setInterval(() => { if (cur && !document.hidden) flush(cur); }, 20000);
+  window.addEventListener("hashchange", begin); begin();
+})();
 window.$ = $;
 
 /* ---------- email verification ---------- */
@@ -4158,7 +4236,7 @@ window.checkVer = async silent => {
 };
 window.addEventListener("focus", () => { if (me && !me.emailVerified) checkVer(true); });
 /* every action that writes data requires a verified email (the security rules enforce this too) */
-["upd", "post", "apply", "saveJob", "delJob", "setSt", "mkGroup", "addMember", "saveMember", "rmGMember", "rmMember", "gToggle", "gNote", "toggleSave",
+["upd", "post", "apply", "saveJob", "delJob", "setSt", "mkGroup", "addMember", "saveMember", "saveMemberEdit", "rmGMember", "rmMember", "gToggle", "gNote", "toggleSave",
  "saveGProfile", "saveGroup", "cancelInv", "acceptInv", "declineInv", "saveSec", "delSec", "saveIntro", "saveAbout", "saveSkills", "saveOrg", "cropSave", "resume"].forEach(n => {
   const f = window[n]; if (f) window[n] = (...a) => ver() ? f(...a) : undefined;
 });
